@@ -1,7 +1,5 @@
 extends Area2D
 
-var screen_width = 1920
-var screen_height = 1080
 var color = Color(0, 0, 0)
 var motion = Vector2(0, 0)
 const SPEED = 750
@@ -33,7 +31,6 @@ func move(delta):
 
 func _draw():
 	var geometry_points = PoolVector2Array()
-	var parent = get_parent()
 	
 	geometry_points = get_square_points(geometry_points, position.x, position.y)
 	$CollisionPolygon2D.polygon = geometry_points
@@ -41,7 +38,7 @@ func _draw():
 		draw_line(geometry_points[index_point], geometry_points[index_point + 1], color)
 
 func get_square_points(geometry_points, x, y):
-	var sprite_width = screen_width / 100
+	var sprite_width = screen_size.x / 100
 	var center_x = x
 	var center_y = y
 	
