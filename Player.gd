@@ -4,16 +4,28 @@ var color = Color(0, 0, 0)
 var motion = Vector2(0, 0)
 const SPEED = 750
 var screen_size
+var BULLET = preload("res://bullets/Bullet.tscn")
+var sprite_width = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	screen_size = get_viewport_rect().size
+	position.x = screen_size.x / 4
+	position.y = screen_size.y / 4
+	sprite_width = screen_size.x / 100
 
 func _process(delta):
-	move(delta)
+	input(delta)
 
-func move(delta):
-	var velocity = Vector2()  # The player's movement vector.
+func pew(velocity):
+	var pew = BULLET.instance()
+	pew.position.x += position.x + (velocity.x * sprite_width)
+	pew.position.y = position.y + (velocity.y * sprite_width)
+	pew.velocity = velocity.normalized() * pew.SPEED
+	get_parent().add_child(pew)
+
+func input(delta):
+	var velocity = Vector2(0, 0)  # The player's movement vector.
 	if Input.is_action_pressed("right"):
 		velocity.x += 1
 	if Input.is_action_pressed("left"):
@@ -24,29 +36,42 @@ func move(delta):
 		velocity.y -= 1
 	if velocity.length() > 0:
 		velocity = velocity.normalized() * SPEED
-		
+	move(delta, velocity)
+	
+	
+	velocity = Vector2(0, 0)
+	if Input.is_action_pressed("fire_right"):
+		velocity.x = 1
+	if Input.is_action_pressed("fire_left"):
+		velocity.x = -1
+	if Input.is_action_pressed("fire_down"):
+		velocity.y = 1
+	if Input.is_action_pressed("fire_up"):
+		velocity.y = -1
+	if velocity.length() > 0:
+		pew(velocity)
+	
+
+func move(delta, velocity):
 	position += velocity * delta
-	position.x = clamp(position.x, 0, screen_size.x)
-	position.y = clamp(position.y, 0, screen_size.y)
+	position.x = clamp(position.x, sprite_width, screen_size.x - sprite_width)
+	position.y = clamp(position.y, sprite_width, screen_size.y - sprite_width)
 
 func _draw():
 	var geometry_points = PoolVector2Array()
 	
-	geometry_points = get_square_points(geometry_points, position.x, position.y)
+	geometry_points = get_square_points(geometry_points)
 	$CollisionPolygon2D.polygon = geometry_points
 	for index_point in range(geometry_points.size() - 1):
 		draw_line(geometry_points[index_point], geometry_points[index_point + 1], color)
 
-func get_square_points(geometry_points, x, y):
-	var sprite_width = screen_size.x / 100
-	var center_x = x
-	var center_y = y
-	
-	geometry_points.push_back(Vector2(center_x - sprite_width, center_y - sprite_width))
-	geometry_points.push_back(Vector2(center_x + sprite_width, center_y - sprite_width))
-	geometry_points.push_back(Vector2(center_x + sprite_width, center_y + sprite_width))
-	geometry_points.push_back(Vector2(center_x - sprite_width, center_y + sprite_width))
-	geometry_points.push_back(Vector2(center_x - sprite_width, center_y - sprite_width))
+func get_square_points(geometry_points):
+	# draw operations are relative to the parent, so (0,0) is actually where the player is
+	geometry_points.push_back(Vector2(-sprite_width, -sprite_width))
+	geometry_points.push_back(Vector2(sprite_width, -sprite_width))
+	geometry_points.push_back(Vector2(sprite_width, sprite_width))
+	geometry_points.push_back(Vector2(-sprite_width, sprite_width))
+	geometry_points.push_back(Vector2(-sprite_width, -sprite_width))
 	
 	return geometry_points
 
