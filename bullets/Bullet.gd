@@ -2,7 +2,7 @@ extends Area2D
 
 var color = Color(255, 255, 0)
 var motion = Vector2(0, 0)
-const SPEED = 200
+const SPEED = 1000
 var screen_size
 var pace_direction_x = 1
 var velocity = Vector2()  # The enemy's movement vector.

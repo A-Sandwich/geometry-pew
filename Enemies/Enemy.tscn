@@ -1,10 +1,10 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://Enemy.gd" type="Script" id=1]
+[ext_resource path="res://Enemies/Enemy.gd" type="Script" id=1]
 
 [node name="Enemy" type="Area2D"]
 light_mask = 3
-collision_layer = 7
+collision_layer = 5
 collision_mask = 2
 script = ExtResource( 1 )
 

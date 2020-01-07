@@ -13,6 +13,7 @@ func _ready():
 	position.x = position.x + 100
 	position.y = position.y + 100
 	sprite_width = screen_size.x / 100
+	add_to_group("Enemy")
 
 func _process(delta):
 	move(delta)
@@ -49,4 +50,5 @@ func get_square_points(geometry_points):
 
 func _on_Enemy_area_entered(area):
 	print("Collide")
+	remove_from_group("Enemy")
 	area.queue_free()
