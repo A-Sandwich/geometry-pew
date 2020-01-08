@@ -1,0 +1,7 @@
+Enemies:
+  * Implement smarter AI.
+  * Ensure spawn never happens ONTOP of player. (Maybe spawn can always happen off screen?)
+
+General:
+  * Look at how information is passed, it seems like I should rely more on signals and less on node type.
+

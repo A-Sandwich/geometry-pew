@@ -6,7 +6,9 @@ const SPEED = 200
 var screen_size
 var pace_direction_x = 1
 var sprite_width
-
+var point_value = 100
+signal bullet_destroyed_enemy
+onready var HUD = get_parent().get_node("HUD")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	screen_size = get_viewport_rect().size
@@ -14,6 +16,7 @@ func _ready():
 	position.y = position.y + 100
 	sprite_width = screen_size.x / 100
 	add_to_group("Enemy")
+	self.connect("bullet_destroyed_enemy", HUD, "on_enemy_destroyed")
 
 func _process(delta):
 	move(delta)
@@ -49,6 +52,7 @@ func get_square_points(geometry_points):
 	return geometry_points
 
 func _on_Enemy_area_entered(area):
-	print("Collide")
+	if "Bullet" in area.name:
+		emit_signal("bullet_destroyed_enemy", self, area)
 	remove_from_group("Enemy")
 	area.queue_free()
