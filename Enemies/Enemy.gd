@@ -21,7 +21,7 @@ func _ready():
 	add_to_group("Enemy")
 	self.connect("bullet_destroyed_enemy", HUD, "on_enemy_destroyed")
 	if PLAYER != null:
-		PLAYER.connect("location_cdhange", self, "on_location_change")
+		PLAYER.connect("location_change", self, "on_location_change")
 	
 
 func _process(delta):
