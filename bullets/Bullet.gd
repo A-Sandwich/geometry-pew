@@ -21,6 +21,10 @@ func _process(delta):
 func move(delta):
 	velocity = velocity.normalized() * SPEED
 	position += velocity * delta
+	if (position.x < 0 or position.x > screen_size.x or
+		position.y < 0 or position.y > position.y):
+			self.queue_free() # RIP
+			
 
 func _draw():
 	var geometry_points = PoolVector2Array()

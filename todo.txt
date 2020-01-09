@@ -2,5 +2,4 @@ General:
   * Look at how information is passed, it seems like I should rely more on signals and less on node type.
 
 Bullets:
-  * Need to despawn after leaving the stage.
   * Need to be limited on the rate of fire.
