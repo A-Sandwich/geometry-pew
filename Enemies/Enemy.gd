@@ -8,6 +8,7 @@ var pace_direction_x = 1
 var sprite_width
 var point_value = 100
 signal bullet_destroyed_enemy
+var player_position
 onready var HUD = get_parent().get_node("HUD")
 onready var PLAYER = get_parent().get_node("Player")
 # Called when the node enters the scene tree for the first time.
@@ -16,9 +17,11 @@ func _ready():
 	position.x = position.x + 100
 	position.y = position.y + 100
 	sprite_width = screen_size.x / 100
+	player_position = screen_size / 2
 	add_to_group("Enemy")
 	self.connect("bullet_destroyed_enemy", HUD, "on_enemy_destroyed")
-	PLAYER.connect("location_change", self, "on_location_change")
+	if PLAYER != null:
+		PLAYER.connect("location_cdhange", self, "on_location_change")
 	
 
 func _process(delta):
@@ -26,15 +29,9 @@ func _process(delta):
 
 func move(delta):
 	var velocity = Vector2()  # The enemy's movement vector.
-	
-	if (position.x > 300):
-		pace_direction_x = -1
-	elif (position.x < 100):
-		pace_direction_x = 1
-	
-	velocity.x += pace_direction_x
-	if velocity.length() > 0:
-		velocity = velocity.normalized() * SPEED
+	var direction = (player_position - position).normalized()
+
+	velocity = direction * SPEED
 	position += velocity * delta
 
 func _draw():
@@ -61,4 +58,4 @@ func _on_Enemy_area_entered(area):
 	area.queue_free()
 
 func on_location_change(position):
-	pass
+	player_position = position
