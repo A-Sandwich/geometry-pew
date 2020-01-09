@@ -6,6 +6,7 @@ const SPEED = 750
 var screen_size
 var BULLET = preload("res://bullets/Bullet.tscn")
 var sprite_width = 0
+signal location_change(position)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -34,8 +35,6 @@ func input(delta):
 		velocity.y += 1
 	if Input.is_action_pressed("up"):
 		velocity.y -= 1
-	if velocity.length() > 0:
-		velocity = velocity.normalized() * SPEED
 	move(delta, velocity)
 	
 	
@@ -53,9 +52,13 @@ func input(delta):
 	
 
 func move(delta, velocity):
+	if velocity.length() > 0:
+		velocity = velocity.normalized() * SPEED
+		emit_signal("location_change", position)
 	position += velocity * delta
 	position.x = clamp(position.x, sprite_width, screen_size.x - sprite_width)
 	position.y = clamp(position.y, sprite_width, screen_size.y - sprite_width)
+
 
 func _draw():
 	var geometry_points = PoolVector2Array()

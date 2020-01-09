@@ -9,6 +9,7 @@ var sprite_width
 var point_value = 100
 signal bullet_destroyed_enemy
 onready var HUD = get_parent().get_node("HUD")
+onready var PLAYER = get_parent().get_node("Player")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	screen_size = get_viewport_rect().size
@@ -17,6 +18,8 @@ func _ready():
 	sprite_width = screen_size.x / 100
 	add_to_group("Enemy")
 	self.connect("bullet_destroyed_enemy", HUD, "on_enemy_destroyed")
+	PLAYER.connect("location_change", self, "on_location_change")
+	
 
 func _process(delta):
 	move(delta)
@@ -56,3 +59,6 @@ func _on_Enemy_area_entered(area):
 		emit_signal("bullet_destroyed_enemy", self, area)
 	remove_from_group("Enemy")
 	area.queue_free()
+
+func on_location_change(position):
+	pass
