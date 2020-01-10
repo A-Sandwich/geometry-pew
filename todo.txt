@@ -1,3 +1,5 @@
+I started implementing the title screen (Badly and is just placeholder) along with a retry screen. I think I need to do some test projects to make a good ui. Might just make it magically restart if you press R after dying.
+
 General:
   * Hey, we shouldn't repeate code. Find a way share common methods.
   * create a title screen
