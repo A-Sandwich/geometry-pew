@@ -7,6 +7,7 @@ var screen_size
 var BULLET = preload("res://bullets/Bullet.tscn")
 var sprite_width = 0
 signal location_change(position)
+var shots_fired = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -19,11 +20,14 @@ func _process(delta):
 	input(delta)
 
 func pew(velocity):
-	var pew = BULLET.instance()
-	pew.position.x += position.x + (velocity.x * sprite_width)
-	pew.position.y = position.y + (velocity.y * sprite_width)
-	pew.velocity = velocity.normalized() * pew.SPEED
-	get_parent().add_child(pew)
+	if !shots_fired:
+		var pew = BULLET.instance()
+		pew.position.x += position.x + (velocity.x * sprite_width)
+		pew.position.y = position.y + (velocity.y * sprite_width)
+		pew.velocity = velocity.normalized() * pew.SPEED
+		get_parent().add_child(pew)
+		$ShotTimer.start()
+		shots_fired = true
 
 func input(delta):
 	var velocity = Vector2(0, 0)  # The player's movement vector.
@@ -81,3 +85,7 @@ func get_square_points(geometry_points):
 func _on_Player_area_entered(area):
 	print("COLLISION")
 	color = Color(255, 0, 0)
+
+
+func _on_ShotTimer_timeout():
+	shots_fired = false

@@ -6,4 +6,9 @@
 script = ExtResource( 1 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+
+[node name="ShotTimer" type="Timer" parent="."]
+wait_time = 0.05
 [connection signal="area_entered" from="." to="." method="_on_Player_area_entered"]
+[connection signal="timeout" from="ShotTimer" to="." method="_on_ShotTimer_timeout"]
+[connection signal="timeout" from="ShotTimer" to="." method="_on_Timer_timeout"]
