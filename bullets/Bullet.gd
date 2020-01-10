@@ -21,8 +21,9 @@ func _process(delta):
 func move(delta):
 	velocity = velocity.normalized() * SPEED
 	position += velocity * delta
-	if (position.x < 0 or position.x > screen_size.x or
-		position.y < 0 or position.y > position.y):
+	var stage_size = get_parent().stage_size
+	if (position.x < 0 or position.x > stage_size.x or
+		position.y < 0 or position.y > stage_size.y):
 			self.queue_free() # RIP
 			
 

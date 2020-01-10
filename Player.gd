@@ -60,8 +60,9 @@ func move(delta, velocity):
 		velocity = velocity.normalized() * SPEED
 		emit_signal("location_change", position)
 	position += velocity * delta
-	position.x = clamp(position.x, sprite_width, screen_size.x - sprite_width)
-	position.y = clamp(position.y, sprite_width, screen_size.y - sprite_width)
+	var stage_size = get_parent().stage_size
+	position.x = clamp(position.x, sprite_width, stage_size.x - sprite_width)
+	position.y = clamp(position.y, sprite_width, stage_size.y - sprite_width)
 
 
 func _draw():
