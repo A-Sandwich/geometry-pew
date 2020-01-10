@@ -1,2 +1,6 @@
 General:
   * Hey, we shouldn't repeate code. Find a way share common methods.
+  * create a title screen
+  * Create a way to retry without relaunching the game
+  * Display the score ya dummy
+  * partical effects pls
