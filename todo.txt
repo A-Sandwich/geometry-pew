@@ -1,2 +1,2 @@
 General:
-  * Look at how information is passed, it seems like I should rely more on signals and less on node type.
+  * Hey, we shouldn't repeate code. Find a way share common methods.

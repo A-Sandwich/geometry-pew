@@ -8,6 +8,7 @@ var BULLET = preload("res://bullets/Bullet.tscn")
 var sprite_width = 0
 signal location_change(position)
 var shots_fired = false
+var dead = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -30,6 +31,9 @@ func pew(velocity):
 		shots_fired = true
 
 func input(delta):
+	if dead:
+		return
+		
 	var velocity = Vector2(0, 0)  # The player's movement vector.
 	if Input.is_action_pressed("right"):
 		velocity.x += 1

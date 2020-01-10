@@ -25,7 +25,8 @@ func _ready():
 	
 
 func _process(delta):
-	move(delta)
+	if !PLAYER.dead:
+		move(delta)
 
 func move(delta):
 	var velocity = Vector2()  # The enemy's movement vector.
@@ -33,6 +34,14 @@ func move(delta):
 
 	velocity = direction * SPEED
 	position += velocity * delta
+	
+	
+	var stage_size = get_parent().stage_size
+	if (position.x < -sprite_width or position.x > stage_size.x + sprite_width or
+		position.y < -sprite_width or position.y > stage_size.y + sprite_width):
+		visible = false
+	else:
+		visible = true
 
 func _draw():
 	var geometry_points = PoolVector2Array()
@@ -54,6 +63,9 @@ func get_square_points(geometry_points):
 func _on_Enemy_area_entered(area):
 	if "Bullet" in area.name:
 		emit_signal("bullet_destroyed_enemy", self, area)
+	elif "Player" in area.name:
+		area.dead = true
+		return
 	remove_from_group("Enemy")
 	area.queue_free()
 
