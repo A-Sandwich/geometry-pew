@@ -1,8 +1,9 @@
 I started implementing the title screen (Badly and is just placeholder) along with a retry screen. I think I need to do some test projects to make a good ui. Might just make it magically restart if you press R after dying.
 
 General:
-  * Hey, we shouldn't repeate code. Find a way share common methods.
   * create a title screen
   * Create a way to retry without relaunching the game
   * Display the score ya dummy
   * partical effects pls
+  * Enemy spawning needs to have a method to the madness. Specific spawn points? How do we want to deal with different enemy types? HOW GENERIC?
+

@@ -1,7 +1,5 @@
 extends Area2D
 
-const SPEED = 200
-
 onready var COMMON = get_node("/root/Common")
 onready var HUD = get_parent().get_node("HUD")
 onready var PLAYER = get_parent().get_node("Player")
@@ -13,6 +11,8 @@ var motion = Vector2(0, 0)
 var pace_direction_x = 1
 var player_position
 var point_value = 100
+var speed = 200
+var speed_range = Vector2(100, 550)
 var sprite_width
 
 # Called when the node enters the scene tree for the first time.
@@ -35,7 +35,7 @@ func move(delta):
 	var velocity = Vector2()  # The enemy's movement vector.
 	var direction = (player_position - position).normalized()
 
-	velocity = direction * SPEED
+	velocity = direction * speed
 	position += velocity * delta
 	
 	

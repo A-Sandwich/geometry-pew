@@ -1,14 +1,16 @@
 extends Node2D
 
+onready var COMMON = get_node("/root/Common")
+
 var ENEMY = preload("res://Enemies/Enemy.tscn")
-var rng = RandomNumberGenerator.new()
+
 var screen_size
 var size = 0
+var spawn_points = [Vector2(100, 100), Vector2(1000, 1000), Vector2(100, 1000), Vector2(1000, 100)]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	screen_size = get_viewport_rect().size
-	rng.randomize()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -20,16 +22,8 @@ func _process(delta):
 func spawn_enemy():
 	var stage_size = get_parent().stage_size
 	var enemy = ENEMY.instance()
-	# todo fix this crappy nested stuff. Just testing this out
-	if rng.randi_range(1, 2) == 2:
-		enemy.position.x = stage_size.x + 200
-		enemy.position.y = rng.randi_range(0, stage_size.y)
-		if rng.randi_range(1, 2) == 2:
-			enemy.position.x *= -1
-	else:
-		enemy.position.x = rng.randi_range(0, stage_size.x)
-		enemy.position.y = stage_size.y + 200
-		if rng.randi_range(1, 2) == 2:
-			enemy.position.y *= -1
+	var spawn_location = COMMON.rng.randi_range(0,3)
+	enemy.position = spawn_points[spawn_location]
+	enemy.speed = COMMON.rng.randi_range(enemy.speed_range.x, enemy.speed_range.y)
 	get_parent().add_child(enemy)
 
