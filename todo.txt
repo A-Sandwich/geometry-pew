@@ -5,5 +5,4 @@ General:
   * Create a way to retry without relaunching the game
   * Display the score ya dummy
   * partical effects pls
-  * Enemy spawning needs to have a method to the madness. Specific spawn points? How do we want to deal with different enemy types? HOW GENERIC?
 

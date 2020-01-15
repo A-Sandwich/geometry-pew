@@ -15,6 +15,7 @@ var sprite_width = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	print("PLayer ready")
 	var screen_size = COMMON.get_screen_size(self)
 	position.x = screen_size.x / 2
 	position.y = screen_size.y / 2
