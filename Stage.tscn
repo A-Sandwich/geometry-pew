@@ -15,3 +15,14 @@ stage_size = Vector2( 2000, 2000 )
 
 [node name="Mob" parent="." instance=ExtResource( 4 )]
 visible = false
+
+[node name="Menu" type="Container" parent="."]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="TextEdit" type="TextEdit" parent="Menu"]
+margin_right = 40.0
+margin_bottom = 40.0
+text = "Press R to retry!"
+readonly = true

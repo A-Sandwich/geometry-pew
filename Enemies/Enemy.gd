@@ -1,23 +1,26 @@
 extends Area2D
 
-var color = Color(255, 0, 0)
-var motion = Vector2(0, 0)
 const SPEED = 200
-var screen_size
-var pace_direction_x = 1
-var sprite_width
-var point_value = 100
-signal bullet_destroyed_enemy
-var player_position
+
+onready var COMMON = get_node("/root/Common")
 onready var HUD = get_parent().get_node("HUD")
 onready var PLAYER = get_parent().get_node("Player")
+
+signal bullet_destroyed_enemy
+
+var color = Color(255, 0, 0)
+var motion = Vector2(0, 0)
+var pace_direction_x = 1
+var player_position
+var point_value = 100
+var sprite_width
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	screen_size = get_viewport_rect().size
 	position.x = position.x + 100
 	position.y = position.y + 100
-	sprite_width = screen_size.x / 100
-	player_position = screen_size / 2
+	sprite_width = COMMON.get_screen_size(self).x / 100
+	player_position = COMMON.get_screen_size(self) / 2
 	add_to_group("Enemy")
 	self.connect("bullet_destroyed_enemy", HUD, "on_enemy_destroyed")
 	if PLAYER != null:
@@ -46,19 +49,10 @@ func move(delta):
 func _draw():
 	var geometry_points = PoolVector2Array()
 	
-	geometry_points = get_square_points(geometry_points)# draw operations are relative to the parent, so (0,0) is actually where the player is
+	geometry_points = COMMON.get_square_points(geometry_points, sprite_width)# draw operations are relative to the parent, so (0,0) is actually where the player is
 	$CollisionPolygon2D.polygon = geometry_points
 	for index_point in range(geometry_points.size() - 1):
 		draw_line(geometry_points[index_point], geometry_points[index_point + 1], color)
-
-func get_square_points(geometry_points):
-	geometry_points.push_back(Vector2(-sprite_width, -sprite_width))
-	geometry_points.push_back(Vector2(sprite_width, -sprite_width))
-	geometry_points.push_back(Vector2(sprite_width, sprite_width))
-	geometry_points.push_back(Vector2(-sprite_width, sprite_width))
-	geometry_points.push_back(Vector2(-sprite_width, -sprite_width))
-	
-	return geometry_points
 
 func _on_Enemy_area_entered(area):
 	if "Bullet" in area.name:

@@ -1,21 +1,23 @@
 extends Area2D
 
+const SPEED = 1000
+
+onready var COMMON = get_node("/root/Common")
+
 var color = Color(255, 255, 0)
 var motion = Vector2(0, 0)
-const SPEED = 1000
-var screen_size
 var pace_direction_x = 1
-var velocity = Vector2()  # The enemy's movement vector.
 var sprite_width
+var velocity = Vector2()  # The enemy's movement vector.
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	screen_size = get_viewport_rect().size
-	sprite_width = screen_size.x / 300
+	sprite_width = COMMON.get_screen_size(self).x / 300
 
 func _process(delta):
+	var screen_size = COMMON.get_screen_size(self) # if function call overhead is too high then set in _ready()
 	if (position.x > screen_size.x || position.y > screen_size.y):
-		pass
+		pass#dafuq is this?
 	move(delta)
 
 func move(delta):
@@ -29,19 +31,11 @@ func move(delta):
 
 func _draw():
 	var geometry_points = PoolVector2Array()
-	
-	geometry_points = get_square_points(geometry_points)
+	geometry_points = COMMON.get_square_points(geometry_points, sprite_width)
 	$CollisionPolygon2D.polygon = geometry_points
 	for index_point in range(geometry_points.size() - 1):
 		draw_line(geometry_points[index_point], geometry_points[index_point + 1], color)
 
-func get_square_points(geometry_points):
-	# draw operations are relative to the parent, so (0,0) is actually where the player is
-	geometry_points.push_back(Vector2(-sprite_width, -sprite_width))
-	geometry_points.push_back(Vector2(sprite_width, -sprite_width))
-	geometry_points.push_back(Vector2(sprite_width, sprite_width))
-	geometry_points.push_back(Vector2(-sprite_width, sprite_width))
-	geometry_points.push_back(Vector2(-sprite_width, -sprite_width))
 	
 	return geometry_points
 

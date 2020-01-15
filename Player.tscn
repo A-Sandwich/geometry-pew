@@ -13,5 +13,5 @@ current = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 [connection signal="area_entered" from="." to="." method="_on_Player_area_entered"]
-[connection signal="timeout" from="ShotTimer" to="." method="_on_ShotTimer_timeout"]
 [connection signal="timeout" from="ShotTimer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="ShotTimer" to="." method="_on_ShotTimer_timeout"]

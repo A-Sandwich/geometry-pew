@@ -1,18 +1,21 @@
 extends Area2D
 
-var color = Color(0, 0, 0)
-var motion = Vector2(0, 0)
 const SPEED = 750
-var screen_size
-var BULLET = preload("res://bullets/Bullet.tscn")
-var sprite_width = 0
+
+onready var COMMON = get_node("/root/Common")
+
 signal location_change(position)
-var shots_fired = false
+
+var BULLET = preload("res://bullets/Bullet.tscn")
+var color = Color(0, 0, 0)
 var dead = false
+var motion = Vector2(0, 0)
+var shots_fired = false
+var sprite_width = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	screen_size = get_viewport_rect().size
+	var screen_size = COMMON.get_screen_size(self)
 	position.x = screen_size.x / 2
 	position.y = screen_size.y / 2
 	sprite_width = screen_size.x / 100
@@ -72,20 +75,10 @@ func move(delta, velocity):
 func _draw():
 	var geometry_points = PoolVector2Array()
 	
-	geometry_points = get_square_points(geometry_points)
+	geometry_points = COMMON.get_square_points(geometry_points, sprite_width)
 	$CollisionPolygon2D.polygon = geometry_points
 	for index_point in range(geometry_points.size() - 1):
 		draw_line(geometry_points[index_point], geometry_points[index_point + 1], color)
-
-func get_square_points(geometry_points):
-	# draw operations are relative to the parent, so (0,0) is actually where the player is
-	geometry_points.push_back(Vector2(-sprite_width, -sprite_width))
-	geometry_points.push_back(Vector2(sprite_width, -sprite_width))
-	geometry_points.push_back(Vector2(sprite_width, sprite_width))
-	geometry_points.push_back(Vector2(-sprite_width, sprite_width))
-	geometry_points.push_back(Vector2(-sprite_width, -sprite_width))
-	
-	return geometry_points
 
 func _on_Player_area_entered(area):
 	print("COLLISION")

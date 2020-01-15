@@ -1,9 +1,10 @@
 extends Node2D
 
-var screen_size
 var ENEMY = preload("res://Enemies/Enemy.tscn")
-var size = 0
 var rng = RandomNumberGenerator.new()
+var screen_size
+var size = 0
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	screen_size = get_viewport_rect().size
