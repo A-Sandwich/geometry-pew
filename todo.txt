@@ -5,4 +5,8 @@ General:
   * Create a way to retry without relaunching the game
   * Display the score ya dummy
   * partical effects pls
-
+  * It might be cool if you press a button and a line starts to be dropped behind the character. Once you create a loop (just a polygon) the shape solidifies and any enemies within die. Also could be cool as it would change the flow of the stage since enemies would now have to go around something to get to you. A simplier version might just be dropping a circle on your location and as soon as you leave it, it solidifies. I would also imagine that a second instance of this power would erase the initial instance. Might also need to add cooldown etc.
+  * Stage wide bombs is an easy thing I could do.
+  * Add a background color
+  * try other shapes
+  * rotate shapes during movement
