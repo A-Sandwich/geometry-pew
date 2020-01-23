@@ -20,6 +20,8 @@ func _ready():
 	position.x = screen_size.x / 2
 	position.y = screen_size.y / 2
 	sprite_width = screen_size.x / 100
+	$ThrustPartical.position.y = sprite_width
+	print(sprite_width)
 
 func _process(delta):
 	input(delta)
@@ -48,6 +50,7 @@ func input(delta):
 	if Input.is_action_pressed("up"):
 		velocity.y -= 1
 	move(delta, velocity)
+	thrust(velocity)
 	
 	
 	velocity = Vector2(0, 0)
@@ -72,6 +75,28 @@ func move(delta, velocity):
 	position.x = clamp(position.x, sprite_width, stage_size.x - sprite_width)
 	position.y = clamp(position.y, sprite_width, stage_size.y - sprite_width)
 
+func thrust(velocity):
+	if (velocity.length() <= 0):
+		$ThrustPartical.emitting = false
+		return
+	else:
+		$ThrustPartical.emitting = true
+	velocity.x = -velocity.x
+	velocity.y = -velocity.y
+	
+	var new_thrust_x = sprite_width * clamp(velocity.x, -1, 1)
+	var new_thrust_y = sprite_width * clamp(velocity.y, -1, 1)
+	
+	if(round($ThrustPartical.position.x) == round(new_thrust_x) and round($ThrustPartical.position.y) == round(new_thrust_y)):
+		return
+		
+	$ThrustPartical.position.x = new_thrust_x
+	$ThrustPartical.position.y = new_thrust_y
+	#$ThrustPartical.rotate(velocity.abs().angle() )
+	var point = Vector2(position.x + (velocity.x * sprite_width), position.y + (velocity.y * sprite_width))
+	$ThrustPartical.look_at(Vector2(position.x + (velocity.x * sprite_width * 4), position.y + (velocity.y * sprite_width * 4)))
+	
+	
 
 func _draw():
 	var geometry_points = PoolVector2Array()
@@ -80,6 +105,7 @@ func _draw():
 	$CollisionPolygon2D.polygon = geometry_points
 	for index_point in range(geometry_points.size() - 1):
 		draw_line(geometry_points[index_point], geometry_points[index_point + 1], color)
+	
 
 func _on_Player_area_entered(area):
 	print("COLLISION")

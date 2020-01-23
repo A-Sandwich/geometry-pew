@@ -7,6 +7,7 @@ var ENEMY = preload("res://Enemies/Enemy.tscn")
 var screen_size
 var size = 0
 var spawn_points = [Vector2(100, 100), Vector2(1000, 1000), Vector2(100, 1000), Vector2(1000, 100)]
+var spawn_enemies = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -14,6 +15,8 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if !spawn_enemies:
+		return
 	#if get_parent().get_tree().get_nodes_in_group("Enemy").size() < 3:
 	if get_tree().get_nodes_in_group("Enemy").size() < 60:
 		size += 1
