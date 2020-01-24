@@ -30,6 +30,8 @@ func _ready():
 func _process(delta):
 	if !PLAYER.dead:
 		move(delta)
+	else:
+		$ThrustParticle.emitting = false
 
 func move(delta):
 	var velocity = Vector2()  # The enemy's movement vector.
@@ -38,13 +40,13 @@ func move(delta):
 	velocity = direction * speed
 	position += velocity * delta
 	
-	
 	var stage_size = get_parent().stage_size
 	if (position.x < -sprite_width or position.x > stage_size.x + sprite_width or
 		position.y < -sprite_width or position.y > stage_size.y + sprite_width):
 		visible = false
 	else:
 		visible = true
+	COMMON.thrust($ThrustParticle, velocity, sprite_width, position)
 
 func _draw():
 	var geometry_points = PoolVector2Array()

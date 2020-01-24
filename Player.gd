@@ -15,13 +15,10 @@ var sprite_width = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print("PLayer ready")
 	var screen_size = COMMON.get_screen_size(self)
 	position.x = screen_size.x / 2
 	position.y = screen_size.y / 2
 	sprite_width = screen_size.x / 100
-	$ThrustPartical.position.y = sprite_width
-	print(sprite_width)
 
 func _process(delta):
 	input(delta)
@@ -38,6 +35,7 @@ func pew(velocity):
 
 func input(delta):
 	if dead:
+		$ThrustParticle.emitting = false
 		return
 		
 	var velocity = Vector2(0, 0)  # The player's movement vector.
@@ -50,7 +48,7 @@ func input(delta):
 	if Input.is_action_pressed("up"):
 		velocity.y -= 1
 	move(delta, velocity)
-	thrust(velocity)
+	COMMON.thrust($ThrustParticle, velocity, sprite_width, position)
 	
 	
 	velocity = Vector2(0, 0)
@@ -74,29 +72,6 @@ func move(delta, velocity):
 	var stage_size = get_parent().stage_size
 	position.x = clamp(position.x, sprite_width, stage_size.x - sprite_width)
 	position.y = clamp(position.y, sprite_width, stage_size.y - sprite_width)
-
-func thrust(velocity):
-	if (velocity.length() <= 0):
-		$ThrustPartical.emitting = false
-		return
-	else:
-		$ThrustPartical.emitting = true
-	velocity.x = -velocity.x
-	velocity.y = -velocity.y
-	
-	var new_thrust_x = sprite_width * clamp(velocity.x, -1, 1)
-	var new_thrust_y = sprite_width * clamp(velocity.y, -1, 1)
-	
-	if(round($ThrustPartical.position.x) == round(new_thrust_x) and round($ThrustPartical.position.y) == round(new_thrust_y)):
-		return
-		
-	$ThrustPartical.position.x = new_thrust_x
-	$ThrustPartical.position.y = new_thrust_y
-	#$ThrustPartical.rotate(velocity.abs().angle() )
-	var point = Vector2(position.x + (velocity.x * sprite_width), position.y + (velocity.y * sprite_width))
-	$ThrustPartical.look_at(Vector2(position.x + (velocity.x * sprite_width * 4), position.y + (velocity.y * sprite_width * 4)))
-	
-	
 
 func _draw():
 	var geometry_points = PoolVector2Array()

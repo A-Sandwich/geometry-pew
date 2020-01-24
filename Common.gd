@@ -23,3 +23,24 @@ func get_screen_size(node):
 	if screen_size == null:
 		screen_size = node.get_viewport_rect().size
 	return screen_size
+
+func thrust(particle_node, velocity, sprite_width, position):
+	if (velocity.length() <= 0):
+		particle_node.emitting = false
+		return
+	else:
+		particle_node.emitting = true
+		
+	velocity.x = -velocity.x
+	velocity.y = -velocity.y
+	
+	var new_thrust_x = sprite_width * clamp(velocity.x, -1, 1)
+	var new_thrust_y = sprite_width * clamp(velocity.y, -1, 1)
+	
+	if(round(particle_node.position.x) == round(new_thrust_x) and round(particle_node.position.y) == round(new_thrust_y)):
+		return
+		
+	particle_node.position.x = new_thrust_x
+	particle_node.position.y = new_thrust_y
+	var point = Vector2(position.x + (velocity.x * sprite_width), position.y + (velocity.y * sprite_width))
+	particle_node.look_at(Vector2(position.x + (velocity.x * sprite_width * 4), position.y + (velocity.y * sprite_width * 4)))
