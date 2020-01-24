@@ -13,7 +13,7 @@ func _ready():
 
 func on_enemy_destroyed(enemy, player):
 	score += enemy.point_value
-	print(\"SCORE\", score)
+	$Score.text = \"Score \" + str(score)
 	
 func _process(delta):
 	if Input.is_action_pressed(\"restart\") and player.dead:
@@ -23,5 +23,12 @@ func _process(delta):
 func restart_game():
 	print(\"Restarting game\")"
 
-[node name="HUD" type="Node"]
+[node name="HUD" type="CanvasLayer"]
 script = SubResource( 1 )
+
+[node name="Score" type="Label" parent="."]
+margin_left = 523.451
+margin_top = 9.50003
+margin_right = 570.451
+margin_bottom = 23.5
+text = "Score 0"

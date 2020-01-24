@@ -83,7 +83,6 @@ func _draw():
 	
 
 func _on_Player_area_entered(area):
-	print("COLLISION")
 	color = Color(255, 0, 0)
 
 
