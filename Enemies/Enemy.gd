@@ -2,11 +2,11 @@ extends Area2D
 
 onready var COMMON = get_node("/root/Common")
 onready var HUD = get_parent().get_node("HUD")
-onready var PLAYER = get_parent().get_node("Player")
+var PLAYER
 
 signal bullet_destroyed_enemy
 
-var color = Color(255, 0, 0)
+var color = Color("DB2F2F")
 var motion = Vector2(0, 0)
 var pace_direction_x = 1
 var player_position
@@ -49,12 +49,10 @@ func move(delta):
 	COMMON.thrust($ThrustParticle, velocity, sprite_width, position)
 
 func _draw():
-	var geometry_points = PoolVector2Array()
-	
-	geometry_points = COMMON.get_square_points(geometry_points, sprite_width)# draw operations are relative to the parent, so (0,0) is actually where the player is
-	$CollisionPolygon2D.polygon = geometry_points
-	for index_point in range(geometry_points.size() - 1):
-		draw_line(geometry_points[index_point], geometry_points[index_point + 1], color)
+	var rect_size = Vector2(sprite_width * 2, sprite_width * 2)
+	var bullet_shape = Rect2( Vector2(-sprite_width , -sprite_width), rect_size)
+	draw_rect(bullet_shape, color)
+	$CollisionShape2D.shape.extents = rect_size
 
 func _on_Enemy_area_entered(area):
 	if "Bullet" in area.name:
@@ -67,3 +65,6 @@ func _on_Enemy_area_entered(area):
 
 func on_location_change(position):
 	player_position = position
+
+func find_spawn_location():
+	pass

@@ -30,14 +30,10 @@ func move(delta):
 			
 
 func _draw():
-	var geometry_points = PoolVector2Array()
-	geometry_points = COMMON.get_square_points(geometry_points, sprite_width)
-	$CollisionPolygon2D.polygon = geometry_points
-	for index_point in range(geometry_points.size() - 1):
-		draw_line(geometry_points[index_point], geometry_points[index_point + 1], color)
-
-	
-	return geometry_points
+	var rect_size = Vector2(sprite_width * 2, sprite_width * 2)
+	var bullet_shape = Rect2( Vector2(-sprite_width , -sprite_width), rect_size)
+	draw_rect(bullet_shape, color)
+	$CollisionShape2D.shape.extents = rect_size
 
 func _on_Bullet_area_entered(area):
 	area.queue_free()
