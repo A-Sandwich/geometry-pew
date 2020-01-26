@@ -12,10 +12,11 @@ var dead = false
 var motion = Vector2(0, 0)
 var shots_fired = false
 var sprite_width = 0
+var screen_size
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var screen_size = COMMON.get_screen_size(self)
+	screen_size = COMMON.get_screen_size(self)
 	position.x = screen_size.x / 2
 	position.y = screen_size.y / 2
 	sprite_width = screen_size.x / 100
@@ -88,3 +89,10 @@ func _on_Player_area_entered(area):
 
 func _on_ShotTimer_timeout():
 	shots_fired = false
+
+func reset():
+	position.x = screen_size.x / 2
+	position.y = screen_size.y / 2
+
+func start():
+	dead = false

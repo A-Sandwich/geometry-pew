@@ -3,25 +3,44 @@
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node
 
-var player
-
+var PLAYER
+var MOB
 var score = 0
+var seconds_left = 3
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	player =  get_parent().get_node(\"Player\")
+	PLAYER =  get_parent().get_node(\"Player\")
+	MOB =  get_parent().get_node(\"Mob\")
 
 func on_enemy_destroyed(enemy, player):
 	score += enemy.point_value
 	$Score.text = \"Score \" + str(score)
-	
+
 func _process(delta):
-	if Input.is_action_pressed(\"restart\") and player.dead:
+	if Input.is_action_pressed(\"restart\") and PLAYER.dead:
 		restart_game()
-		
-		
+
 func restart_game():
-	print(\"Restarting game\")"
+	MOB.reset()
+	PLAYER.reset()
+	score = 0
+	print(\"Restarting game\")
+	$ResetTimer.start(1)
+	$SecondsLeft.visible = true
+	$SecondsLeft.text = str(seconds_left)
+
+func _on_ResetTimer_timeout():
+	if seconds_left == 0:
+		seconds_left = 3
+		$SecondsLeft.visible = false
+		MOB.start()
+		PLAYER.start()
+		$ResetTimer.stop()
+	else:
+		seconds_left -= 1
+	$SecondsLeft.text = str(seconds_left)
+"
 
 [node name="HUD" type="CanvasLayer"]
 script = SubResource( 1 )
@@ -32,3 +51,16 @@ margin_top = 9.50003
 margin_right = 570.451
 margin_bottom = 23.5
 text = "Score 0"
+
+[node name="ResetTimer" type="Timer" parent="."]
+
+[node name="SecondsLeft" type="Label" parent="."]
+visible = false
+margin_left = 465.0
+margin_top = 313.0
+margin_right = 660.0
+margin_bottom = 372.0
+text = "0"
+align = 1
+valign = 1
+[connection signal="timeout" from="ResetTimer" to="." method="_on_ResetTimer_timeout"]

@@ -1,8 +1,8 @@
 I started implementing the title screen (Badly and is just placeholder) along with a retry screen. I think I need to do some test projects to make a good ui. Might just make it magically restart if you press R after dying.
 
 General:
+  * find a typeface that is royalty free
   * create a title screen
-  * Create a way to retry without relaunching the game
   * Stage wide bombs is an easy thing I could do.
   * Add a background color
   * try other shapes

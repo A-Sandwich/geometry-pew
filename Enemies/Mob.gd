@@ -4,11 +4,12 @@ onready var COMMON = get_node("/root/Common")
 onready var PLAYER = get_parent().get_node("Player")
 
 var ENEMY = preload("res://Enemies/Enemy.tscn")
+var START_ENEMY_COUNT = 3
 
 var screen_size
 var size = 0
 var spawn_enemies = true
-var spawn_limit = 3
+var spawn_limit = START_ENEMY_COUNT
 var minimum_distance_from_player
 
 # Called when the node enters the scene tree for the first time.
@@ -49,3 +50,12 @@ func get_valid_point(upper_bound, player_point):
 	
 func _on_IncreaseSpawnLimit_timeout():
 	spawn_limit += 1
+
+func reset():
+	spawn_enemies = false
+	for enemy in get_tree().get_nodes_in_group("Enemy"):
+		enemy.queue_free()
+
+func start():
+	spawn_limit = START_ENEMY_COUNT
+	spawn_enemies = true
