@@ -5,6 +5,8 @@ const SPEED = 750
 onready var COMMON = get_node("/root/Common")
 
 signal location_change(position)
+signal bomb_detinated()
+signal bombs_left(amount)
 
 var BULLET = preload("res://bullets/Bullet.tscn")
 var color = Color(0, 0, 0)
@@ -13,6 +15,7 @@ var motion = Vector2(0, 0)
 var shots_fired = false
 var sprite_width = 0
 var screen_size
+var bombs_left = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -20,6 +23,7 @@ func _ready():
 	position.x = screen_size.x / 2
 	position.y = screen_size.y / 2
 	sprite_width = screen_size.x / 100
+	set_bombs_left(3)
 
 func _process(delta):
 	input(delta)
@@ -64,6 +68,15 @@ func input(delta):
 	if velocity.length() > 0:
 		pew(velocity)
 	
+	if Input.is_action_just_pressed("bomb"):
+		explode()
+
+func explode():
+	if bombs_left < 1:
+		return
+	set_bombs_left(bombs_left - 1)
+	emit_signal("bombs_left", bombs_left)
+	emit_signal("bomb_detinated")
 
 func move(delta, velocity):
 	if velocity.length() > 0:
@@ -81,11 +94,9 @@ func _draw():
 	$CollisionPolygon2D.polygon = geometry_points
 	for index_point in range(geometry_points.size() - 1):
 		draw_line(geometry_points[index_point], geometry_points[index_point + 1], color)
-	
 
 func _on_Player_area_entered(area):
 	color = Color(255, 0, 0)
-
 
 func _on_ShotTimer_timeout():
 	shots_fired = false
@@ -93,6 +104,11 @@ func _on_ShotTimer_timeout():
 func reset():
 	position.x = screen_size.x / 2
 	position.y = screen_size.y / 2
+	set_bombs_left(3)
 
 func start():
 	dead = false
+
+func set_bombs_left(bombs_left):
+	self.bombs_left = bombs_left
+	emit_signal("bombs_left", self.bombs_left)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=8 format=2]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node
@@ -12,6 +12,7 @@ var seconds_left = 3
 func _ready():
 	PLAYER =  get_parent().get_node(\"Player\")
 	MOB =  get_parent().get_node(\"Mob\")
+	PLAYER.connect(\"bombs_left\", self, \"on_bombs_left\")
 
 func on_enemy_destroyed(enemy, player):
 	score += enemy.point_value
@@ -39,8 +40,35 @@ func _on_ResetTimer_timeout():
 		$ResetTimer.stop()
 	else:
 		seconds_left -= 1
-	$SecondsLeft.text = str(seconds_left)
+	$SecondsLeft.text = str(seconds_left)\\
+	
+func on_bombs_left(bombs_left):
+	var bombs_left_text = \"Bombs \"
+	for i in range(bombs_left):
+		bombs_left_text += \"* \"
+	$BombsLeft.text = bombs_left_text
 "
+
+[sub_resource type="DynamicFontData" id=2]
+font_path = "res://Resources/TypeFaces/dotty.regular.ttf"
+
+[sub_resource type="DynamicFont" id=3]
+size = 54
+font_data = SubResource( 2 )
+
+[sub_resource type="DynamicFontData" id=4]
+font_path = "res://Resources/TypeFaces/dotty.regular.ttf"
+
+[sub_resource type="DynamicFont" id=5]
+size = 72
+font_data = SubResource( 4 )
+
+[sub_resource type="DynamicFontData" id=6]
+font_path = "res://Resources/TypeFaces/dotty.regular.ttf"
+
+[sub_resource type="DynamicFont" id=7]
+size = 54
+font_data = SubResource( 6 )
 
 [node name="HUD" type="CanvasLayer"]
 script = SubResource( 1 )
@@ -50,7 +78,11 @@ margin_left = 523.451
 margin_top = 9.50003
 margin_right = 570.451
 margin_bottom = 23.5
+custom_fonts/font = SubResource( 3 )
 text = "Score 0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="ResetTimer" type="Timer" parent="."]
 
@@ -60,7 +92,18 @@ margin_left = 465.0
 margin_top = 313.0
 margin_right = 660.0
 margin_bottom = 372.0
+custom_fonts/font = SubResource( 5 )
 text = "0"
 align = 1
 valign = 1
+
+[node name="BombsLeft" type="Label" parent="."]
+margin_left = 24.6133
+margin_top = 676.865
+margin_right = 64.6133
+margin_bottom = 690.865
+custom_fonts/font = SubResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="timeout" from="ResetTimer" to="." method="_on_ResetTimer_timeout"]

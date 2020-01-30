@@ -25,6 +25,7 @@ func _ready():
 	self.connect("bullet_destroyed_enemy", HUD, "on_enemy_destroyed")
 	if PLAYER != null:
 		PLAYER.connect("location_change", self, "on_location_change")
+		PLAYER.connect("bomb_detinated", self, "on_bomb_detinated")
 	
 
 func _process(delta):
@@ -60,11 +61,20 @@ func _on_Enemy_area_entered(area):
 	elif "Player" in area.name:
 		area.dead = true
 		return
+	die()
+
+func die():
+	emit_signal("bullet_destroyed_enemy", self, null)
 	remove_from_group("Enemy")
-	area.queue_free()
+	self.queue_free()
+
 
 func on_location_change(position):
 	player_position = position
+
+func on_bomb_detinated():
+	print("Dying")
+	die()
 
 func find_spawn_location():
 	pass
