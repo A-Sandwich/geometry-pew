@@ -15,7 +15,6 @@ func get_rectangle_points(geometry_points):
 	geometry_points.push_back(Vector2(stage_size.x, stage_size.y))
 	geometry_points.push_back(Vector2(stage_size.x, 0))
 	geometry_points.push_back(Vector2(0, 0))
-	
 	return geometry_points
 
 func _draw():

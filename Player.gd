@@ -5,9 +5,10 @@ const SPEED = 750
 onready var COMMON = get_node("/root/Common")
 
 signal location_change(position)
-signal bomb_detinated()
+signal bomb_detonated()
 signal bombs_left(amount)
 
+var DEFAULT_STARTING_BOMBS = 3
 var BULLET = preload("res://bullets/Bullet.tscn")
 var color = Color(0, 0, 0)
 var dead = false
@@ -16,6 +17,7 @@ var shots_fired = false
 var sprite_width = 0
 var screen_size
 var bombs_left = 0
+var cannot_detonate = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -23,7 +25,7 @@ func _ready():
 	position.x = screen_size.x / 2
 	position.y = screen_size.y / 2
 	sprite_width = screen_size.x / 100
-	set_bombs_left(3)
+	set_bombs_left()
 
 func _process(delta):
 	input(delta)
@@ -72,11 +74,13 @@ func input(delta):
 		explode()
 
 func explode():
-	if bombs_left < 1:
+	if cannot_detonate or bombs_left < 1:
 		return
+	cannot_detonate = true
+	$BombTimer.start()
 	set_bombs_left(bombs_left - 1)
 	emit_signal("bombs_left", bombs_left)
-	emit_signal("bomb_detinated")
+	emit_signal("bomb_detonated")
 
 func move(delta, velocity):
 	if velocity.length() > 0:
@@ -95,6 +99,14 @@ func _draw():
 	for index_point in range(geometry_points.size() - 1):
 		draw_line(geometry_points[index_point], geometry_points[index_point + 1], color)
 
+func start():
+	dead = false
+
+func set_bombs_left(bombs_left = DEFAULT_STARTING_BOMBS):
+	self.bombs_left = bombs_left
+	emit_signal("bombs_left", self.bombs_left)
+
+
 func _on_Player_area_entered(area):
 	color = Color(255, 0, 0)
 
@@ -104,11 +116,10 @@ func _on_ShotTimer_timeout():
 func reset():
 	position.x = screen_size.x / 2
 	position.y = screen_size.y / 2
-	set_bombs_left(3)
+	set_bombs_left()
 
-func start():
-	dead = false
 
-func set_bombs_left(bombs_left):
-	self.bombs_left = bombs_left
-	emit_signal("bombs_left", self.bombs_left)
+func _on_BombTimer_timeout():
+	print("CAN DETONATE")
+	cannot_detonate = false
+	$BombTimer.stop()

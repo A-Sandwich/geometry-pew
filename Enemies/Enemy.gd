@@ -25,7 +25,7 @@ func _ready():
 	self.connect("bullet_destroyed_enemy", HUD, "on_enemy_destroyed")
 	if PLAYER != null:
 		PLAYER.connect("location_change", self, "on_location_change")
-		PLAYER.connect("bomb_detinated", self, "on_bomb_detinated")
+		PLAYER.connect("bomb_detonated", self, "on_bomb_detonated")
 	
 
 func _process(delta):
@@ -72,7 +72,7 @@ func die():
 func on_location_change(position):
 	player_position = position
 
-func on_bomb_detinated():
+func on_bomb_detonated():
 	print("Dying")
 	die()
 
