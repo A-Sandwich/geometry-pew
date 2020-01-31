@@ -106,20 +106,18 @@ func set_bombs_left(bombs_left = DEFAULT_STARTING_BOMBS):
 	self.bombs_left = bombs_left
 	emit_signal("bombs_left", self.bombs_left)
 
+func reset():
+	position.x = screen_size.x / 2
+	position.y = screen_size.y / 2
+	set_bombs_left()
+
+func _on_BombTimer_timeout():
+	print("CAN DETONATE")
+	cannot_detonate = false
+	$BombTimer.stop()
 
 func _on_Player_area_entered(area):
 	color = Color(255, 0, 0)
 
 func _on_ShotTimer_timeout():
 	shots_fired = false
-
-func reset():
-	position.x = screen_size.x / 2
-	position.y = screen_size.y / 2
-	set_bombs_left()
-
-
-func _on_BombTimer_timeout():
-	print("CAN DETONATE")
-	cannot_detonate = false
-	$BombTimer.stop()

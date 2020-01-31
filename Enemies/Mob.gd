@@ -4,10 +4,10 @@ onready var COMMON = get_node("/root/Common")
 onready var PLAYER = get_parent().get_node("Player")
 
 var ENEMY = preload("res://Enemies/Enemy.tscn")
+var DIS_ENEMY = preload("res://Enemies/DiskEnemy.tscn")
 var START_ENEMY_COUNT = 3
 
 var screen_size
-var size = 0
 var spawn_enemies = true
 var spawn_limit = START_ENEMY_COUNT
 var minimum_distance_from_player
@@ -21,9 +21,7 @@ func _ready():
 func _process(delta):
 	if !spawn_enemies:
 		return
-	#if get_parent().get_tree().get_nodes_in_group("Enemy").size() < 3:
 	if get_tree().get_nodes_in_group("Enemy").size() < spawn_limit:
-		size += 1
 		spawn_enemy()
 
 func spawn_enemy():
@@ -36,6 +34,8 @@ func spawn_enemy():
 	enemy.speed = COMMON.rng.randi_range(enemy.speed_range.x, enemy.speed_range.y)
 	
 	get_parent().add_child(enemy)
+	spawn_enemies = false
+	$SpawnRate.start()
 
 func get_valid_point(upper_bound, player_point):
 	var point = 0
@@ -59,3 +59,8 @@ func reset():
 func start():
 	spawn_limit = START_ENEMY_COUNT
 	spawn_enemies = true
+
+
+func _on_SpawnRate_timeout():
+	spawn_enemies = true
+	$SpawnRate.stop()
