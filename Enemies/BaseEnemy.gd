@@ -1,17 +1,31 @@
-extends "BaseEnemy.gd"
+extends Area2D
 
-	
+onready var COMMON = get_node("/root/Common")
+onready var HUD = get_parent().get_node("HUD")
+var PLAYER
+
+signal bullet_destroyed_enemy
+
+var color = Color("DB2F2F")
+var motion = Vector2(0, 0)
+var pace_direction_x = 1
+var player_position
+var point_value = 100
+var speed = 200
+var speed_range = Vector2(100, 550)
+var sprite_width
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	ready()
+
 func ready():
-	position.x = position.x + 100
-	position.y = position.y + 100
-	sprite_width = COMMON.get_screen_size(self).x / 100
-	player_position = COMMON.get_screen_size(self) / 2
-	add_to_group("Enemy")
-	self.connect("bullet_destroyed_enemy", HUD, "on_enemy_destroyed")
-	if PLAYER != null:
-		PLAYER.connect("location_change", self, "on_location_change")
-		PLAYER.connect("bomb_detonated", self, "on_bomb_detonated")
+	print("ready not implemented")
+	push_error("Not implemented")
 
+func _process(delta):
+	process(delta)
+	
 func process(delta):
 	if !PLAYER.dead:
 		move(delta)
@@ -33,11 +47,13 @@ func move(delta):
 		visible = true
 	COMMON.thrust($ThrustParticle, velocity, sprite_width, position)
 
+func _draw():
+	draw_and_add_collision()
+
 func draw_and_add_collision():
-	var rect_size = Vector2(sprite_width * 2, sprite_width * 2)
-	var bullet_shape = Rect2( Vector2(-sprite_width , -sprite_width), rect_size)
-	draw_rect(bullet_shape, color)
-	$CollisionShape2D.shape.extents = rect_size
+	print("draw_and_add_collision not implemented")
+	push_error("Not implemented")
+	
 
 func _on_Enemy_area_entered(area):
 	if "Bullet" in area.name:
@@ -53,12 +69,4 @@ func die():
 	self.queue_free()
 
 
-func on_location_change(position):
-	player_position = position
 
-func on_bomb_detonated():
-	print("Dying")
-	die()
-
-func find_spawn_location():
-	pass

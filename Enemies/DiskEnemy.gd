@@ -19,6 +19,7 @@ func _ready():
 	print("Disk boi")
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func draw_and_add_collision():
+	draw_circle(position, sprite_width * 2, color)
+	$CollisionShape2D.shape.radius = sprite_width * 2
+	#$CollisionShape2D.shape.extents = rect_size

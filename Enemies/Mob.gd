@@ -4,7 +4,7 @@ onready var COMMON = get_node("/root/Common")
 onready var PLAYER = get_parent().get_node("Player")
 
 var ENEMY = preload("res://Enemies/Enemy.tscn")
-var DIS_ENEMY = preload("res://Enemies/DiskEnemy.tscn")
+var DISK_ENEMY = preload("res://Enemies/DiskEnemy.tscn")
 var START_ENEMY_COUNT = 3
 
 var screen_size
