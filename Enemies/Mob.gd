@@ -28,7 +28,7 @@ func spawn_enemy():
 	var stage_size = get_parent().stage_size
 	var enemy = null
 	if (COMMON.rng.randi_range(0, 1) == 0):
-		enemy = ENEMY.instance()
+		enemy = DISK_ENEMY.instance()
 	else:
 		enemy = DISK_ENEMY.instance()
 	var spawn_location = Vector2(get_valid_point(screen_size.x, PLAYER.position.x),  get_valid_point(screen_size.y, PLAYER.position.y))

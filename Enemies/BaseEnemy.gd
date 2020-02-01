@@ -23,6 +23,7 @@ func _ready():
 	self.connect("bullet_destroyed_enemy", HUD, "on_enemy_destroyed")
 	self.connect("area_entered", self, "_on_area_entered")
 	sprite_width = COMMON.get_screen_size(self).x / 100
+	player_position = COMMON.get_screen_size(self) / 2
 	ready()
 
 func ready():
@@ -62,7 +63,9 @@ func draw_and_add_collision():
 	push_error("Not implemented")
 
 func _on_area_entered(area):
-	if "Bullet" in area.name:
+	if "Radar" in area.name:
+		return
+	elif "Bullet" in area.name:
 		emit_signal("bullet_destroyed_enemy", self, area)
 	elif "Player" in area.name:
 		area.dead = true
