@@ -36,4 +36,6 @@ func _draw():
 	$CollisionShape2D.shape.extents = rect_size
 
 func _on_Bullet_area_entered(area):
+	print("Bullet entered")
 	area.queue_free()
+	self.queue_free()

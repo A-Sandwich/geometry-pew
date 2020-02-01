@@ -36,6 +36,6 @@ process_material = SubResource( 3 )
 
 [node name="BombTimer" type="Timer" parent="."]
 [connection signal="area_entered" from="." to="." method="_on_Player_area_entered"]
-[connection signal="timeout" from="ShotTimer" to="." method="_on_ShotTimer_timeout"]
 [connection signal="timeout" from="ShotTimer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="ShotTimer" to="." method="_on_ShotTimer_timeout"]
 [connection signal="timeout" from="BombTimer" to="." method="_on_BombTimer_timeout"]

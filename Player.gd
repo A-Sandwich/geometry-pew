@@ -4,7 +4,6 @@ const SPEED = 750
 
 onready var COMMON = get_node("/root/Common")
 
-signal location_change(position)
 signal bomb_detonated()
 signal bombs_left(amount)
 
@@ -85,7 +84,6 @@ func explode():
 func move(delta, velocity):
 	if velocity.length() > 0:
 		velocity = velocity.normalized() * SPEED
-		emit_signal("location_change", position)
 	position += velocity * delta
 	var stage_size = get_parent().stage_size
 	position.x = clamp(position.x, sprite_width, stage_size.x - sprite_width)
@@ -117,7 +115,7 @@ func _on_BombTimer_timeout():
 	$BombTimer.stop()
 
 func _on_Player_area_entered(area):
-	color = Color(255, 0, 0)
+	color = Color(.03, 0, 0)
 
 func _on_ShotTimer_timeout():
 	shots_fired = false
