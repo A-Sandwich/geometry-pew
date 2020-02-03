@@ -110,12 +110,12 @@ func reset():
 	set_bombs_left()
 
 func _on_BombTimer_timeout():
-	print("CAN DETONATE")
 	cannot_detonate = false
 	$BombTimer.stop()
 
 func _on_Player_area_entered(area):
-	color = Color(.03, 0, 0)
+	color = Color(.03, 0.5, 1)
+
 
 func _on_ShotTimer_timeout():
 	shots_fired = false

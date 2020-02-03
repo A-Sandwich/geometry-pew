@@ -30,7 +30,8 @@ func move(delta):
 			
 
 func _draw():
-	var rect_size = Vector2(sprite_width * 2, sprite_width * 2)
+	var rect_size = Vector2(sprite_width / 2, sprite_width / 2)
+	#Issue here with rect drawn vs hitbox
 	var bullet_shape = Rect2( Vector2(-sprite_width , -sprite_width), rect_size)
 	draw_rect(bullet_shape, color)
 	$CollisionShape2D.shape.extents = rect_size
