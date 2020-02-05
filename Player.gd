@@ -1,6 +1,6 @@
 extends Area2D
 
-const SPEED = 750
+const SPEED = 550
 
 onready var COMMON = get_node("/root/Common")
 

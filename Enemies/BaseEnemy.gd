@@ -75,6 +75,7 @@ func _on_area_entered(area):
 func die():
 	emit_signal("bullet_destroyed_enemy", self, null)
 	remove_from_group("Enemy")
+	print("Die called")
 	self.queue_free()
 
 func on_bomb_detonated():
