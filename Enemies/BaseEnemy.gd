@@ -2,6 +2,7 @@ extends Area2D
 
 onready var COMMON = get_node("/root/Common")
 onready var HUD = get_parent().get_node("HUD")
+var FADING_TEXT = preload("res://Effects/FadingText.tscn")
 var PLAYER
 
 signal bullet_destroyed_enemy
@@ -76,9 +77,16 @@ func die():
 	emit_signal("bullet_destroyed_enemy", self, null)
 	remove_from_group("Enemy")
 	print("Die called")
+	death_point_display()
 	self.queue_free()
 
 func on_bomb_detonated():
 	print("Dying")
 	die()
 
+func death_point_display():
+	#create label
+	var fading_text = FADING_TEXT.instance()
+	get_parent().add_child(fading_text)
+	fading_text.setup(position, "+"+str(point_value))
+	
