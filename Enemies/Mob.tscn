@@ -10,5 +10,10 @@ wait_time = 10.0
 
 [node name="SpawnRate" type="Timer" parent="."]
 wait_time = 3.0
+
+[node name="SpawnWave" type="Timer" parent="."]
+wait_time = 4.0
+autostart = true
 [connection signal="timeout" from="IncreaseSpawnLimit" to="." method="_on_IncreaseSpawnLimit_timeout"]
 [connection signal="timeout" from="SpawnRate" to="." method="_on_SpawnRate_timeout"]
+[connection signal="timeout" from="SpawnWave" to="." method="_on_SpawnWave_timeout"]

@@ -31,12 +31,10 @@ func _process(delta):
 func process(delta):
 	if !spawn_enemies:
 		return
-	if get_tree().get_nodes_in_group("Enemy").size() < spawn_limit:
-		spawn_enemy()
 
 func spawn_enemy():
 	var stage_size = get_parent().stage_size
-	var enemy = choose_enemy()
+	var enemy = choose_enemy().instance()
 	var spawn_location = Vector2(get_valid_point(screen_size.x, PLAYER.position.x),  get_valid_point(screen_size.y, PLAYER.position.y))
 	
 	enemy.position = spawn_location
@@ -63,6 +61,16 @@ func get_valid_point(upper_bound, player_point):
 			finding_point = false
 	return point
 
+# I should rename this
+func spawn_wave_jr():
+	var spawn_location = Vector2(get_valid_point(screen_size.x, PLAYER.position.x),
+		get_valid_point(screen_size.y, PLAYER.position.y))
+	var enemies = wave.pop_front()
+	
+	for enemy in enemies:
+		enemy.position = spawn_location
+		get_parent().add_child(enemy)
+
 # Goal: generate a stack of enemies that slowly get larger to crachendo 
 func generate_wave():
 	wave.clear()
@@ -72,14 +80,12 @@ func generate_wave():
 	for i in range(COMMON.rng.randi_range(3, 10)):
 		var inner_wave = []
 		for j in range(COMMON.rng.randi_range(minimum, minimum * 2)):
-			var spawn_location = Vector2(get_valid_point(screen_size.x, PLAYER.position.x),  get_valid_point(screen_size.y, PLAYER.position.y))
 			var new_enemy = enemy.instance()
-			new_enemy.position = spawn_location
 			new_enemy.PLAYER = PLAYER
 			new_enemy.speed = COMMON.rng.randi_range(new_enemy.speed_range.x, new_enemy.speed_range.y)
 			inner_wave.append(new_enemy)
 		minimum += 1
-		wave.append(inner_wave.reverse())
+		wave.append(inner_wave)
 
 func reset():
 	spawn_enemies = false
@@ -96,3 +102,10 @@ func _on_SpawnRate_timeout():
 
 func _on_IncreaseSpawnLimit_timeout():
 	spawn_limit += 1
+
+
+func _on_SpawnWave_timeout():
+	if len(wave) < 1:
+		generate_wave()
+	else:
+		spawn_wave_jr()
