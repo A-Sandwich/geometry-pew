@@ -7,7 +7,7 @@ var DISK_ENEMY = preload("res://Enemies/DiskEnemy.tscn")
 
 var minimum_distance_from_player
 var screen_size
-var wave = []
+var enemies = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -23,16 +23,16 @@ func choose_enemy():
 		return DISK_ENEMY
 		
 func generate_wave():
-	wave.clear()
+	enemies.clear()
 	var minimum = 3
 	var enemy = choose_enemy()
 	# generate a stack that we can just pop each time we spawn a wave
 	for i in range(COMMON.rng.randi_range(3, 10)):
-		var inner_wave = []
+		var inner_enemies = []
 		for j in range(COMMON.rng.randi_range(minimum, minimum * 2)):
 			var new_enemy = enemy.instance()
 			new_enemy.PLAYER = PLAYER
 			new_enemy.speed = COMMON.rng.randi_range(new_enemy.speed_range.x, new_enemy.speed_range.y)
-			inner_wave.append(new_enemy)
+			inner_enemies.append(new_enemy)
 		minimum += 1
-		wave.append(inner_wave)
+		enemies.append(inner_enemies)

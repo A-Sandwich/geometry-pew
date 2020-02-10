@@ -46,7 +46,7 @@ func get_valid_point(upper_bound, player_point):
 func spawn_wave_jr():
 	var spawn_location = Vector2(get_valid_point(screen_size.x, PLAYER.position.x),
 		get_valid_point(screen_size.y, PLAYER.position.y))
-	var enemies = wave.wave.pop_front()
+	var enemies = wave.enemies.pop_front()
 	
 	for enemy in enemies:
 		enemy.position = spawn_location
@@ -71,7 +71,7 @@ func _on_IncreaseSpawnLimit_timeout():
 	spawn_limit += 1
 
 func _on_SpawnWave_timeout():
-	if len(wave.wave) < 1:
+	if len(wave.enemies) < 1:
 		wave.generate_wave()
 	else:
 		spawn_wave_jr()
