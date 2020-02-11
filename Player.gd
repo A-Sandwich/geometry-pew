@@ -46,26 +46,26 @@ func input(delta):
 		
 	var velocity = Vector2(0, 0)  # The player's movement vector.
 	if Input.is_action_pressed("right"):
-		velocity.x += 1
+		velocity.x += Input.get_action_strength("right")
 	if Input.is_action_pressed("left"):
-		velocity.x -= 1
+		velocity.x -= Input.get_action_strength("left")
 	if Input.is_action_pressed("down"):
-		velocity.y += 1
+		velocity.y += Input.get_action_strength("down")
 	if Input.is_action_pressed("up"):
-		velocity.y -= 1
+		velocity.y -= Input.get_action_strength("up")
 	move(delta, velocity)
 	COMMON.thrust($ThrustParticle, velocity, sprite_width, position)
 	
 	
 	velocity = Vector2(0, 0)
 	if Input.is_action_pressed("fire_right"):
-		velocity.x = 1
+		velocity.x = Input.get_action_strength("fire_right")
 	if Input.is_action_pressed("fire_left"):
-		velocity.x = -1
+		velocity.x -= Input.get_action_strength("fire_left")
 	if Input.is_action_pressed("fire_down"):
-		velocity.y = 1
+		velocity.y += Input.get_action_strength("fire_down")
 	if Input.is_action_pressed("fire_up"):
-		velocity.y = -1
+		velocity.y -= Input.get_action_strength("fire_up")
 	if velocity.length() > 0:
 		pew(velocity)
 	

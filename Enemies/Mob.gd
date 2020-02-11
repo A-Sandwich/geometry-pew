@@ -10,9 +10,6 @@ var spawn_enemies = true
 var spawn_limit = START_ENEMY_COUNT
 var minimum_distance_from_player
 var wave = WAVE.instance()
-var wave_timeout = 10
-
-# waves probably need to be abstracted out into their own class so we can layer waves together.
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -46,7 +43,7 @@ func get_valid_point(upper_bound, player_point):
 func spawn_wave_jr():
 	var spawn_location = Vector2(get_valid_point(screen_size.x, PLAYER.position.x),
 		get_valid_point(screen_size.y, PLAYER.position.y))
-	var enemies = wave.enemies.pop_front()
+	var enemies = wave.enemies  .pop_front()
 	
 	for enemy in enemies:
 		enemy.position = spawn_location
