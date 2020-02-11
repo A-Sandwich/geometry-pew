@@ -6,7 +6,6 @@ var DASH_SPEED = 500
 
 func _ready():
 	color = Color(.15, .81, .25) #color is just random, need to figure out what I want
-	print("Disk boi")
 	$Radar.position = Vector2(0,0)
 
 func process(delta):
@@ -22,7 +21,6 @@ func draw_and_add_collision():
 
 func _on_Radar_area_entered(area):
 	if $DashTimer.is_stopped() and "Bullet" in area.name:
-		print("Starting dash timer")
 		$DashTimer.start()
 		dashing = true
 

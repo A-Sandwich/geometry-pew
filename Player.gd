@@ -116,6 +116,5 @@ func _on_BombTimer_timeout():
 func _on_Player_area_entered(area):
 	color = Color(.03, 0.5, 1)
 
-
 func _on_ShotTimer_timeout():
 	shots_fired = false

@@ -7,9 +7,7 @@ var score = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	self.connect("bullet_destroyed_enemy", self, "on_enemy_destroyed")
-	print("Connected")
 
 func on_enemy_destroyed(enemy, player):
 	score += enemy.point_value
 	print(score)
-	print("destroyed")

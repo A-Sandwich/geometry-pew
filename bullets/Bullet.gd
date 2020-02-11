@@ -27,7 +27,6 @@ func move(delta):
 	if (position.x < 0 or position.x > stage_size.x or
 		position.y < 0 or position.y > stage_size.y):
 			self.queue_free() # RIP
-			
 
 func _draw():
 	# RectangleShape2D extents (width and height) are a Vector2 and each extent
@@ -42,7 +41,6 @@ func _draw():
 	$CollisionShape2D.shape.set_extents(extent_vector.abs())
 
 func _on_Bullet_area_entered(area):
-	print("Bullet entered " + area.name)
 	if area.name != "Radar":
 		area.queue_free()
 		self.queue_free()
