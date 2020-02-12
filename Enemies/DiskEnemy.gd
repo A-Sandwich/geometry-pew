@@ -5,8 +5,12 @@ var dashDirection: Vector2
 var DASH_SPEED = 500
 
 func _ready():
-	color = Color(.15, .81, .25) #color is just random, need to figure out what I want
+	ready()
+
+func ready():
+	color = Color(1, .08, .58)
 	$Radar.position = Vector2(0,0)
+	point_value = 200
 
 func process(delta):
 	if !PLAYER.dead:
@@ -19,14 +23,10 @@ func draw_and_add_collision():
 	$CollisionShape2D.shape.radius = sprite_width
 	$Radar/RadarCollider.shape.radius = sprite_width * 6
 
-func _on_Radar_area_entered(area):
-	if $DashTimer.is_stopped() and "Bullet" in area.name:
-		$DashTimer.start()
-		dashing = true
-
 func dash(direction):
 	return direction.rotated(PI / 2)
 
+# Todo: Break this out into multiple methods, too long
 func move(delta):
 	var velocity = Vector2()  # The enemy's movement vector.
 	var direction = (player_position - position).normalized()
@@ -45,8 +45,12 @@ func move(delta):
 		visible = true
 	COMMON.thrust($ThrustParticle, velocity, sprite_width, position)
 
-
 func _on_DashTimer_timeout():
 	print("dahs timer timeout!")
 	dashing = false
 	$DashTimer.stop()
+
+func _on_Radar_area_entered(area):
+	if $DashTimer.is_stopped() and "Bullet" in area.name:
+		$DashTimer.start()
+		dashing = true

@@ -1,8 +1,7 @@
 extends "BaseEnemy.gd"
 
-	
 func ready():
-	pass
+	color = Color(0, .55, .55)
 
 func process(delta):
 	if !PLAYER.dead:
