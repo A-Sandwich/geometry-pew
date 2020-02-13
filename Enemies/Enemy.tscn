@@ -3,8 +3,8 @@
 [ext_resource path="res://Enemies/Enemy.gd" type="Script" id=1]
 
 [sub_resource type="Gradient" id=1]
-offsets = PoolRealArray( 0.217143, 1 )
-colors = PoolColorArray( 1, 0, 0, 1, 1, 0.492188, 0, 1 )
+offsets = PoolRealArray( 0.310345, 1 )
+colors = PoolColorArray( 0, 0.742188, 1, 1, 1, 0.492188, 0, 1 )
 
 [sub_resource type="GradientTexture" id=2]
 gradient = SubResource( 1 )
