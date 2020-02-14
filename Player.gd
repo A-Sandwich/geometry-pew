@@ -3,7 +3,7 @@ extends Area2D
 const SPEED = 550
 const FULL_ENERGY = 100
 const ENERGY_DEPLETION_MULTIPLIER = 100
-const ENERGY_RECHARGE_DIVISOR = 2
+const ENERGY_RECHARGE_MULTIPLIER = 10
 
 onready var COMMON = get_node("/root/Common")
 onready var STAGE = get_node("/root/Stage")
@@ -13,7 +13,7 @@ signal bombs_left(amount)
 
 var DEFAULT_STARTING_BOMBS = 3
 var BULLET = preload("res://bullets/Bullet.tscn")
-var color = Color(0, 0, 0)
+var color = Color(.03, 0.5, 1)
 var dead = false
 var motion = Vector2(0, 0)
 var shots_fired = false
@@ -23,17 +23,27 @@ var bombs_left = 0
 var cannot_detonate = false
 var energy = FULL_ENERGY
 var thrusting = false
+var draw_state_dirty = false
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
+	ready()
+
+func ready():
 	screen_size = COMMON.get_screen_size(self)
 	position.x = STAGE.stage_size.x / 2
 	position.y = STAGE.stage_size.y / 2
 	sprite_width = STAGE.stage_size.x / 200
 	set_bombs_left()
+	set_collision_shape()
 
 func _process(delta):
+	process(delta)
+
+func process(delta):
 	input(delta)
+	if draw_state_dirty:
+		draw_state_dirty = false
+		update()
 
 func pew(velocity):
 	if !shots_fired:
@@ -102,6 +112,8 @@ func move(delta, velocity):
 	position.y = clamp(position.y, sprite_width, stage_size.y - sprite_width)
 
 func thrust(delta):
+	print(thrusting)
+	var initial_energy = energy
 	var speed = SPEED
 	if Input.is_action_pressed("thrust") and energy > 0 and $ThrustTimeout.is_stopped():
 		thrusting = true
@@ -111,18 +123,32 @@ func thrust(delta):
 	else:
 		if energy <= 0 and $ThrustTimeout.is_stopped():
 			$ThrustTimeout.start()
-		energy += delta / ENERGY_RECHARGE_DIVISOR if energy < FULL_ENERGY else 0
+		energy += delta * ENERGY_RECHARGE_MULTIPLIER if energy < FULL_ENERGY else 0
 		thrusting = false
-	print(energy)
+		
+	if initial_energy != energy:
+		draw_state_dirty = true
 	return speed
 
 func _draw():
 	var geometry_points = PoolVector2Array()
-	
 	geometry_points = COMMON.get_square_points(geometry_points, sprite_width)
-	$CollisionPolygon2D.polygon = geometry_points
 	for index_point in range(geometry_points.size() - 1):
 		draw_line(geometry_points[index_point], geometry_points[index_point + 1], color)
+	
+	draw_rect(get_energy_shape(), color)
+
+func get_energy_shape():
+	var energy_left_ratio = (energy / FULL_ENERGY)
+	var extent_vector = Vector2(-sprite_width, -sprite_width * energy_left_ratio)
+	var rect_size = Vector2(sprite_width * 2, sprite_width * 2 * energy_left_ratio)
+	var energy_shape = Rect2( extent_vector, rect_size)
+	return energy_shape
+
+func set_collision_shape():
+	var geometry_points = PoolVector2Array()
+	geometry_points = COMMON.get_square_points(geometry_points, sprite_width)
+	$CollisionPolygon2D.polygon = geometry_points
 
 func start():
 	dead = false

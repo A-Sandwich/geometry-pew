@@ -64,11 +64,13 @@ func draw_and_add_collision():
 	push_error("Not implemented")
 
 func _on_area_entered(area):
+	print("Entered "+str(area.name))
 	if "Radar" in area.name:
 		return
 	elif "Bullet" in area.name:
 		emit_signal("bullet_destroyed_enemy", self, area)
 	elif "Player" in area.name:
+		print("Player is thrusting: "+str(PLAYER.thrusting))
 		if !PLAYER.thrusting:
 			area.dead = true
 			return
