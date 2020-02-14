@@ -1,8 +1,12 @@
 extends Area2D
 
 const SPEED = 550
+const FULL_ENERGY = 100
+const ENERGY_DEPLETION_MULTIPLIER = 100
+const ENERGY_RECHARGE_DIVISOR = 2
 
 onready var COMMON = get_node("/root/Common")
+onready var STAGE = get_node("/root/Stage")
 
 signal bomb_detonated()
 signal bombs_left(amount)
@@ -17,13 +21,15 @@ var sprite_width = 0
 var screen_size
 var bombs_left = 0
 var cannot_detonate = false
+var energy = FULL_ENERGY
+var thrusting = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	screen_size = COMMON.get_screen_size(self)
-	position.x = screen_size.x / 2
-	position.y = screen_size.y / 2
-	sprite_width = screen_size.x / 100
+	position.x = STAGE.stage_size.x / 2
+	position.y = STAGE.stage_size.y / 2
+	sprite_width = STAGE.stage_size.x / 200
 	set_bombs_left()
 
 func _process(delta):
@@ -38,6 +44,10 @@ func pew(velocity):
 		get_parent().add_child(pew)
 		$ShotTimer.start()
 		shots_fired = true
+		pew_noise()
+
+func pew_noise():
+	$PewNoise.play()
 
 func input(delta):
 	if dead:
@@ -82,12 +92,29 @@ func explode():
 	emit_signal("bomb_detonated")
 
 func move(delta, velocity):
+	var speed = thrust(delta)
+	
 	if velocity.length() > 0:
-		velocity = velocity.normalized() * SPEED
+		velocity = velocity.normalized() * speed
 	position += velocity * delta
 	var stage_size = get_parent().stage_size
 	position.x = clamp(position.x, sprite_width, stage_size.x - sprite_width)
 	position.y = clamp(position.y, sprite_width, stage_size.y - sprite_width)
+
+func thrust(delta):
+	var speed = SPEED
+	if Input.is_action_pressed("thrust") and energy > 0 and $ThrustTimeout.is_stopped():
+		thrusting = true
+		speed = 2 * SPEED
+		var used_energy = delta * ENERGY_DEPLETION_MULTIPLIER
+		energy -= used_energy if used_energy < energy else energy
+	else:
+		if energy <= 0 and $ThrustTimeout.is_stopped():
+			$ThrustTimeout.start()
+		energy += delta / ENERGY_RECHARGE_DIVISOR if energy < FULL_ENERGY else 0
+		thrusting = false
+	print(energy)
+	return speed
 
 func _draw():
 	var geometry_points = PoolVector2Array()
@@ -118,3 +145,7 @@ func _on_Player_area_entered(area):
 
 func _on_ShotTimer_timeout():
 	shots_fired = false
+
+
+func _on_ThrustTimeout_timeout():
+	$ThrustTimeout.stop()

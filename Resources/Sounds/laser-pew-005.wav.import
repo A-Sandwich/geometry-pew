@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/laser-pew-005.wav-9347cb389e7f7488fcca7c9cede38e33.sample"
+
+[deps]
+
+source_file="res://Resources/Sounds/laser-pew-005.wav"
+dest_files=[ "res://.import/laser-pew-005.wav-9347cb389e7f7488fcca7c9cede38e33.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

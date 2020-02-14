@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/laser-pew-001.ogg-0ba932a117861e61a02df67cf157133b.oggstr"
+
+[deps]
+
+source_file="res://Resources/Sounds/laser-pew-001.ogg"
+dest_files=[ "res://.import/laser-pew-001.ogg-0ba932a117861e61a02df67cf157133b.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

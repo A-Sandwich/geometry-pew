@@ -69,8 +69,9 @@ func _on_area_entered(area):
 	elif "Bullet" in area.name:
 		emit_signal("bullet_destroyed_enemy", self, area)
 	elif "Player" in area.name:
-		area.dead = true
-		return
+		if !PLAYER.thrusting:
+			area.dead = true
+			return
 	die()
 
 func die():

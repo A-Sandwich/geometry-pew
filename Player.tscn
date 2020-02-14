@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
+[ext_resource path="res://Resources/Sounds/laser-pew-001.wav" type="AudioStream" id=2]
 
 [sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0.0935673, 0.245614, 0.690058, 1 )
@@ -35,6 +36,14 @@ local_coords = false
 process_material = SubResource( 3 )
 
 [node name="BombTimer" type="Timer" parent="."]
+
+[node name="PewNoise" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 2 )
+pitch_scale = 0.56
+
+[node name="ThrustTimeout" type="Timer" parent="."]
+wait_time = 2.0
 [connection signal="area_entered" from="." to="." method="_on_Player_area_entered"]
 [connection signal="timeout" from="ShotTimer" to="." method="_on_ShotTimer_timeout"]
 [connection signal="timeout" from="BombTimer" to="." method="_on_BombTimer_timeout"]
+[connection signal="timeout" from="ThrustTimeout" to="." method="_on_ThrustTimeout_timeout"]
