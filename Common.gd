@@ -5,8 +5,9 @@ var screen_size
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	ready()
+func ready():
 	rng.randomize()
-
 func get_square_points(geometry_points, length):
 	# draw operations are relative to the parent, so (0,0) is actually where the player is
 	geometry_points.push_back(Vector2(-length, -length))
@@ -43,3 +44,7 @@ func thrust(particle_node, velocity, sprite_width, position, display = true):
 	particle_node.position.y = new_thrust_y
 	var point = Vector2(position.x + (velocity.x * sprite_width), position.y + (velocity.y * sprite_width))
 	particle_node.look_at(Vector2(position.x + (velocity.x * sprite_width * 4), position.y + (velocity.y * sprite_width * 4)))
+
+# This is just a coin flip. I'll refactor the name when I feel like it isn't funny anymore
+func flippity_flop():
+	return rng.randi_range(0, 1) == 0

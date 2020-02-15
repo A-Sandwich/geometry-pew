@@ -2,9 +2,10 @@ extends Area2D
 
 onready var COMMON = get_node("/root/Common")
 onready var HUD = get_parent().get_node("HUD")
+onready var STAGE = get_node("/root/Stage")
 var FADING_TEXT = preload("res://Effects/FadingText.tscn")
 var PLAYER
-
+var stage_size
 signal bullet_destroyed_enemy
 
 var color = Color("DB2F2F")
@@ -25,6 +26,7 @@ func _ready():
 	self.connect("area_entered", self, "_on_area_entered")
 	sprite_width = COMMON.get_screen_size(self).x / 100
 	player_position = COMMON.get_screen_size(self) / 2
+	stage_size = STAGE.stage_size
 	ready()
 
 func ready():

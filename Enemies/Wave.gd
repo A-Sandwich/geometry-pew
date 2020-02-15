@@ -17,7 +17,7 @@ func ready():
 	minimum_distance_from_player = screen_size.x / 6 #todo make ratios not dependent on screen.x (Ultrawide will make life not great)
 
 func choose_enemy():
-	if (COMMON.rng.randi_range(0, 1) == 0):
+	if (COMMON.rng.randi_range(0, 100) < 50):
 		return ENEMY
 	else:
 		return DISK_ENEMY

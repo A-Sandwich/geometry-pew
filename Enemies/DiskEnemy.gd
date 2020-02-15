@@ -3,6 +3,7 @@ extends "Enemy.gd"
 var dashing = false
 var dashDirection: Vector2
 var DASH_SPEED = 500
+var dash_direction = 0
 
 func _ready():
 	ready()
@@ -24,7 +25,15 @@ func draw_and_add_collision():
 	$Radar/RadarCollider.shape.radius = sprite_width * 6
 
 func dash(direction):
-	return direction.rotated(PI / 2)
+	var new_direction
+	if dash_direction == 0 and COMMON.flippity_flop():
+		dash_direction = 1
+	elif dash_direction == 0:
+		dash_direction = -1
+	
+	new_direction = direction.rotated((dash_direction * PI) / 2)
+	
+	return new_direction
 
 # Todo: Break this out into multiple methods, too long
 func move(delta):
@@ -40,14 +49,15 @@ func move(delta):
 	var stage_size = get_parent().stage_size
 	if (position.x < -sprite_width or position.x > stage_size.x + sprite_width or
 		position.y < -sprite_width or position.y > stage_size.y + sprite_width):
-		visible = false
+		if dashing:
+			dash_direction *= dash_direction * -1
 	else:
-		visible = true
+		pass
 	COMMON.thrust($ThrustParticle, velocity, sprite_width, position)
 
 func _on_DashTimer_timeout():
-	print("dahs timer timeout!")
 	dashing = false
+	dash_direction = 0
 	$DashTimer.stop()
 
 func _on_Radar_area_entered(area):
