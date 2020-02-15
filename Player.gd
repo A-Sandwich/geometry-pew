@@ -75,7 +75,7 @@ func input(delta):
 		velocity.y -= Input.get_action_strength("up")
 	move(delta, velocity)
 	COMMON.thrust($ThrustParticle, velocity, sprite_width, position)
-	
+	COMMON.thrust($ThrustParticleFast, velocity, sprite_width, position, thrusting)
 	
 	velocity = Vector2(0, 0)
 	if Input.is_action_pressed("fire_right"):
@@ -112,7 +112,6 @@ func move(delta, velocity):
 	position.y = clamp(position.y, sprite_width, stage_size.y - sprite_width)
 
 func thrust(delta):
-	print(thrusting)
 	var initial_energy = energy
 	var speed = SPEED
 	if Input.is_action_pressed("thrust") and energy > 0 and $ThrustTimeout.is_stopped():

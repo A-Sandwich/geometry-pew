@@ -23,8 +23,8 @@ func get_screen_size(node):
 		screen_size = node.get_viewport_rect().size
 	return screen_size
 
-func thrust(particle_node, velocity, sprite_width, position):
-	if (velocity.length() <= 0):
+func thrust(particle_node, velocity, sprite_width, position, display = true):
+	if (velocity.length() <= 0 or !display):
 		particle_node.emitting = false
 		return
 	else:

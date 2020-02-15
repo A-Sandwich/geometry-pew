@@ -4,8 +4,8 @@
 [ext_resource path="res://Resources/Sounds/laser-pew-001.wav" type="AudioStream" id=2]
 
 [sub_resource type="Gradient" id=1]
-offsets = PoolRealArray( 0.0935673, 0.245614, 0.690058, 1 )
-colors = PoolColorArray( 1, 1, 1, 1, 0, 0.648438, 1, 1, 1, 0.867188, 0, 1, 1, 0, 0, 1 )
+offsets = PoolRealArray( 0.0168539, 0.207865, 0.359551, 0.707865, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 0, 0.953125, 1, 1, 0, 1, 0.648438, 1, 1, 0, 0, 1, 1, 0, 0, 1 )
 
 [sub_resource type="GradientTexture" id=2]
 gradient = SubResource( 1 )
@@ -32,6 +32,11 @@ current = true
 
 [node name="ThrustParticle" type="Particles2D" parent="."]
 amount = 500
+local_coords = false
+process_material = SubResource( 3 )
+
+[node name="ThrustParticleFast" type="Particles2D" parent="."]
+amount = 2000
 local_coords = false
 process_material = SubResource( 3 )
 
