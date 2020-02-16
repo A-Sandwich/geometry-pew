@@ -77,6 +77,9 @@ func _on_area_entered(area):
 			return
 	die(area)
 
+func _On_Enemy_Area_Entered():
+	print("Enemy enetered")
+
 func die(area):
 	print("Enemy Dying " + area.name)
 	emit_signal("bullet_destroyed_enemy", self, area)
