@@ -1,4 +1,4 @@
-extends Area2D
+extends RigidBody2D
 
 onready var COMMON = get_node("/root/Common")
 onready var HUD = get_parent().get_node("HUD")
