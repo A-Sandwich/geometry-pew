@@ -100,9 +100,10 @@ valign = 1
 [node name="BombsLeft" type="Label" parent="."]
 margin_left = 24.6133
 margin_top = 676.865
-margin_right = 64.6133
-margin_bottom = 690.865
+margin_right = 24.6133
+margin_bottom = 714.865
 custom_fonts/font = SubResource( 7 )
+valign = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }

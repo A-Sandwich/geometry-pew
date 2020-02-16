@@ -66,28 +66,26 @@ func draw_and_add_collision():
 	push_error("Not implemented")
 
 func _on_area_entered(area):
-	print("Entered "+str(area.name))
+	speed = 0
+	print("Enemy Entered "+str(area.name))
 	if "Radar" in area.name:
 		return
-	elif "Bullet" in area.name:
-		emit_signal("bullet_destroyed_enemy", self, area)
 	elif "Player" in area.name:
 		print("Player is thrusting: "+str(PLAYER.thrusting))
 		if !PLAYER.thrusting:
 			area.dead = true
 			return
-	die()
+	die(area)
 
-func die():
-	emit_signal("bullet_destroyed_enemy", self, null)
+func die(area):
+	print("Enemy Dying " + area.name)
+	emit_signal("bullet_destroyed_enemy", self, area)
 	remove_from_group("Enemy")
-	print("Die called")
 	death_point_display()
 	self.queue_free()
 
 func on_bomb_detonated():
-	print("Dying")
-	die()
+	die(null)
 
 func death_point_display():
 	#create label

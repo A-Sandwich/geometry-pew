@@ -1,6 +1,6 @@
 extends Area2D
 
-const SPEED = 800
+var SPEED = 800
 
 onready var COMMON = get_node("/root/Common")
 
@@ -12,7 +12,7 @@ var velocity = Vector2()  # The enemy's movement vector.
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	sprite_width = COMMON.get_screen_size(self).x / 200
+	sprite_width = COMMON.get_screen_size(self).x / 100
 
 func _process(delta):
 	var screen_size = COMMON.get_screen_size(self) # if function call overhead is too high then set in _ready()
@@ -41,6 +41,8 @@ func _draw():
 	$CollisionShape2D.shape.set_extents(extent_vector.abs())
 
 func _on_Bullet_area_entered(area):
+	SPEED = 0
+	print("bullet Area entered "+ str(OS.get_ticks_msec()) + " " + area.name)
 	if area.name != "Radar":
-		area.queue_free()
+		#area.queue_free()
 		self.queue_free()
