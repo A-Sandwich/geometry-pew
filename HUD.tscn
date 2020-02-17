@@ -14,8 +14,6 @@ func _ready():
 	PLAYER =  get_parent().get_node(\"Player\")
 	MOB =  get_parent().get_node(\"Mob\")
 	PLAYER.connect(\"bombs_left\", self, \"on_bombs_left\")
-	$Score.rect_size.x = COMMON.get_screen_size(PLAYER).x
-	$Score.rect_position = Vector2(0, 0)
 
 func on_enemy_destroyed(enemy, player):
 	score += enemy.point_value
@@ -77,10 +75,9 @@ font_data = SubResource( 6 )
 script = SubResource( 1 )
 
 [node name="Score" type="Label" parent="."]
-margin_left = 430.014
-margin_top = 323.182
-margin_right = 963.014
-margin_bottom = 361.182
+margin_top = 20.0
+margin_right = 1280.0
+margin_bottom = 58.0
 custom_fonts/font = SubResource( 3 )
 text = "Score 0"
 align = 1
@@ -93,10 +90,8 @@ __meta__ = {
 
 [node name="SecondsLeft" type="Label" parent="."]
 visible = false
-margin_left = 465.0
-margin_top = 313.0
-margin_right = 660.0
-margin_bottom = 372.0
+margin_right = 1280.0
+margin_bottom = 720.0
 custom_fonts/font = SubResource( 5 )
 text = "0"
 align = 1
