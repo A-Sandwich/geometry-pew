@@ -35,7 +35,6 @@ func dash(direction):
 	
 	return new_direction
 
-# Todo: Break this out into multiple methods, too long
 func move(delta):
 	var velocity = Vector2()  # The enemy's movement vector.
 	var direction = (player_position - position).normalized()
@@ -47,12 +46,12 @@ func move(delta):
 	position += velocity * delta
 	
 	var stage_size = get_parent().stage_size
+	# if we dash outside of the stage, we need to dash the other direction
 	if (position.x < -sprite_width or position.x > stage_size.x + sprite_width or
 		position.y < -sprite_width or position.y > stage_size.y + sprite_width):
 		if dashing:
 			dash_direction *= dash_direction * -1
-	else:
-		pass
+	
 	COMMON.thrust($ThrustParticle, velocity, sprite_width, position)
 
 func _on_DashTimer_timeout():
