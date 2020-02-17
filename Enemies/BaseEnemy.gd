@@ -23,7 +23,7 @@ func _ready():
 		PLAYER.connect("bomb_detonated", self, "on_bomb_detonated")
 	add_to_group("Enemy")
 	self.connect("bullet_destroyed_enemy", HUD, "on_enemy_destroyed")
-	self.connect("area_entered", self, "_on_area_entered")
+	self.connect("body_entered", self, "_on_area_entered")
 	sprite_width = COMMON.get_screen_size(self).x / 100
 	player_position = COMMON.get_screen_size(self) / 2
 	stage_size = STAGE.stage_size
