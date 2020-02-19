@@ -3,6 +3,7 @@ extends Area2D
 var SPEED = 800
 
 onready var COMMON = get_node("/root/Common")
+var EXPLOSION = preload("res://Effects/fake_explosion_particles.tscn")
 
 var color = Color(255, 255, 0)
 var motion = Vector2(0, 0)
@@ -44,5 +45,8 @@ func _on_Bullet_area_entered(area):
 	SPEED = 0
 	print("bullet Area entered "+ str(OS.get_ticks_msec()) + " " + area.name)
 	if area.name != "Radar":
-		#area.queue_free()
+		var explosion = EXPLOSION.instance()
+		explosion.position = position
+		get_parent().add_child(explosion)
+		explosion.particles_explode = true
 		self.queue_free()

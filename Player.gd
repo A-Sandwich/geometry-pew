@@ -1,7 +1,7 @@
 extends Area2D
 
 const SPEED = 550
-const FULL_ENERGY = 100
+const FULL_ENERGY = 225
 const ENERGY_DEPLETION_MULTIPLIER = 100
 const ENERGY_RECHARGE_MULTIPLIER = 10
 
@@ -170,7 +170,6 @@ func _on_Player_area_entered(area):
 
 func _on_ShotTimer_timeout():
 	shots_fired = false
-
 
 func _on_ThrustTimeout_timeout():
 	$ThrustTimeout.stop()
