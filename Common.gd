@@ -2,6 +2,7 @@ extends Node
 
 var rng = RandomNumberGenerator.new()
 var screen_size
+var EXPLOSION = preload("res://Effects/fake_explosion_particles.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -48,3 +49,8 @@ func thrust(particle_node, velocity, sprite_width, position, display = true):
 # This is just a coin flip. I'll refactor the name when I feel like it isn't funny anymore
 func flippity_flop():
 	return rng.randi_range(0, 1) == 0
+
+func generate_explosion(position):
+		var explosion = EXPLOSION.instance()
+		explosion.position = position
+		return explosion

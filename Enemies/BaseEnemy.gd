@@ -85,6 +85,9 @@ func die(area):
 	emit_signal("bullet_destroyed_enemy", self, area)
 	remove_from_group("Enemy")
 	death_point_display()
+	var explosion = COMMON.generate_explosion(position)
+	get_parent().add_child(explosion)
+	explosion.particles_explode = true
 	self.queue_free()
 
 func on_bomb_detonated():
