@@ -4,6 +4,7 @@ onready var PLAYER = get_parent().get_node("Player")
 var COMMON 
 var ENEMY = preload("res://Enemies/Enemy.tscn")
 var DISK_ENEMY = preload("res://Enemies/DiskEnemy.tscn")
+var TINY_CUBE_ENEMY = preload("res://Enemies/TinyCubeEnemy.tscn")
 
 var minimum_distance_from_player
 var screen_size
@@ -18,7 +19,7 @@ func ready():
 
 func choose_enemy():
 	if (true or COMMON.rng.randi_range(0, 100) < 50):
-		return ENEMY
+		return TINY_CUBE_ENEMY
 	else:
 		return DISK_ENEMY
 		
