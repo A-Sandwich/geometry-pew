@@ -13,10 +13,12 @@ gradient = SubResource( 1 )
 [sub_resource type="ParticlesMaterial" id=3]
 flag_disable_z = true
 gravity = Vector3( 0, 0, 0 )
-initial_velocity = 200.0
+initial_velocity = 400.0
+initial_velocity_random = 1.0
 angular_velocity = 1.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
+tangential_accel_random = 0.9
 color_ramp = SubResource( 2 )
 
 [node name="Player" type="Area2D"]
@@ -31,14 +33,14 @@ current = true
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 
 [node name="ThrustParticle" type="Particles2D" parent="."]
-visible = false
 amount = 500
+randomness = 1.0
 local_coords = false
 process_material = SubResource( 3 )
 
 [node name="ThrustParticleFast" type="Particles2D" parent="."]
-visible = false
 amount = 2000
+randomness = 1.0
 local_coords = false
 process_material = SubResource( 3 )
 

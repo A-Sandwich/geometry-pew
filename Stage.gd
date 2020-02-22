@@ -6,7 +6,9 @@ var color = Color(255, 255, 255)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	var extent_vector = Vector2(-stage_size.x / 2, -stage_size.y / 2)
+	var rect_size = Vector2(stage_size.x, stage_size.y)
+	$BackgroundParticle.visibility_rect = Rect2( extent_vector, rect_size)
 
 func get_rectangle_points(geometry_points):
 	# draw operations are relative to the parent, so (0,0) is actually where the player is

@@ -23,6 +23,7 @@ func ready():
 	screen_size = get_viewport_rect().size
 	minimum_distance_from_player = screen_size.x / 6 #todo make ratios not dependent on screen.x (Ultrawide will make life not great)
 	generate_corner_spawn_points()
+	spawn_wave()
 
 func generate_corner_spawn_points():
 	var spacing = STAGE.stage_size.x / 8
@@ -60,9 +61,6 @@ func spawn_wave_jr():
 		corner_points.append(enemy.position)
 		get_parent().add_child(enemy)
 
-
-# Goal: generate a stack of enemies that slowly get larger to crescendo
-
 func reset():
 	spawn_enemies = false
 	for enemy in get_tree().get_nodes_in_group("Enemy"):
@@ -80,6 +78,9 @@ func _on_IncreaseSpawnLimit_timeout():
 	spawn_limit += 1
 
 func _on_SpawnWave_timeout():
+	spawn_wave()
+	
+func spawn_wave():
 	if len(wave.enemies) < 1:
 		wave.generate_wave()
 	else:

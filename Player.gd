@@ -48,6 +48,7 @@ func process(delta):
 func pew(velocity):
 	if !shots_fired:
 		var pew = BULLET.instance()
+		pew.sprite_width = sprite_width
 		pew.position.x += position.x + (velocity.x * sprite_width)
 		pew.position.y = position.y + (velocity.y * sprite_width)
 		pew.velocity = velocity.normalized() * pew.SPEED

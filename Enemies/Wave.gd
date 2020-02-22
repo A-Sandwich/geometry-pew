@@ -26,10 +26,11 @@ func choose_enemy():
 func generate_wave():
 	enemies.clear()
 	var minimum = 3
-	var enemy = choose_enemy()
+	
 	# generate a stack that we can just pop each time we spawn a wave
 	for i in range(COMMON.rng.randi_range(3, 10)):
 		var inner_enemies = []
+		var enemy = choose_enemy()
 		for j in range(COMMON.rng.randi_range(minimum, minimum * 2)):
 			var new_enemy = enemy.instance()
 			new_enemy.PLAYER = PLAYER

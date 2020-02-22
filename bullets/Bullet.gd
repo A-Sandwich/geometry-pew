@@ -4,7 +4,7 @@ var SPEED = 800
 
 onready var COMMON = get_node("/root/Common")
 
-var color = Color(255, 255, 0)
+var color = Color(255, 255, 0, 0.05)
 var motion = Vector2(0, 0)
 var pace_direction_x = 1
 var sprite_width
@@ -12,7 +12,9 @@ var velocity = Vector2()  # The enemy's movement vector.
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	sprite_width = COMMON.get_screen_size(self).x / 150
+	#sprite_width = COMMON.get_screen_size(self).x / 150
+	#sprite_width = STAGE.stage_size.x / 200
+	pass
 
 func _process(delta):
 	var screen_size = COMMON.get_screen_size(self) # if function call overhead is too high then set in _ready()
