@@ -5,6 +5,7 @@ var COMMON
 var ENEMY = preload("res://Enemies/Enemy.tscn")
 var DISK_ENEMY = preload("res://Enemies/DiskEnemy.tscn")
 var TINY_CUBE_ENEMY = preload("res://Enemies/TinyCubeEnemy.tscn")
+var enemy_classes = [ENEMY, DISK_ENEMY, TINY_CUBE_ENEMY]
 
 var minimum_distance_from_player
 var screen_size
@@ -18,10 +19,9 @@ func ready():
 	minimum_distance_from_player = screen_size.x / 6 #todo make ratios not dependent on screen.x (Ultrawide will make life not great)
 
 func choose_enemy():
-	if (true or COMMON.rng.randi_range(0, 100) < 50):
-		return TINY_CUBE_ENEMY
-	else:
-		return DISK_ENEMY
+	var index = COMMON.rng.randi_range(0, len(enemy_classes) - 1)
+	print(index)
+	return enemy_classes[index]
 		
 func generate_wave():
 	enemies.clear()

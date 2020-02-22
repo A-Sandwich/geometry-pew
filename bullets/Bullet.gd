@@ -41,7 +41,7 @@ func _draw():
 	$CollisionShape2D.shape.set_extents(extent_vector.abs())
 
 func _on_Bullet_area_entered(area):
-	SPEED = 0
 	print("bullet Area entered "+ str(OS.get_ticks_msec()) + " " + area.name)
 	if area.name != "Radar":
+		SPEED = 0
 		self.queue_free()
