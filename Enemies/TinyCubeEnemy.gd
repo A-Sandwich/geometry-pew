@@ -2,14 +2,14 @@ extends "BaseEnemy.gd"
 
 var zag_direction = 1
 var DISTANCE_TO_RUSH = 0
-var zig_zag_rotation = 0.05
-var ZIG_ZAG_ROTATION_MAX = 0.25
-var ZIG_ZAG_ROTATION_INCREASE = 0.07
+var zig_zag_rotation = 0
+var ZIG_ZAG_ROTATION_MAX = 0.125
+var ZIG_ZAG_ROTATION_INCREASE = 0.08
 
 func ready():
 	color = Color(0.02, .9, .08)
 	sprite_width = sprite_width * 0.7
-	speed *= 1.3
+	#speed *= 1.3
 	DISTANCE_TO_RUSH = sprite_width * 2
 
 func process(delta):
@@ -26,8 +26,7 @@ func draw_and_add_collision():
 	$CollisionShape2D.shape.set_extents(extent_vector.abs())
 
 func zig_zag(direction):
-	print(zig_zag_rotation)
-	var new_direction = direction.rotated((zag_direction * PI) * zig_zag_rotation)
+	var new_direction = direction.rotated(PI * zig_zag_rotation)
 	return new_direction
 
 func move(delta):
@@ -50,10 +49,9 @@ func move(delta):
 
 func _on_ZigZagTimer_timeout():
 	zag_direction *= -1
-	zig_zag_rotation = 0.05
 
 
 func _on_RotationTimer_timeout():
-	print("Roatating")
-	if zig_zag_rotation < ZIG_ZAG_ROTATION_MAX:
-		zig_zag_rotation += ZIG_ZAG_ROTATION_INCREASE
+	var rotation_result = zag_direction * ZIG_ZAG_ROTATION_INCREASE
+	if rotation_result <= ZIG_ZAG_ROTATION_MAX && rotation_result >= -ZIG_ZAG_ROTATION_MAX:
+		zig_zag_rotation += rotation_result
