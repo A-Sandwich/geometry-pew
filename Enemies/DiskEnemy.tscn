@@ -15,9 +15,14 @@ gradient = SubResource( 2 )
 flag_disable_z = true
 gravity = Vector3( 0, 0, 0 )
 initial_velocity = 100.0
+initial_velocity_random = 1.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
+scale = 5.0
+scale_random = 1.0
 color_ramp = SubResource( 3 )
+hue_variation = 0.2
+hue_variation_random = 1.0
 
 [sub_resource type="CircleShape2D" id=5]
 
@@ -30,7 +35,7 @@ script = ExtResource( 1 )
 shape = SubResource( 1 )
 
 [node name="ThrustParticle" type="Particles2D" parent="."]
-amount = 400
+amount = 50
 local_coords = false
 process_material = SubResource( 4 )
 

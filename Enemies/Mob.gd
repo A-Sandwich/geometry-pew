@@ -7,7 +7,6 @@ onready var PLAYER = get_parent().get_node("Player")
 var START_ENEMY_COUNT = 3
 
 var screen_size
-var spawn_enemies = true
 var spawn_limit = START_ENEMY_COUNT
 var minimum_distance_from_player
 var wave = WAVE.instance()
@@ -37,8 +36,7 @@ func _process(delta):
 	process(delta)
 	
 func process(delta):
-	if !spawn_enemies:
-		return
+	pass
 
 func get_valid_point(upper_bound, player_point):
 	var point = 0
@@ -62,16 +60,13 @@ func spawn_wave_jr():
 		get_parent().add_child(enemy)
 
 func reset():
-	spawn_enemies = false
 	for enemy in get_tree().get_nodes_in_group("Enemy"):
 		enemy.queue_free()
 
 func start():
 	spawn_limit = START_ENEMY_COUNT
-	spawn_enemies = true
 
 func _on_SpawnRate_timeout():
-	spawn_enemies = true
 	$SpawnRate.stop()
 
 func _on_IncreaseSpawnLimit_timeout():
@@ -81,6 +76,9 @@ func _on_SpawnWave_timeout():
 	spawn_wave()
 	
 func spawn_wave():
+	if PLAYER.dead:
+		return
+	
 	if len(wave.enemies) < 1:
 		wave.generate_wave()
 	else:

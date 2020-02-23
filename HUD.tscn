@@ -27,7 +27,6 @@ func restart_game():
 	MOB.reset()
 	PLAYER.reset()
 	score = 0
-	print(\"Restarting game\")
 	$ResetTimer.start(1)
 	$SecondsLeft.visible = true
 	$SecondsLeft.text = str(seconds_left)
