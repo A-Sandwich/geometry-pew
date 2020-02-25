@@ -4,8 +4,6 @@ onready var COMMON = get_node("/root/Common")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var screen_size = self.get_viewport_rect().size
-	var keepMargines = false
 	var player = $VBoxContainer/Player
 	$VBoxContainer/Player/ThrustParticleFast.visible = false
 	COMMON.thrust($VBoxContainer/Player/ThrustParticle, Vector2(1,0), player.sprite_width, player.position)
