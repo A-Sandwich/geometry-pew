@@ -24,15 +24,21 @@ var cannot_detonate = false
 var energy = FULL_ENERGY
 var thrusting = false
 var draw_state_dirty = false
+var title = true
 
 func _ready():
 	ready()
 
 func ready():
 	screen_size = COMMON.get_screen_size(self)
-	position.x = STAGE.stage_size.x / 2
-	position.y = STAGE.stage_size.y / 2
-	sprite_width = STAGE.stage_size.x / 200
+	if STAGE == null:
+		position.x = screen_size.x / 2
+		position.y = screen_size.y / 2
+		sprite_width = screen_size.x / 75
+	else:
+		position.x = STAGE.stage_size.x / 2
+		position.y = STAGE.stage_size.y / 2
+		sprite_width = STAGE.stage_size.x / 200
 	set_bombs_left()
 	set_collision_shape()
 
@@ -40,6 +46,8 @@ func _process(delta):
 	process(delta)
 
 func process(delta):
+	if title:
+		return
 	input(delta)
 	if draw_state_dirty:
 		draw_state_dirty = false

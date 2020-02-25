@@ -1,25 +1,46 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://MarginContainer.gd" type="Script" id=1]
+[ext_resource path="res://Resources/TypeFaces/dotty.regular.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Player.tscn" type="PackedScene" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 100
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 100
+font_data = ExtResource( 2 )
 
 [node name="Title" type="MarginContainer"]
 margin_right = 1280.0
 margin_bottom = 720.0
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 margin_right = 1280.0
 margin_bottom = 720.0
+alignment = 2
 
-[node name="StartGame" type="Button" parent="VBoxContainer"]
+[node name="Player" parent="VBoxContainer" instance=ExtResource( 3 )]
+
+[node name="Start" type="Button" parent="VBoxContainer"]
+margin_top = 566.0
 margin_right = 1280.0
-margin_bottom = 20.0
-text = "PEW PEW"
+margin_bottom = 641.0
+custom_fonts/font = SubResource( 1 )
+text = "Start"
+flat = true
 
 [node name="Exit" type="Button" parent="VBoxContainer"]
-margin_top = 24.0
+margin_top = 645.0
 margin_right = 1280.0
-margin_bottom = 44.0
+margin_bottom = 720.0
+custom_fonts/font = SubResource( 2 )
 text = "Exit"
-[connection signal="pressed" from="VBoxContainer/StartGame" to="." method="_on_StartGame_pressed"]
+flat = true
+[connection signal="pressed" from="VBoxContainer/Start" to="." method="_on_Start_pressed"]
 [connection signal="pressed" from="VBoxContainer/Exit" to="." method="_on_Exit_pressed"]
