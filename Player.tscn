@@ -39,13 +39,6 @@ current = true
 z_index = -10
 amount = 200
 randomness = 1.0
-visibility_rect = Rect2( -100, -100, 200, 200 )
-local_coords = false
-process_material = SubResource( 3 )
-
-[node name="ThrustParticleFast" type="Particles2D" parent="."]
-amount = 2000
-randomness = 1.0
 local_coords = false
 process_material = SubResource( 3 )
 

@@ -13,6 +13,7 @@ signal bombs_left(amount)
 
 var DEFAULT_STARTING_BOMBS = 3
 var BULLET = preload("res://bullets/Bullet.tscn")
+var ROUND_BULLET = preload("res://bullets/RoundBullet.tscn")
 var color = Color(.03, 0.5, 1)
 var dead = false
 var motion = Vector2(0, 0)
@@ -55,7 +56,8 @@ func process(delta):
 
 func pew(velocity):
 	if !shots_fired:
-		var pew = BULLET.instance()
+		#var pew = BULLET.instance()
+		var pew = ROUND_BULLET.instance()
 		pew.sprite_width = sprite_width
 		pew.position.x += position.x + (velocity.x * sprite_width)
 		pew.position.y = position.y + (velocity.y * sprite_width)
@@ -84,7 +86,6 @@ func input(delta):
 		velocity.y -= Input.get_action_strength("up")
 	move(delta, velocity)
 	COMMON.thrust($ThrustParticle, velocity, sprite_width, position)
-	COMMON.thrust($ThrustParticleFast, velocity, sprite_width, position, thrusting)
 	
 	velocity = Vector2(0, 0)
 	if Input.is_action_pressed("fire_right"):

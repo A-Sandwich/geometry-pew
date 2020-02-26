@@ -31,6 +31,9 @@ func move(delta):
 			self.queue_free() # RIP
 
 func _draw():
+	draw()
+	
+func draw():
 	# RectangleShape2D extents (width and height) are a Vector2 and each extent
 	# is multiplied by 2 to create the entire shape. To make the sizes of the Rect2
 	# and RectangleShape2d match I made extent_vector 1/2 the size. Made it negative
