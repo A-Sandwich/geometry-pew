@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Stage.gd" type="Script" id=1]
 [ext_resource path="res://HUD.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Enemies/Mob.tscn" type="PackedScene" id=4]
+[ext_resource path="res://ScoreMultiplier.tscn" type="PackedScene" id=5]
 
 [sub_resource type="ParticlesMaterial" id=1]
 emission_shape = 1
@@ -58,3 +59,5 @@ randomness = 1.0
 visibility_rect = Rect2( 0, 0, 10, 10 )
 local_coords = false
 process_material = SubResource( 1 )
+
+[node name="ScoreMultiplier" parent="." instance=ExtResource( 5 )]

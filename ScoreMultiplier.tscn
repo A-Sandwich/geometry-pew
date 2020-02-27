@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://ScoreMultiplier.gd" type="Script" id=1]
+
+[node name="ScoreMultiplier" type="Node"]
+script = ExtResource( 1 )
+
+[node name="TimeToDiminish" type="Timer" parent="."]
+wait_time = 10.0
+
+[node name="MultiplierDegredationRate" type="Timer" parent="."]
+wait_time = 0.1
+[connection signal="timeout" from="TimeToDiminish" to="." method="_on_TimeToDiminish_timeout"]
+[connection signal="timeout" from="MultiplierDegredationRate" to="." method="_on_MultiplierDegredationRate_timeout"]

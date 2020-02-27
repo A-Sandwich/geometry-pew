@@ -26,6 +26,7 @@ var energy = FULL_ENERGY
 var thrusting = false
 var draw_state_dirty = false
 var title = true
+var multiplier = 1
 
 func _ready():
 	ready()
@@ -183,6 +184,3 @@ func _on_ShotTimer_timeout():
 
 func _on_ThrustTimeout_timeout():
 	$ThrustTimeout.stop()
-
-func on_enemy_destroyed(enemy, player):
-	print("Died player crap")
