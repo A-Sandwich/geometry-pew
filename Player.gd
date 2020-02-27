@@ -183,3 +183,6 @@ func _on_ShotTimer_timeout():
 
 func _on_ThrustTimeout_timeout():
 	$ThrustTimeout.stop()
+
+func on_enemy_destroyed(enemy, player):
+	print("Died player crap")

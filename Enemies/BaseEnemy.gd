@@ -14,7 +14,7 @@ var pace_direction_x = 1
 var player_position
 var point_value = 100
 var speed = 200
-var speed_range = Vector2(100, 550)
+var speed_range = Vector2(50, 225)
 var sprite_width
 
 # Called when the node enters the scene tree for the first time.
@@ -23,6 +23,7 @@ func _ready():
 		PLAYER.connect("bomb_detonated", self, "on_bomb_detonated")
 	add_to_group("Enemy")
 	self.connect("bullet_destroyed_enemy", HUD, "on_enemy_destroyed")
+	self.connect("bullet_destroyed_enemy", PLAYER, "on_enemy_destroyed")
 	self.connect("area_entered", self, "_on_area_entered")
 	sprite_width = COMMON.get_screen_size(self).x / 100
 	player_position = COMMON.get_screen_size(self) / 2

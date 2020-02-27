@@ -10,6 +10,8 @@ var enemy_classes = [ENEMY, DISK_ENEMY, TINY_CUBE_ENEMY]
 var minimum_distance_from_player
 var screen_size
 var enemies = []
+var speed_increase = 0.2
+var speed_multiplier = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -34,7 +36,9 @@ func generate_wave():
 		for j in range(COMMON.rng.randi_range(minimum, minimum * 2)):
 			var new_enemy = enemy.instance()
 			new_enemy.PLAYER = PLAYER
-			new_enemy.speed = COMMON.rng.randi_range(new_enemy.speed_range.x, new_enemy.speed_range.y)
+			new_enemy.speed = COMMON.rng.randi_range(new_enemy.speed_range.x,
+				new_enemy.speed_range.y)  * speed_multiplier 
 			inner_enemies.append(new_enemy)
 		minimum += 1
 		enemies.append(inner_enemies)
+	speed_multiplier += speed_increase # I assume I'll want to make a max for this eventually

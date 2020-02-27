@@ -9,7 +9,6 @@ var ZIG_ZAG_ROTATION_INCREASE = 0.08
 func ready():
 	color = Color(0.02, .9, .08)
 	sprite_width = sprite_width * 0.7
-	#speed *= 1.3
 	DISTANCE_TO_RUSH = sprite_width * 2
 
 func process(delta):
@@ -55,3 +54,4 @@ func _on_RotationTimer_timeout():
 	var rotation_result = zag_direction * ZIG_ZAG_ROTATION_INCREASE
 	if rotation_result <= ZIG_ZAG_ROTATION_MAX && rotation_result >= -ZIG_ZAG_ROTATION_MAX:
 		zig_zag_rotation += rotation_result
+	rotate(0.2)
