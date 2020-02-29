@@ -36,7 +36,7 @@ func increment_meter(enemy):
 	meter += enemy.point_value
 	if meter > MULTIPLIER_THRESHOLDS[multiplier_index]:
 		multiplier_index = clamp (multiplier_index + 1, 0, len(MULTIPLIER_THRESHOLDS) - 1)
-		emit_signal("multiplier_changed", get_multiplier())
+	emit_signal("multiplier_changed", get_multiplier(), meter, MULTIPLIER_THRESHOLDS.back())
 
 func decrement_meter():
 	if len(get_tree().get_nodes_in_group("Enemy")) == 0:
@@ -44,7 +44,7 @@ func decrement_meter():
 	meter -= MULTIPLIER_DEGREDATION_AMOUNT
 	if meter < MULTIPLIER_THRESHOLDS[multiplier_index]:
 		multiplier_index = clamp (multiplier_index - 1, 0, len(MULTIPLIER_THRESHOLDS) - 1)
-		emit_signal("multiplier_changed", get_multiplier())
+	emit_signal("multiplier_changed", get_multiplier(), meter, MULTIPLIER_THRESHOLDS.back())
 
 func _on_TimeToDiminish_timeout():
 	$TimeToDiminish.stop() # Do I need to call stop() ?

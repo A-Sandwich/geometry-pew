@@ -7,8 +7,10 @@ var EXPLOSION = preload("res://Effects/fake_explosion_particles.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	ready()
+
 func ready():
 	rng.randomize()
+
 func get_square_points(geometry_points, length):
 	# draw operations are relative to the parent, so (0,0) is actually where the player is
 	geometry_points.push_back(Vector2(-length, -length))

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Resources/TypeFaces/dotty.regular.ttf" type="DynamicFontData" id=1]
 
@@ -10,18 +10,30 @@ var PLAYER
 var MOB
 var score = 0
 var seconds_left = 3
+var multiplier_meter_length = 0
+var multiplier_meter_height = 0
+var multiplier_position = null
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
+	ready()
+
+func ready():
 	PLAYER =  get_parent().get_node(\"Player\")
 	MOB =  get_parent().get_node(\"Mob\")
 	PLAYER.connect(\"bombs_left\", self, \"on_bombs_left\")
-
+	var screen_size = COMMON.get_screen_size(get_parent())
+	multiplier_meter_length =  screen_size.x / 10
+	multiplier_meter_height = screen_size.y / 20
+	multiplier_position = Vector2(screen_size.x / 2 - (multiplier_meter_length / 2),
+		screen_size.y - 2 * multiplier_meter_height)
 func on_enemy_destroyed(enemy, player):
 	score += enemy.point_value
 	$Score.text = \"Score \" + str(score)
 
 func _process(delta):
+	process(delta)
+
+func process(delta):
 	if Input.is_action_pressed(\"restart\") and PLAYER.dead:
 		restart_game()
 
@@ -54,9 +66,15 @@ func on_bombs_left(bombs_left):
 		bombs_left_text += \"* \"
 	$BombsLeft.text = bombs_left_text
 
-func _on_multiplier_changed(multiplier):
+func _on_multiplier_changed(multiplier, meter_value, meter_max):
 	$Multiplier.text = \"Multiplier \" + str(multiplier) + \"X\"
 	$Multiplier.update()
+	var percentage = clamp((meter_value * 100) / meter_max, 0, 100)
+	print(meter_value, ', ', meter_max)
+	print(percentage, \"Percentage\")
+	$MultiplierMeter.value = percentage
+	$MultiplierMeter.update()
+	
 "
 
 [sub_resource type="DynamicFontData" id=2]
@@ -83,6 +101,23 @@ font_data = SubResource( 6 )
 [sub_resource type="DynamicFont" id=8]
 size = 72
 font_data = ExtResource( 1 )
+
+[sub_resource type="ParticlesMaterial" id=9]
+gravity = Vector3( 0, 0, 0 )
+angular_velocity = 100.0
+
+[sub_resource type="CanvasItemMaterial" id=10]
+next_pass = SubResource( 9 )
+particles_animation = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="StyleBoxLine" id=11]
+color = Color( 0, 0.886275, 0.847059, 1 )
+thickness = 10
+
+[sub_resource type="StyleBoxLine" id=12]
 
 [node name="HUD" type="CanvasLayer"]
 script = SubResource( 1 )
@@ -128,6 +163,18 @@ margin_right = 1239.5
 margin_bottom = 682.494
 custom_fonts/font = SubResource( 8 )
 text = "Multiplier 1X"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MultiplierMeter" type="ProgressBar" parent="."]
+material = SubResource( 10 )
+margin_left = 31.0
+margin_top = 32.0
+margin_right = 155.0
+margin_bottom = 46.0
+custom_styles/fg = SubResource( 11 )
+custom_styles/bg = SubResource( 12 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
