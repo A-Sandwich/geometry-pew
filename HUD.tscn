@@ -13,6 +13,7 @@ var seconds_left = 3
 var multiplier_meter_length = 0
 var multiplier_meter_height = 0
 var multiplier_position = null
+var screen_size
 
 func _ready():
 	ready()
@@ -21,11 +22,25 @@ func ready():
 	PLAYER =  get_parent().get_node(\"Player\")
 	MOB =  get_parent().get_node(\"Mob\")
 	PLAYER.connect(\"bombs_left\", self, \"on_bombs_left\")
-	var screen_size = COMMON.get_screen_size(get_parent())
+	screen_size = COMMON.get_screen_size(get_parent())
 	multiplier_meter_length =  screen_size.x / 10
 	multiplier_meter_height = screen_size.y / 20
-	multiplier_position = Vector2(screen_size.x / 2 - (multiplier_meter_length / 2),
-		screen_size.y - 2 * multiplier_meter_height)
+	multiplier_position = Vector2(screen_size.x / 2 - ((multiplier_meter_length * 5) / 2),
+		screen_size.y - multiplier_meter_height)
+	setup_multiplier()
+		
+func setup_multiplier():
+	var meter_size =Vector2(multiplier_meter_length, multiplier_meter_height * 2)
+	$Multipliers.rect_position = multiplier_position
+	$Multipliers.set_size(Vector2(meter_size.x * 5, meter_size.y))
+	
+	for multiplier in $Multipliers.get_children():
+		multiplier.percent_visible = false
+		multiplier.value = 0
+		multiplier.rect_size = meter_size
+		multiplier.update()
+	$Multipliers.update()
+
 func on_enemy_destroyed(enemy, player):
 	score += enemy.point_value
 	$Score.text = \"Score \" + str(score)
@@ -72,9 +87,17 @@ func _on_multiplier_changed(multiplier, meter_value, meter_max):
 	var percentage = clamp((meter_value * 100) / meter_max, 0, 100)
 	print(meter_value, ', ', meter_max)
 	print(percentage, \"Percentage\")
-	$MultiplierMeter.value = percentage
-	$MultiplierMeter.update()
-	
+	var multiplier_index = multiplier - 1
+	for index in range(len($Multipliers.get_children())):
+		var child = $Multipliers.get_child(index)
+		if index < multiplier_index:
+			child.value = 100
+		elif index == multiplier_index:
+			child.value = int(percentage)
+		else:
+			child.value = 0
+		child.update()
+
 "
 
 [sub_resource type="DynamicFontData" id=2]
@@ -167,14 +190,73 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MultiplierMeter" type="ProgressBar" parent="."]
+[node name="Multipliers" type="HBoxContainer" parent="."]
+margin_right = 952.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OneX" type="ProgressBar" parent="Multipliers"]
 material = SubResource( 10 )
-margin_left = 31.0
-margin_top = 32.0
-margin_right = 155.0
-margin_bottom = 46.0
+margin_right = 187.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
 custom_styles/fg = SubResource( 11 )
 custom_styles/bg = SubResource( 12 )
+value = 100.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TwoX" type="ProgressBar" parent="Multipliers"]
+material = SubResource( 10 )
+margin_left = 191.0
+margin_right = 378.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+custom_styles/fg = SubResource( 11 )
+custom_styles/bg = SubResource( 12 )
+value = 100.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ThreeX" type="ProgressBar" parent="Multipliers"]
+material = SubResource( 10 )
+margin_left = 382.0
+margin_right = 569.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+custom_styles/fg = SubResource( 11 )
+custom_styles/bg = SubResource( 12 )
+value = 100.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FourX" type="ProgressBar" parent="Multipliers"]
+material = SubResource( 10 )
+margin_left = 573.0
+margin_right = 760.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+custom_styles/fg = SubResource( 11 )
+custom_styles/bg = SubResource( 12 )
+value = 100.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FiveX" type="ProgressBar" parent="Multipliers"]
+material = SubResource( 10 )
+margin_left = 764.0
+margin_right = 952.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+custom_styles/fg = SubResource( 11 )
+custom_styles/bg = SubResource( 12 )
+value = 100.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
