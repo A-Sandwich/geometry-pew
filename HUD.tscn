@@ -25,21 +25,19 @@ func ready():
 	screen_size = COMMON.get_screen_size(get_parent())
 	multiplier_meter_length =  screen_size.x / 10
 	multiplier_meter_height = screen_size.y / 20
-	multiplier_position = Vector2(screen_size.x / 2 - ((multiplier_meter_length * 5) / 2),
+	multiplier_position = Vector2(screen_size.x / 2 - (multiplier_meter_length / 2),
 		screen_size.y - multiplier_meter_height)
 	setup_multiplier()
 		
 func setup_multiplier():
-	var meter_size =Vector2(multiplier_meter_length, multiplier_meter_height * 2)
-	$Multipliers.rect_position = multiplier_position
-	$Multipliers.set_size(Vector2(meter_size.x * 5, meter_size.y))
+	var meter_size = Vector2(multiplier_meter_length, multiplier_meter_height * 2)
+	$MultiplierMeter.value = 0
+	$MultiplierMeter.rect_size = meter_size
+	$MultiplierMeter.rect_position = multiplier_position
+	$MultiplierMeter.update()
 	
-	for multiplier in $Multipliers.get_children():
-		multiplier.percent_visible = false
-		multiplier.value = 0
-		multiplier.rect_size = meter_size
-		multiplier.update()
-	$Multipliers.update()
+	$Multiplier.rect_position = Vector2(multiplier_position.x + multiplier_meter_length + 25,
+		multiplier_position.y - multiplier_meter_height / 2)
 
 func on_enemy_destroyed(enemy, player):
 	score += enemy.point_value
@@ -82,22 +80,12 @@ func on_bombs_left(bombs_left):
 	$BombsLeft.text = bombs_left_text
 
 func _on_multiplier_changed(multiplier, meter_value, meter_max):
-	$Multiplier.text = \"Multiplier \" + str(multiplier) + \"X\"
+	print(meter_value, \" / \", meter_max)
+	$Multiplier.text = str(multiplier) + \"X\"
 	$Multiplier.update()
 	var percentage = clamp((meter_value * 100) / meter_max, 0, 100)
-	print(meter_value, ', ', meter_max)
-	print(percentage, \"Percentage\")
-	var multiplier_index = multiplier - 1
-	for index in range(len($Multipliers.get_children())):
-		var child = $Multipliers.get_child(index)
-		if index < multiplier_index:
-			child.value = 100
-		elif index == multiplier_index:
-			child.value = int(percentage)
-		else:
-			child.value = 0
-		child.update()
-
+	$MultiplierMeter.value = percentage
+	$MultiplierMeter.update()
 "
 
 [sub_resource type="DynamicFontData" id=2]
@@ -141,6 +129,8 @@ color = Color( 0, 0.886275, 0.847059, 1 )
 thickness = 10
 
 [sub_resource type="StyleBoxLine" id=12]
+color = Color( 0.996078, 0.992157, 0.992157, 0.129412 )
+thickness = 10
 
 [node name="HUD" type="CanvasLayer"]
 script = SubResource( 1 )
@@ -180,24 +170,17 @@ __meta__ = {
 }
 
 [node name="Multiplier" type="Label" parent="."]
-margin_left = 1002.5
-margin_top = 632.494
-margin_right = 1239.5
-margin_bottom = 682.494
+margin_left = 1001.0
+margin_top = 632.0
+margin_right = 1239.0
+margin_bottom = 682.0
 custom_fonts/font = SubResource( 8 )
-text = "Multiplier 1X"
+text = "1X"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Multipliers" type="HBoxContainer" parent="."]
-margin_right = 952.0
-margin_bottom = 40.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="OneX" type="ProgressBar" parent="Multipliers"]
+[node name="MultiplierMeter" type="ProgressBar" parent="."]
 material = SubResource( 10 )
 margin_right = 187.0
 margin_bottom = 20.0
@@ -205,58 +188,7 @@ size_flags_horizontal = 3
 custom_styles/fg = SubResource( 11 )
 custom_styles/bg = SubResource( 12 )
 value = 100.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="TwoX" type="ProgressBar" parent="Multipliers"]
-material = SubResource( 10 )
-margin_left = 191.0
-margin_right = 378.0
-margin_bottom = 20.0
-size_flags_horizontal = 3
-custom_styles/fg = SubResource( 11 )
-custom_styles/bg = SubResource( 12 )
-value = 100.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ThreeX" type="ProgressBar" parent="Multipliers"]
-material = SubResource( 10 )
-margin_left = 382.0
-margin_right = 569.0
-margin_bottom = 20.0
-size_flags_horizontal = 3
-custom_styles/fg = SubResource( 11 )
-custom_styles/bg = SubResource( 12 )
-value = 100.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="FourX" type="ProgressBar" parent="Multipliers"]
-material = SubResource( 10 )
-margin_left = 573.0
-margin_right = 760.0
-margin_bottom = 20.0
-size_flags_horizontal = 3
-custom_styles/fg = SubResource( 11 )
-custom_styles/bg = SubResource( 12 )
-value = 100.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="FiveX" type="ProgressBar" parent="Multipliers"]
-material = SubResource( 10 )
-margin_left = 764.0
-margin_right = 952.0
-margin_bottom = 20.0
-size_flags_horizontal = 3
-custom_styles/fg = SubResource( 11 )
-custom_styles/bg = SubResource( 12 )
-value = 100.0
+percent_visible = false
 __meta__ = {
 "_edit_use_anchors_": false
 }

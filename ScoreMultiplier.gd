@@ -33,18 +33,26 @@ func get_multiplier():
 	return multiplier_index + 1
 
 func increment_meter(enemy):
+	print("Incrementing meter")
 	meter += enemy.point_value
 	if meter > MULTIPLIER_THRESHOLDS[multiplier_index]:
 		multiplier_index = clamp (multiplier_index + 1, 0, len(MULTIPLIER_THRESHOLDS) - 1)
-	emit_signal("multiplier_changed", get_multiplier(), meter, MULTIPLIER_THRESHOLDS.back())
+	emit_signal("multiplier_changed", get_multiplier(), meter, MULTIPLIER_THRESHOLDS[multiplier_index])
 
 func decrement_meter():
-	if len(get_tree().get_nodes_in_group("Enemy")) == 0:
+	if meter <= 0:
+		meter = 0
 		return
+	
+	if len(get_tree().get_nodes_in_group("Enemy")) == 0:
+		print("No enemies, returning")
+		return
+
 	meter -= MULTIPLIER_DEGREDATION_AMOUNT
-	if meter < MULTIPLIER_THRESHOLDS[multiplier_index]:
-		multiplier_index = clamp (multiplier_index - 1, 0, len(MULTIPLIER_THRESHOLDS) - 1)
-	emit_signal("multiplier_changed", get_multiplier(), meter, MULTIPLIER_THRESHOLDS.back())
+	var potential_multiplier_index = clamp (multiplier_index - 1, 0, len(MULTIPLIER_THRESHOLDS) - 1)
+	if meter <= MULTIPLIER_THRESHOLDS[potential_multiplier_index]:
+		multiplier_index = potential_multiplier_index
+	emit_signal("multiplier_changed", get_multiplier(), meter, MULTIPLIER_THRESHOLDS[multiplier_index])
 
 func _on_TimeToDiminish_timeout():
 	$TimeToDiminish.stop() # Do I need to call stop() ?
@@ -52,4 +60,5 @@ func _on_TimeToDiminish_timeout():
 
 func _on_MultiplierDegredationRate_timeout():
 	decrement_meter()
-	$MultiplierDegredationRate.start() # Do I need to call start again?
+	if meter > 0:
+		$MultiplierDegredationRate.start() # Do I need to call start again?
