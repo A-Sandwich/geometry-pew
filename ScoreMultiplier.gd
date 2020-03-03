@@ -37,7 +37,7 @@ func increment_meter(enemy):
 	meter += enemy.point_value
 	if meter > MULTIPLIER_THRESHOLDS[multiplier_index]:
 		multiplier_index = clamp (multiplier_index + 1, 0, len(MULTIPLIER_THRESHOLDS) - 1)
-	emit_signal("multiplier_changed", get_multiplier(), meter, MULTIPLIER_THRESHOLDS[multiplier_index])
+	emit_multiplier_change()
 
 func decrement_meter():
 	if meter <= 0:
@@ -52,7 +52,13 @@ func decrement_meter():
 	var potential_multiplier_index = clamp (multiplier_index - 1, 0, len(MULTIPLIER_THRESHOLDS) - 1)
 	if meter <= MULTIPLIER_THRESHOLDS[potential_multiplier_index]:
 		multiplier_index = potential_multiplier_index
-	emit_signal("multiplier_changed", get_multiplier(), meter, MULTIPLIER_THRESHOLDS[multiplier_index])
+	emit_multiplier_change()
+
+func emit_multiplier_change():
+	var previous_threshold = 0
+	if multiplier_index > 0:
+		previous_threshold = MULTIPLIER_THRESHOLDS[multiplier_index - 1]
+	emit_signal("multiplier_changed", get_multiplier(), meter - previous_threshold, MULTIPLIER_THRESHOLDS[multiplier_index] - previous_threshold)
 
 func _on_TimeToDiminish_timeout():
 	$TimeToDiminish.stop() # Do I need to call stop() ?
