@@ -25,6 +25,8 @@ func draw_and_add_collision():
 	$Radar/RadarCollider.shape.radius = sprite_width * 6
 
 func dash(direction):
+	if position.distance_to(PLAYER.position) < $Radar/RadarCollider.shape.radius:
+		return
 	var new_direction
 	if dash_direction == 0 and COMMON.flippity_flop():
 		dash_direction = 1

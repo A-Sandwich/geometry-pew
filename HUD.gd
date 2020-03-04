@@ -10,4 +10,3 @@ func _ready():
 
 func on_enemy_destroyed(enemy, player):
 	score += enemy.point_value
-	print(score)

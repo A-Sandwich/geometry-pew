@@ -1,6 +1,7 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Resources/TypeFaces/dotty.regular.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://MultiplierMeter.gd" type="Script" id=2]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node
@@ -80,12 +81,12 @@ func on_bombs_left(bombs_left):
 	$BombsLeft.text = bombs_left_text
 
 func _on_multiplier_changed(multiplier, meter_value, meter_max):
-	print(meter_value, \" / \", meter_max)
-	$Multiplier.text = str(multiplier) + \"X\"
-	$Multiplier.update()
+	if $Multiplier.text != str(multiplier) + \"X\":
+		$Multiplier.text = str(multiplier) + \"X\"
+		$Multiplier.update()
+		$MultiplierMeter.rollover()
 	var percentage = clamp((meter_value * 100) / meter_max, 0, 100)
-	$MultiplierMeter.value = percentage
-	$MultiplierMeter.update()
+	$MultiplierMeter.final_val = percentage
 "
 
 [sub_resource type="DynamicFontData" id=2]
@@ -113,23 +114,12 @@ font_data = SubResource( 6 )
 size = 72
 font_data = ExtResource( 1 )
 
-[sub_resource type="ParticlesMaterial" id=9]
-gravity = Vector3( 0, 0, 0 )
-angular_velocity = 100.0
-
-[sub_resource type="CanvasItemMaterial" id=10]
-next_pass = SubResource( 9 )
-particles_animation = true
-particles_anim_h_frames = 1
-particles_anim_v_frames = 1
-particles_anim_loop = false
-
 [sub_resource type="StyleBoxLine" id=11]
 color = Color( 0, 0.886275, 0.847059, 1 )
 thickness = 10
 
 [sub_resource type="StyleBoxLine" id=12]
-color = Color( 0.996078, 0.992157, 0.992157, 0.129412 )
+color = Color( 0.270588, 0.270588, 0.270588, 0.65098 )
 thickness = 10
 
 [node name="HUD" type="CanvasLayer"]
@@ -181,15 +171,17 @@ __meta__ = {
 }
 
 [node name="MultiplierMeter" type="ProgressBar" parent="."]
-material = SubResource( 10 )
 margin_right = 187.0
 margin_bottom = 20.0
-size_flags_horizontal = 3
+size_flags_horizontal = 11
 custom_styles/fg = SubResource( 11 )
 custom_styles/bg = SubResource( 12 )
-value = 100.0
+step = 0.01
+value = 99.0
 percent_visible = false
+script = ExtResource( 2 )
 __meta__ = {
-"_edit_use_anchors_": false
+"_edit_use_anchors_": false,
+"_editor_description_": ""
 }
 [connection signal="timeout" from="ResetTimer" to="." method="_on_ResetTimer_timeout"]
