@@ -37,7 +37,6 @@ stage_size = Vector2( 2000, 2000 )
 [node name="Player" parent="." instance=ExtResource( 3 )]
 
 [node name="Mob" parent="." instance=ExtResource( 4 )]
-visible = false
 
 [node name="Menu" type="Container" parent="."]
 visible = false

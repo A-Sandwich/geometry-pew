@@ -40,7 +40,7 @@ func dash(direction):
 func move(delta):
 	var velocity = Vector2()  # The enemy's movement vector.
 	var direction = (player_position - position).normalized()
-	if dashing:
+	if dashing and direction != null:
 		direction = dash(direction)
 		velocity = direction * DASH_SPEED
 	else:

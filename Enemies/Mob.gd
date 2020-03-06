@@ -27,12 +27,10 @@ func ready():
 	spawn_power_up()
 
 func spawn_power_up():
-	print("Spawning")
 	var shield = SHIELD_POWER_UP.instance()
 	shield.position = Vector2(100, 100)
-	print(shield.name)
-	print(get_parent().name)
-	get_parent().add_child(shield)
+	shield.MOB = self
+	get_parent().call_deferred("add_child", shield)
 
 func generate_corner_spawn_points():
 	var spacing = STAGE.stage_size.x / 8
@@ -67,7 +65,6 @@ func spawn_wave_jr():
 	for enemy in enemies:
 		enemy.position = corner_points.pop_front()
 		corner_points.append(enemy.position)
-		print(get_parent().name)
 		get_parent().add_child(enemy)
 
 func reset():
@@ -94,3 +91,6 @@ func spawn_wave():
 		wave.generate_wave()
 	else:
 		spawn_wave_jr()
+
+func _on_power_up():
+	print("POWERING UP!")

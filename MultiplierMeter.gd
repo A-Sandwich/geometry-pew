@@ -22,7 +22,6 @@ func _process(delta):
 	elif previous_delta < UPDATE_INTERVAL:
 		previous_delta += delta
 	if updateUi and update_interval_exceeded:
-		print("Value ",value)
 		update()
 
 func rollover():
