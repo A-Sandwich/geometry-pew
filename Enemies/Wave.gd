@@ -22,9 +22,8 @@ func ready():
 
 func choose_enemy():
 	var index = COMMON.rng.randi_range(0, len(enemy_classes) - 1)
-	print(index)
 	return enemy_classes[index]
-		
+
 func generate_wave():
 	enemies.clear()
 	var minimum = 3

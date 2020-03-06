@@ -114,11 +114,11 @@ font_data = SubResource( 6 )
 size = 72
 font_data = ExtResource( 1 )
 
-[sub_resource type="StyleBoxLine" id=11]
+[sub_resource type="StyleBoxLine" id=9]
 color = Color( 0, 0.886275, 0.847059, 1 )
 thickness = 10
 
-[sub_resource type="StyleBoxLine" id=12]
+[sub_resource type="StyleBoxLine" id=10]
 color = Color( 0.270588, 0.270588, 0.270588, 0.65098 )
 thickness = 10
 
@@ -174,9 +174,8 @@ __meta__ = {
 margin_right = 187.0
 margin_bottom = 20.0
 size_flags_horizontal = 11
-custom_styles/fg = SubResource( 11 )
-custom_styles/bg = SubResource( 12 )
-step = 0.01
+custom_styles/fg = SubResource( 9 )
+custom_styles/bg = SubResource( 10 )
 value = 99.0
 percent_visible = false
 script = ExtResource( 2 )

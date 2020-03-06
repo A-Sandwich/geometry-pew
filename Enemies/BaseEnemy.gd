@@ -84,7 +84,6 @@ func _On_Enemy_Area_Entered():
 	die(null)
 
 func die(area):
-	
 	emit_signal("bullet_destroyed_enemy", self, area)
 	remove_from_group("Enemy")
 	death_point_display()
