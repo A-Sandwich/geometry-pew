@@ -1,6 +1,6 @@
 extends Area2D
 
-var SPEED = 800
+var speed = 800
 
 onready var COMMON = get_node("/root/Common")
 
@@ -9,12 +9,12 @@ var motion = Vector2(0, 0)
 var pace_direction_x = 1
 var sprite_width
 var velocity = Vector2()  # The enemy's movement vector.
-
+var multiplier = 1
+var size_increases = [0, 0, 0.1, 0.25, 0.5] # I don't like this
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	#sprite_width = COMMON.get_screen_size(self).x / 150
-	#sprite_width = STAGE.stage_size.x / 200
-	pass
+	speed *= 1 + (size_increases[multiplier] / 50)
+	sprite_width *= 1 + size_increases[multiplier]
 
 func _process(delta):
 	var screen_size = COMMON.get_screen_size(self) # if function call overhead is too high then set in _ready()
@@ -23,7 +23,7 @@ func _process(delta):
 	move(delta)
 
 func move(delta):
-	velocity = velocity.normalized() * SPEED
+	velocity = velocity.normalized() * speed
 	position += velocity * delta
 	var stage_size = get_parent().stage_size
 	if (position.x < 0 or position.x > stage_size.x or
@@ -48,5 +48,5 @@ func draw():
 func _on_Bullet_area_entered(area):
 	print("bullet Area entered "+ str(OS.get_ticks_msec()) + " " + area.name)
 	if area.name != "Radar":
-		SPEED = 0
+		speed = 0
 		self.queue_free()

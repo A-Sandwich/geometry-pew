@@ -87,6 +87,7 @@ func _on_multiplier_changed(multiplier, meter_value, meter_max):
 		$MultiplierMeter.rollover()
 	var percentage = clamp((meter_value * 100) / meter_max, 0, 100)
 	$MultiplierMeter.final_val = percentage
+	PLAYER.apply_multiplier(multiplier)
 "
 
 [sub_resource type="DynamicFontData" id=2]

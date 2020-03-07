@@ -26,7 +26,7 @@ func draw_and_add_collision():
 
 func dash(direction):
 	if position.distance_to(PLAYER.position) < $Radar/RadarCollider.shape.radius:
-		return
+		return direction
 	var new_direction
 	if dash_direction == 0 and COMMON.flippity_flop():
 		dash_direction = 1
@@ -40,7 +40,7 @@ func dash(direction):
 func move(delta):
 	var velocity = Vector2()  # The enemy's movement vector.
 	var direction = (player_position - position).normalized()
-	if dashing and direction != null:
+	if dashing:
 		direction = dash(direction)
 		velocity = direction * DASH_SPEED
 	else:

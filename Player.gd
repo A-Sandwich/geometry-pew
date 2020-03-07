@@ -27,6 +27,7 @@ var thrusting = false
 var draw_state_dirty = false
 var title = true
 var multiplier = 1
+var SHOT_TIMER_BASE = 0.15
 
 func _ready():
 	ready()
@@ -62,7 +63,8 @@ func pew(velocity):
 		pew.sprite_width = sprite_width
 		pew.position.x += position.x + (velocity.x * sprite_width)
 		pew.position.y = position.y + (velocity.y * sprite_width)
-		pew.velocity = velocity.normalized() * pew.SPEED
+		pew.multiplier = multiplier
+		pew.velocity = velocity.normalized() * pew.speed
 		get_parent().add_child(pew)
 		$ShotTimer.start()
 		shots_fired = true
@@ -184,3 +186,7 @@ func _on_ShotTimer_timeout():
 
 func _on_ThrustTimeout_timeout():
 	$ThrustTimeout.stop()
+
+func apply_multiplier(updated_multiplier):
+	multiplier = updated_multiplier
+	$ShotTimer.wait_time = SHOT_TIMER_BASE / multiplier
