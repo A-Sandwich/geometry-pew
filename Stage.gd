@@ -9,7 +9,7 @@ func _ready():
 	$Player.title = false
 	var extent_vector = Vector2(-stage_size.x / 2, -stage_size.y / 2)
 	var rect_size = Vector2(stage_size.x, stage_size.y)
-	$BackgroundParticle.visibility_rect = Rect2( extent_vector, rect_size)
+	$BackgroundParticle.visibility_rect = Rect2( extent_vector, rect_size * 2)
 
 func get_rectangle_points(geometry_points):
 	# draw operations are relative to the parent, so (0,0) is actually where the player is

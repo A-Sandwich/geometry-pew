@@ -48,7 +48,7 @@ func process(delta):
 func move(delta):
 	var velocity = Vector2()  # The enemy's movement vector.
 	var direction = (player_position - position).normalized()
-
+	print(direction, speed)
 	velocity = direction * speed
 	position += velocity * delta
 	
@@ -68,12 +68,9 @@ func draw_and_add_collision():
 	push_error("Not implemented")
 
 func _on_area_entered(area):
-	speed = 0
-	print("Enemy Entered "+str(area.name))
 	if "Radar" in area.name:
 		return
 	elif "Player" in area.name:
-		print("Player is thrusting: "+str(PLAYER.thrusting))
 		if !PLAYER.thrusting:
 			area.dead = true
 			return
@@ -96,7 +93,6 @@ func on_bomb_detonated():
 	die(null)
 
 func death_point_display():
-	#create label
 	var fading_text = FADING_TEXT.instance()
 	get_parent().add_child(fading_text)
 	fading_text.setup(position, "+"+str(point_value * SCORE_MULTIPLIER.get_multiplier()))

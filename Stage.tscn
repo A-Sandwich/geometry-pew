@@ -50,7 +50,7 @@ text = "Press R to retry!"
 readonly = true
 
 [node name="BackgroundParticle" type="Particles2D" parent="."]
-position = Vector2( 469.541, 295.013 )
+position = Vector2( 759.508, 654.556 )
 amount = 500
 lifetime = 100.0
 preprocess = 100.0

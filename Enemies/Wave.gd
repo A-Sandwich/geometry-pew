@@ -5,6 +5,7 @@ var COMMON
 var ENEMY = preload("res://Enemies/Enemy.tscn")
 var DISK_ENEMY = preload("res://Enemies/DiskEnemy.tscn")
 var TINY_CUBE_ENEMY = preload("res://Enemies/TinyCubeEnemy.tscn")
+var SHOOTING_ENEMY = preload("res://Enemies/ShootingEnemy.tscn")
 var enemy_classes = [ENEMY, DISK_ENEMY, TINY_CUBE_ENEMY]
 
 var minimum_distance_from_player
@@ -33,10 +34,12 @@ func generate_wave():
 		var inner_enemies = []
 		var enemy = choose_enemy()
 		for j in range(COMMON.rng.randi_range(minimum, minimum * 2)):
-			var new_enemy = enemy.instance()
+			#var new_enemy = enemy.instance()
+			var new_enemy = SHOOTING_ENEMY.instance()
 			new_enemy.PLAYER = PLAYER
 			new_enemy.speed = COMMON.rng.randi_range(new_enemy.speed_range.x,
 				new_enemy.speed_range.y)  * speed_multiplier 
+			print(new_enemy.speed)
 			inner_enemies.append(new_enemy)
 		minimum += 1
 		enemies.append(inner_enemies)
