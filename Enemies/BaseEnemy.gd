@@ -48,7 +48,6 @@ func process(delta):
 func move(delta):
 	var velocity = Vector2()  # The enemy's movement vector.
 	var direction = (player_position - position).normalized()
-	print(direction, speed)
 	velocity = direction * speed
 	position += velocity * delta
 	

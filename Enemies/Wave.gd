@@ -39,7 +39,6 @@ func generate_wave():
 			new_enemy.PLAYER = PLAYER
 			new_enemy.speed = COMMON.rng.randi_range(new_enemy.speed_range.x,
 				new_enemy.speed_range.y)  * speed_multiplier 
-			print(new_enemy.speed)
 			inner_enemies.append(new_enemy)
 		minimum += 1
 		enemies.append(inner_enemies)
