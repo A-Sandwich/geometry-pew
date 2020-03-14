@@ -71,8 +71,7 @@ func _on_area_entered(area):
 		return
 	elif "Player" in area.name:
 		if !PLAYER.thrusting:
-			area.dead = true
-			return
+			area.die()
 	die(area)
 
 func _On_Enemy_Area_Entered():
