@@ -1,13 +1,13 @@
 extends "BaseEnemy.gd"
 
-var BULLET = preload("res://bullets/Bullet.tscn")
+var BULLET = preload("res://bullets/EnemyBullet.tscn")
 var shooting = false
 var time_since_last_shot = 0.0
 
 func ready():
 	color = Color(0.7, 0, 0.7)
 	speed = 200
-	$Radar/RadarCollider.shape.radius = sprite_width * 12
+	$Radar/RadarCollider.shape.radius = sprite_width * 20
 	
 func process(delta):
 	if !PLAYER.dead and !shooting:
@@ -21,14 +21,12 @@ func process(delta):
 func shoot(delta):
 	time_since_last_shot += delta
 	if time_since_last_shot > 0.5:
-		print("Delta inside", time_since_last_shot)
-		var direction = (player_position - position).normalized()
 		var pew = BULLET.instance()
+		pew.position = position
+		pew.z_index = -100
 		pew.sprite_width = sprite_width
-		var velocity = direction * pew.speed
-		pew.position.x += position.x + (velocity.x * sprite_width)
-		pew.position.y = position.y + (velocity.y * sprite_width)
-		#pew.multiplier = multiplier
+		var direction = (player_position - position).normalized()
+		var velocity = direction * pew.speed * delta
 		pew.velocity = velocity.normalized() * pew.speed
 		get_parent().add_child(pew)
 		time_since_last_shot = 0
