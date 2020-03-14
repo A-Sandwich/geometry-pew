@@ -173,6 +173,7 @@ func reset():
 	position.x = screen_size.x / 2
 	position.y = screen_size.y / 2
 	set_bombs_left()
+	self.visible = true
 
 func _on_BombTimer_timeout():
 	cannot_detonate = false
@@ -181,7 +182,14 @@ func _on_BombTimer_timeout():
 func _on_Player_area_entered(area):
 	color = Color(.03, 0.5, 1)
 	if area.name == "EnemyBullet" and !thrusting:
-		dead = true
+		die()
+
+func die():
+	dead = true
+	var explosion = COMMON.generate_explosion(position)
+	get_parent().add_child(explosion)
+	explosion.particles_explode = true
+	self.visible = false
 
 func _on_ShotTimer_timeout():
 	shots_fired = false

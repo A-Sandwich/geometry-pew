@@ -10,7 +10,9 @@ func ready():
 	$Radar/RadarCollider.shape.radius = sprite_width * 20
 	
 func process(delta):
-	if !PLAYER.dead and !shooting:
+	if PLAYER.dead:
+		return
+	if !shooting:
 		move(delta)
 	elif shooting:
 		shoot(delta)
@@ -39,7 +41,8 @@ func draw_and_add_collision():
 	$CollisionShape2D.shape.set_extents(extent_vector.abs())
 
 func _on_Radar_area_entered(area):
-	print(area.name)
+	if area.name != "Player":
+		print("Radar: ", area.name)
 	shooting = true
 
 func _on_Radar_area_exited(area):
