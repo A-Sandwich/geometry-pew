@@ -6,7 +6,7 @@ var time_since_last_shot = 0.0
 
 func ready():
 	color = Color(0.7, 0, 0.7)
-	speed = 200
+	speed = 220
 	$Radar/RadarCollider.shape.radius = sprite_width * 20
 	
 func process(delta):

@@ -46,24 +46,12 @@ func _process(delta):
 func process(delta):
 	pass
 
-func get_valid_point(upper_bound, player_point):
-	var point = 0
-	var finding_point = true
-	
-	while(finding_point):
-		point = COMMON.rng.randi_range(0, upper_bound)
-		if point < (player_point - minimum_distance_from_player) or point > (player_point + minimum_distance_from_player):
-			finding_point = false
-	return point
-
-# I should rename this
+# I should rename this. JK, refactoring sucks in the godot ide
 func spawn_wave_jr():
-	var spawn_location = Vector2(get_valid_point(screen_size.x, PLAYER.position.x),
-		get_valid_point(screen_size.y, PLAYER.position.y))
 	var enemies = wave.enemies.pop_front()
-
+	var position = corner_points.pop_front()
 	for enemy in enemies:
-		enemy.position = corner_points.pop_front()
+		enemy.position = position
 		corner_points.append(enemy.position)
 		get_parent().add_child(enemy)
 

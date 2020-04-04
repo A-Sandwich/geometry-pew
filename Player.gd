@@ -41,7 +41,7 @@ func ready():
 	else:
 		position.x = STAGE.stage_size.x / 2
 		position.y = STAGE.stage_size.y / 2
-		sprite_width = STAGE.stage_size.x / 200
+		sprite_width = STAGE.stage_size.y / 200
 	set_bombs_left()
 	set_collision_shape()
 
