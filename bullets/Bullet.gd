@@ -11,7 +11,15 @@ var sprite_width
 var velocity = Vector2()  # The enemy's movement vector.
 var multiplier = 1
 var size_increases = [0, 0, 0.1, 0.25, 0.5] # I don't like this
-# Called when the node enters the scene tree for the first time.
+
+func init(position, velocity, sprite_width, multiplier):
+	print(position, ",", velocity, ",", sprite_width, ",", multiplier)
+	self.sprite_width = sprite_width
+	self.position.x += position.x + (velocity.x * self.sprite_width)
+	self.position.y = position.y + (velocity.y * self.sprite_width)
+	self.multiplier = multiplier
+	self.velocity = velocity.normalized() * self.speed
+
 func _ready():
 	speed *= 1 + (size_increases[multiplier] / 50)
 	sprite_width *= 1 + size_increases[multiplier]
