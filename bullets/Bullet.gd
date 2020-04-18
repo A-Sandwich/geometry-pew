@@ -19,6 +19,7 @@ func init(position, velocity, sprite_width, multiplier):
 	self.position.y = position.y + (velocity.y * self.sprite_width)
 	self.multiplier = multiplier
 	self.velocity = velocity.normalized() * self.speed
+	return self
 
 func _ready():
 	speed *= 1 + (size_increases[multiplier] / 50)

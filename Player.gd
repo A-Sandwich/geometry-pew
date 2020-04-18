@@ -58,8 +58,8 @@ func process(delta):
 
 func pew(velocity):
 	if !shots_fired:
-		var pew = ROUND_BULLET.instance()
-		pew.init(position, velocity, sprite_width, multiplier)
+		var pew = ROUND_BULLET.instance().init(position, velocity, sprite_width,
+			multiplier)
 		get_parent().add_child(pew)
 		$ShotTimer.start()
 		shots_fired = true
