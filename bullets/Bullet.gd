@@ -13,12 +13,12 @@ var multiplier = 1
 var size_increases = [0, 0, 0.1, 0.25, 0.5] # I don't like this
 
 func init(position, velocity, sprite_width, multiplier):
-	print(position, ",", velocity, ",", sprite_width, ",", multiplier)
 	self.sprite_width = sprite_width
 	self.position.x += position.x + (velocity.x * self.sprite_width)
 	self.position.y = position.y + (velocity.y * self.sprite_width)
 	self.multiplier = multiplier
 	self.velocity = velocity.normalized() * self.speed
+	
 	return self
 
 func _ready():
