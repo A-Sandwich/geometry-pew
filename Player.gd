@@ -63,27 +63,20 @@ func pew(velocity):
 			var position1 = position
 			var position2 = position
 			
-			if (velocity.x != 0 && velocity.y != 0):
+			if abs(velocity.x) == 1:
+				position1.y += sprite_width / 2
+				position2.y -= sprite_width / 2
+			if abs(velocity.y) == 1:
 				position1.x += sprite_width / 2
 				position2.x -= sprite_width / 2
-				position1.y += sprite_width / 2
-				position2.y += sprite_width / 2
-			
-			if (velocity.x == 0):
-				position1.x += sprite_width
-				position2.x -= sprite_width
-			if (velocity.y == 0):
-				position1.y += sprite_width
-				position2.y -= sprite_width
-			
+
 			var pew1 = ROUND_BULLET.instance().init(position1, velocity, sprite_width,
 			multiplier)
 			var pew2 = ROUND_BULLET.instance().init(position2, velocity, sprite_width,
 			multiplier)
-			pew1.speed = 0.1
-			pew2.speed = 0.1
+			
 			get_parent().add_child(pew1)
-			#get_parent().add_child(pew2)
+			get_parent().add_child(pew2)
 		else:
 			var pew = ROUND_BULLET.instance().init(position, velocity, sprite_width,
 			multiplier)
