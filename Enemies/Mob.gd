@@ -44,7 +44,9 @@ func _process(delta):
 	process(delta)
 	
 func process(delta):
-	pass
+	if get_tree().get_nodes_in_group("Enemy").size() == 0:
+		spawn_wave()
+		$SpawnWave.start()
 
 # I should rename this. JK, refactoring sucks in the godot ide
 func spawn_wave_jr():
