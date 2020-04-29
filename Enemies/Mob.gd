@@ -22,7 +22,6 @@ func ready():
 	wave.PLAYER = PLAYER
 	screen_size = get_viewport_rect().size
 	minimum_distance_from_player = screen_size.x / 6 #todo make ratios not dependent on screen.x (Ultrawide will make life not great)
-	generate_corner_spawn_points()
 	spawn_wave()
 	spawn_power_up()
 
@@ -31,12 +30,6 @@ func spawn_power_up():
 	shield.position = Vector2(100, 100)
 	shield.MOB = self
 	get_parent().call_deferred("add_child", shield)
-
-func generate_corner_spawn_points():
-	var spacing = STAGE.stage_size.x / 8
-	corner_points = [Vector2(spacing, spacing), Vector2(spacing, STAGE.stage_size.y - spacing),
-	Vector2(STAGE.stage_size.x - spacing, STAGE.stage_size.y - spacing),
-	Vector2(STAGE.stage_size.x - spacing, spacing)]
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -48,13 +41,21 @@ func process(delta):
 		spawn_wave()
 		$SpawnWave.start()
 
+func random_map_point(player_position, sprite_width, min_distance = 25):
+	var buffer = sprite_width / 2
+	var x = COMMON.rng.randi_range(buffer, STAGE.stage_size.x - buffer)
+	var y = COMMON.rng.randi_range(buffer, STAGE.stage_size.y - buffer)
+	var location = Vector2(x, y)
+	if (location.distance_to(player_position) >= min_distance):
+		return location
+	else:
+		return random_map_point(player_position, sprite_width, min_distance)
+
 # I should rename this. JK, refactoring sucks in the godot ide
 func spawn_wave_jr():
 	var enemies = wave.enemies.pop_front()
-	var position = corner_points.pop_front()
 	for enemy in enemies:
-		enemy.position = position
-		corner_points.append(enemy.position)
+		enemy.position = random_map_point(PLAYER.position, 100)
 		get_parent().add_child(enemy)
 
 func reset():

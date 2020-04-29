@@ -52,6 +52,7 @@ func thrust(particle_node, velocity, sprite_width, position, display = true):
 func flippity_flop():
 	return rng.randi_range(0, 1) == 0
 
+# I think I need to roll my own explosion particle. Seems to cause frame drops
 func generate_explosion(position):
 		var explosion = EXPLOSION.instance()
 		explosion.position = position
