@@ -36,12 +36,15 @@ func move(delta):
 		direction = zig_zag(direction)
 	
 	velocity = direction * speed
-	position += velocity * delta
+	var temp_position = position + (velocity * delta)
 	var stage_size = get_parent().stage_size
-	if (position.x < -sprite_width or position.x > stage_size.x + sprite_width or
-		position.y < -sprite_width or position.y > stage_size.y + sprite_width):
-		visible = false
+	# I think I can use the bounce Vector2 method to avoid going off the screen.
+	if (temp_position.x < -sprite_width or temp_position.x > stage_size.x + sprite_width or
+		temp_position.y < -sprite_width or temp_position.y > stage_size.y + sprite_width):
+		#visible = false
+		pass
 	else:
+		position = temp_position
 		visible = true
 	COMMON.thrust($ThrustParticle, direction * speed * delta, sprite_width, position)
 
