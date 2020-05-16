@@ -44,11 +44,13 @@ func process(delta):
 		move(delta)
 	else:
 		$ThrustParticle.emitting = false
+		
+func get_direction_towards_player():
+	return (player_position - position).normalized()
 
 func move(delta):
 	var velocity = Vector2()  # The enemy's movement vector.
-	var direction = (player_position - position).normalized()
-	velocity = direction * speed
+	velocity = get_direction_towards_player() * speed
 	position += velocity * delta
 	
 	var stage_size = get_parent().stage_size

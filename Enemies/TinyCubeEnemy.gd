@@ -35,17 +35,16 @@ func move(delta):
 	if position.distance_to(PLAYER.position) > DISTANCE_TO_RUSH: 
 		direction = zig_zag(direction)
 	
-	velocity = direction * speed
 	var temp_position = position + (velocity * delta)
 	var stage_size = get_parent().stage_size
-	# I think I can use the bounce Vector2 method to avoid going off the screen.
-	if (temp_position.x < -sprite_width or temp_position.x > stage_size.x + sprite_width or
-		temp_position.y < -sprite_width or temp_position.y > stage_size.y + sprite_width):
-		#visible = false
-		pass
+	var double_sprite_width = sprite_width * 4
+	if (temp_position.x < sprite_width or temp_position.x > stage_size.x - sprite_width or
+		temp_position.y < sprite_width or temp_position.y > stage_size.y - sprite_width):
+		velocity = get_direction_towards_player() * speed
 	else:
-		position = temp_position
+		velocity = direction * speed
 		visible = true
+	position += velocity * delta
 	COMMON.thrust($ThrustParticle, direction * speed * delta, sprite_width, position)
 
 
