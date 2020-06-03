@@ -8,11 +8,13 @@ var TINY_CUBE_ENEMY = preload("res://Enemies/TinyCubeEnemy.tscn")
 var SHOOTING_ENEMY = preload("res://Enemies/ShootingEnemy.tscn")
 var enemy_classes = [ENEMY, DISK_ENEMY, TINY_CUBE_ENEMY, SHOOTING_ENEMY]
 
+
 var minimum_distance_from_player
 var screen_size
 var enemies = []
 var speed_increase = 0.2
 var speed_multiplier = 1
+var wave_count = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -26,6 +28,7 @@ func choose_enemy():
 	return enemy_classes[index]
 
 func generate_wave():
+	wave_count += 1
 	enemies.clear()
 	var minimum = 3
 	

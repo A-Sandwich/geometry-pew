@@ -43,7 +43,6 @@ func move(delta):
 		velocity = get_direction_towards_player() * speed
 	else:
 		velocity = direction * speed
-		visible = true
 	position += velocity * delta
 	COMMON.thrust($ThrustParticle, direction * speed * delta, sprite_width, position)
 

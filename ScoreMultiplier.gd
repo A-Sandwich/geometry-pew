@@ -19,6 +19,12 @@ signal multiplier_changed
 func _ready():
 	self.connect("multiplier_changed", get_parent().get_node("HUD"), "_on_multiplier_changed")
 
+func reset():
+	multiplier = 1
+	meter = 0
+	multiplier_index = 0
+	emit_multiplier_change()
+
 func stop_multiplier_degredation():
 	$MultiplierDegredationRate.stop()
 	$TimeToDiminish.stop()
@@ -58,7 +64,7 @@ func emit_multiplier_change():
 	var previous_threshold = 0
 	if multiplier_index > 0:
 		previous_threshold = MULTIPLIER_THRESHOLDS[multiplier_index - 1]
-	emit_signal("multiplier_changed", get_multiplier(), meter - previous_threshold, MULTIPLIER_THRESHOLDS[multiplier_index] - previous_threshold)
+	emit_signal("multiplier_changed", get_multiplier(), meter - previous_threshold, MULTIPLIER_THRESHOLDS[multiplier_index])
 
 func _on_TimeToDiminish_timeout():
 	$TimeToDiminish.stop() # Do I need to call stop() ?

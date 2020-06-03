@@ -170,6 +170,7 @@ func reset():
 	position.y = screen_size.y / 2
 	set_bombs_left()
 	self.visible = true
+	multiplier = 1
 
 func _on_BombTimer_timeout():
 	cannot_detonate = false

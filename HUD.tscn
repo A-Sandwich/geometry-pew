@@ -6,6 +6,7 @@
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node
 
+onready var SCORE_MULTIPLIER = get_parent().get_node(\"ScoreMultiplier\")
 onready var COMMON = get_node(\"/root/Common\")
 var PLAYER
 var MOB
@@ -54,6 +55,7 @@ func process(delta):
 func restart_game():
 	MOB.reset()
 	PLAYER.reset()
+	SCORE_MULTIPLIER.reset()
 	score = 0
 	$ResetTimer.start(1)
 	$SecondsLeft.visible = true
