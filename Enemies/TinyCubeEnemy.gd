@@ -6,8 +6,10 @@ var zig_zag_rotation = 0
 var ZIG_ZAG_ROTATION_MAX = 0.125
 var ZIG_ZAG_ROTATION_INCREASE = 0.08
 
-func ready():
+func _init():
 	color = Color(0.02, .9, .08)
+
+func ready():
 	sprite_width = sprite_width * 0.7
 	DISTANCE_TO_RUSH = sprite_width * 2
 

@@ -4,8 +4,10 @@ var BULLET = preload("res://bullets/EnemyBullet.tscn")
 var shooting = false
 var time_since_last_shot = 0.0
 
-func ready():
+func _init():
 	color = Color(0.7, 0, 0.7)
+
+func ready():
 	speed = 220
 	$Radar/RadarCollider.shape.radius = sprite_width * 20
 	

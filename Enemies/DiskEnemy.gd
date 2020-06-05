@@ -5,11 +5,13 @@ var dashDirection: Vector2
 var DASH_SPEED = 500
 var dash_direction = 0
 
+func _init():
+	color = Color(1, .08, .58)
+
 func _ready():
 	ready()
 
 func ready():
-	color = Color(1, .08, .58)
 	$Radar.position = Vector2(0,0)
 	point_value = 200
 

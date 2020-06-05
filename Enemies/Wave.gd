@@ -6,6 +6,7 @@ var ENEMY = preload("res://Enemies/Enemy.tscn")
 var DISK_ENEMY = preload("res://Enemies/DiskEnemy.tscn")
 var TINY_CUBE_ENEMY = preload("res://Enemies/TinyCubeEnemy.tscn")
 var SHOOTING_ENEMY = preload("res://Enemies/ShootingEnemy.tscn")
+var ENEMY_GLOW_UP = preload("res://Enemies/EnemyGlowUp.tscn")
 var enemy_classes = [ENEMY, DISK_ENEMY, TINY_CUBE_ENEMY, SHOOTING_ENEMY]
 
 
@@ -38,11 +39,12 @@ func generate_wave():
 		var enemy = choose_enemy()
 		for j in range(COMMON.rng.randi_range(minimum, minimum * 2)):
 			var new_enemy = enemy.instance()
-			
 			new_enemy.PLAYER = PLAYER
 			new_enemy.speed = COMMON.rng.randi_range(new_enemy.speed_range.x,
 				new_enemy.speed_range.y)  * speed_multiplier 
-			inner_enemies.append(new_enemy)
+			var spawn_container = ENEMY_GLOW_UP.instance()
+			spawn_container.enemy = new_enemy
+			inner_enemies.append(spawn_container)
 		minimum += 1
 		enemies.append(inner_enemies)
 	speed_multiplier += speed_increase # I assume I'll want to make a max for this eventually
