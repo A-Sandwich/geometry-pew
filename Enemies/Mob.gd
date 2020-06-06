@@ -84,4 +84,5 @@ func spawn_wave():
 		spawn_wave_jr()
 
 func _on_power_up():
-	print("POWERING UP!")
+	pass
+	#todo remove this?

@@ -39,7 +39,6 @@ func get_multiplier():
 	return multiplier_index + 1
 
 func increment_meter(enemy):
-	print("Incrementing meter")
 	meter += enemy.point_value
 	if meter > MULTIPLIER_THRESHOLDS[multiplier_index]:
 		multiplier_index = clamp (multiplier_index + 1, 0, len(MULTIPLIER_THRESHOLDS) - 1)
@@ -51,7 +50,6 @@ func decrement_meter():
 		return
 	
 	if len(get_tree().get_nodes_in_group("Enemy")) == 0:
-		print("No enemies, returning")
 		return
 
 	meter -= MULTIPLIER_DEGREDATION_AMOUNT

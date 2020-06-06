@@ -43,8 +43,6 @@ func draw_and_add_collision():
 	$CollisionShape2D.shape.set_extents(extent_vector.abs())
 
 func _on_Radar_area_entered(area):
-	if area.name != "Player":
-		print("Radar: ", area.name)
 	shooting = true
 
 func _on_Radar_area_exited(area):
