@@ -12,6 +12,8 @@ var spawn_limit = START_ENEMY_COUNT
 var minimum_distance_from_player
 var wave = WAVE.instance()
 var corner_points = []
+var wave_count = 1
+signal wave_change(wave_count)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -79,6 +81,8 @@ func spawn_wave():
 		return
 	
 	if len(wave.enemies) < 1:
+		wave_count += 1
+		emit_signal("wave_change", wave_count)
 		wave.generate_wave()
 	else:
 		spawn_wave_jr()

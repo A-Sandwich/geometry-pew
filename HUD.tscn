@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Resources/TypeFaces/dotty.regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://MultiplierMeter.gd" type="Script" id=2]
@@ -24,6 +24,7 @@ func ready():
 	PLAYER =  get_parent().get_node(\"Player\")
 	MOB =  get_parent().get_node(\"Mob\")
 	PLAYER.connect(\"bombs_left\", self, \"on_bombs_left\")
+	MOB.connect(\"wave_change\", self, \"on_wave_change\")
 	screen_size = COMMON.get_screen_size(get_parent())
 	multiplier_meter_length =  screen_size.x / 10
 	multiplier_meter_height = screen_size.y / 20
@@ -60,6 +61,8 @@ func restart_game():
 	$ResetTimer.start(1)
 	$SecondsLeft.visible = true
 	$SecondsLeft.text = str(seconds_left)
+	$Score.text = \"Score 0\"
+	on_wave_change(1)
 
 func _on_ResetTimer_timeout():
 	if seconds_left == 0:
@@ -90,6 +93,9 @@ func _on_multiplier_changed(multiplier, meter_value, meter_max):
 	var percentage = clamp((meter_value * 100) / meter_max, 0, 100)
 	$MultiplierMeter.final_val = percentage
 	PLAYER.apply_multiplier(multiplier)
+	
+func on_wave_change(wave_count):
+	$Wave.text = \"Wave \" + str(wave_count)
 "
 
 [sub_resource type="DynamicFontData" id=2]
@@ -124,6 +130,10 @@ thickness = 10
 [sub_resource type="StyleBoxLine" id=10]
 color = Color( 0.270588, 0.270588, 0.270588, 0.65098 )
 thickness = 10
+
+[sub_resource type="DynamicFont" id=11]
+size = 54
+font_data = ExtResource( 1 )
 
 [node name="HUD" type="CanvasLayer"]
 script = SubResource( 1 )
@@ -185,5 +195,14 @@ script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false,
 "_editor_description_": ""
+}
+
+[node name="Wave" type="Label" parent="."]
+margin_right = 40.0
+margin_bottom = 14.0
+custom_fonts/font = SubResource( 11 )
+text = "Wave 1"
+__meta__ = {
+"_edit_use_anchors_": false
 }
 [connection signal="timeout" from="ResetTimer" to="." method="_on_ResetTimer_timeout"]
