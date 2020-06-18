@@ -197,3 +197,7 @@ func _on_ThrustTimeout_timeout():
 func apply_multiplier(updated_multiplier):
 	multiplier = updated_multiplier
 	$ShotTimer.wait_time = SHOT_TIMER_BASE / multiplier
+
+func on_power_up(power_up_type):
+	sprite_width = sprite_width / 2
+	self.update()
