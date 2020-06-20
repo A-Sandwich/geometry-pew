@@ -1,6 +1,7 @@
 extends Node
 var MOB
 var PLAYER
+var power_up_options = []
 signal power_up(power)
 
 func _ready():
@@ -12,10 +13,20 @@ func _ready():
 	self.connect("power_up", PLAYER, "on_power_up")
 
 func on_wave_change(wave_count):
-	print("IN POWER UP SELECTION!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+	randomize_selection()
+	update_selection()
 	$Selection.visible = true
 	#if wave_count % 5 == 0:
 	get_tree().paused = true
+
+func randomize_selection():
+	power_up_options.clear()
+	power_up_options.append("Shrink")
+
+func update_selection():
+	for index in $Selection.get_child_count():
+		$Selection.get_child(index).text = power_up_options[index]
+
 
 
 func _on_OptionOne_pressed():

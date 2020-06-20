@@ -19,7 +19,7 @@ __meta__ = {
 }
 
 [node name="OptionOne" type="Button" parent="Selection"]
-margin_right = 51.0
+margin_right = 98.0
 margin_bottom = 40.0
-text = "Speed"
+text = "TEXT NOT SET"
 [connection signal="pressed" from="Selection/OptionOne" to="." method="_on_OptionOne_pressed"]

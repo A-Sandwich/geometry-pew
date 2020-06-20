@@ -19,6 +19,7 @@ var dead = false
 var motion = Vector2(0, 0)
 var shots_fired = false
 var sprite_width = 0
+var bullet_size = 0
 var screen_size
 var bombs_left = 0
 var cannot_detonate = false
@@ -42,6 +43,7 @@ func ready():
 		position.x = STAGE.stage_size.x / 2
 		position.y = STAGE.stage_size.y / 2
 		sprite_width = STAGE.stage_size.y / 200
+	bullet_size = sprite_width
 	set_bombs_left()
 	set_collision_shape()
 
@@ -58,7 +60,7 @@ func process(delta):
 
 func pew(velocity):
 	if !shots_fired:
-		var pew = ROUND_BULLET.instance().init(position, velocity, sprite_width,
+		var pew = ROUND_BULLET.instance().init(position, velocity, bullet_size,
 			multiplier)
 		get_parent().add_child(pew)
 		$ShotTimer.start()
@@ -199,5 +201,5 @@ func apply_multiplier(updated_multiplier):
 	$ShotTimer.wait_time = SHOT_TIMER_BASE / multiplier
 
 func on_power_up(power_up_type):
-	sprite_width = sprite_width / 2
+	sprite_width = sprite_width * 0.95
 	self.update()
