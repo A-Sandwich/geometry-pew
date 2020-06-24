@@ -201,5 +201,12 @@ func apply_multiplier(updated_multiplier):
 	$ShotTimer.wait_time = SHOT_TIMER_BASE / multiplier
 
 func on_power_up(power_up_type):
-	sprite_width = sprite_width * 0.95
+	print("pwer")
+	print(power_up_type)
+	if(power_up_type == "shrink"):
+		sprite_width = sprite_width * 0.9
+	elif (power_up_type == "big pew"):
+		print("biug pew")
+		bullet_size = bullet_size * 1.25
+	
 	self.update()
