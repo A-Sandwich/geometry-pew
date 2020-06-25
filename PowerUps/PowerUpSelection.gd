@@ -33,7 +33,6 @@ func randomize_selection():
 			 selection
 		)
 		now_youre_playing_with_power.erase(selection)
-		print(index)
 	for index in range($Selection.get_child_count()):
 		$Selection.get_child(index).text = randomized_power_ups[index]
 
