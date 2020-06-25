@@ -1,7 +1,7 @@
 extends Node
 var MOB
 var PLAYER
-const POWER_UP_OPTIONS = ["shrink", "big_pew"]
+const POWER_UP_OPTIONS = ["shrink", "big_pew", "extra_bomb"]
 signal power_up(power)
 
 func _ready():

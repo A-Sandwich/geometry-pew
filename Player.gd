@@ -88,6 +88,10 @@ func input(delta):
 	move(delta, velocity)
 	COMMON.thrust($ThrustParticle, velocity, sprite_width, position)
 	
+	if Input.is_action_just_pressed("jump"):
+		jump()
+		return
+	
 	velocity = Vector2(0, 0)
 	if Input.is_action_pressed("fire_right"):
 		velocity.x = Input.get_action_strength("fire_right")
@@ -102,6 +106,9 @@ func input(delta):
 	
 	if Input.is_action_just_pressed("bomb"):
 		explode()
+
+func jump():
+	pass
 
 func explode():
 	if cannot_detonate or bombs_left < 1:
