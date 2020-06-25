@@ -1,7 +1,7 @@
 extends Node
 var MOB
 var PLAYER
-var power_up_options = []
+const POWER_UP_OPTIONS = ["shrink", "big_pew"]
 signal power_up(power)
 
 func _ready():
@@ -12,25 +12,40 @@ func _ready():
 	$Selection.visible = false
 	self.connect("power_up", PLAYER, "on_power_up")
 
+func _process(delta):
+	if Input.is_action_just_pressed("power_up"):
+		on_wave_change(1)
+
 func on_wave_change(wave_count):
 	randomize_selection()
-	update_selection()
 	$Selection.visible = true
 	#if wave_count % 5 == 0:
 	get_tree().paused = true
 
 func randomize_selection():
-	power_up_options.clear()
-	power_up_options.append("Shrink")
-
-func update_selection():
-	for index in $Selection.get_child_count():
-		$Selection.get_child(index).text = power_up_options[index]
-
+	var randomized_power_ups = []
+	var now_youre_playing_with_power = POWER_UP_OPTIONS.duplicate()
+	var size = now_youre_playing_with_power.size()
+	for outer_index in  range(size):
+		var index = randi()%now_youre_playing_with_power.size()
+		var selection = now_youre_playing_with_power[index]
+		randomized_power_ups.append(
+			 selection
+		)
+		now_youre_playing_with_power.erase(selection)
+		print(index)
+	for index in range($Selection.get_child_count()):
+		$Selection.get_child(index).text = randomized_power_ups[index]
 
 
 func _on_OptionOne_pressed():
+	emit_power_up($Selection/OptionOne.text)
+
+
+func _on_OptionTwo_pressed():
+	emit_power_up($Selection/OptionTwo.text)
+	
+func emit_power_up(type):
 	get_tree().paused = false
 	$Selection.visible = false
-	var power_up_type = "smol"
-	emit_signal("power_up", power_up_type)
+	emit_signal("power_up", type.replace("_", " "))

@@ -22,4 +22,11 @@ __meta__ = {
 margin_right = 98.0
 margin_bottom = 40.0
 text = "TEXT NOT SET"
+
+[node name="OptionTwo" type="Button" parent="Selection"]
+margin_left = 102.0
+margin_right = 190.0
+margin_bottom = 40.0
+text = "Text not set"
 [connection signal="pressed" from="Selection/OptionOne" to="." method="_on_OptionOne_pressed"]
+[connection signal="pressed" from="Selection/OptionTwo" to="." method="_on_OptionTwo_pressed"]
