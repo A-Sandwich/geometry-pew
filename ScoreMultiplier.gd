@@ -19,12 +19,6 @@ signal multiplier_changed
 func _ready():
 	self.connect("multiplier_changed", get_parent().get_node("HUD"), "_on_multiplier_changed")
 
-func reset():
-	multiplier = 1
-	meter = 0
-	multiplier_index = 0
-	emit_multiplier_change()
-
 func stop_multiplier_degredation():
 	$MultiplierDegredationRate.stop()
 	$TimeToDiminish.stop()

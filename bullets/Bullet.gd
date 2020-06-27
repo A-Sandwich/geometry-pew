@@ -10,7 +10,7 @@ var pace_direction_x = 1
 var sprite_width
 var velocity = Vector2()  # The enemy's movement vector.
 var multiplier = 1
-var size_increases = [0, 0, 0.1, 0.25, 0.5] # I don't like this
+var screen_size
 
 func init(position, velocity, sprite_width, multiplier):
 	self.sprite_width = sprite_width
@@ -21,13 +21,11 @@ func init(position, velocity, sprite_width, multiplier):
 	return self
 
 func _ready():
-	speed *= 1 + (size_increases[multiplier] / 50)
-	sprite_width *= 1 + size_increases[multiplier]
+	ready()
+func ready():
+	screen_size = COMMON.get_screen_size(self) # if function call overhead is too high then set in _ready()
 
 func _process(delta):
-	var screen_size = COMMON.get_screen_size(self) # if function call overhead is too high then set in _ready()
-	if (position.x > screen_size.x || position.y > screen_size.y):
-		pass#dafuq is this?
 	move(delta)
 
 func move(delta):

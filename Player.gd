@@ -67,7 +67,6 @@ func pew(velocity):
 		shots_fired = true
 		#pew_noise()
 
-
 func pew_noise():
 	$PewNoise.play()
 
@@ -174,13 +173,6 @@ func set_bombs_left(bombs_left = DEFAULT_STARTING_BOMBS):
 	self.bombs_left = bombs_left
 	emit_signal("bombs_left", self.bombs_left)
 
-func reset():
-	position.x = screen_size.x / 2
-	position.y = screen_size.y / 2
-	set_bombs_left()
-	self.visible = true
-	multiplier = 1
-
 func _on_BombTimer_timeout():
 	cannot_detonate = false
 	$BombTimer.stop()
@@ -205,15 +197,17 @@ func _on_ThrustTimeout_timeout():
 
 func apply_multiplier(updated_multiplier):
 	multiplier = updated_multiplier
-	$ShotTimer.wait_time = SHOT_TIMER_BASE / multiplier
+	# todo balance this with power ups (I think the best solution might be to 
+	# just hardcode an array with the different times instead
+	$ShotTimer.wait_time = SHOT_TIMER_BASE * ((2 / multiplier) if multiplier > 1 else 1) # fuckin' python ternarys... am I right?
 
 func on_power_up(power_up_type):
-	print("pwer")
+	print("pwer "+power_up_type)
 	print(power_up_type)
 	if(power_up_type == "shrink"):
 		sprite_width = sprite_width * 0.9
 	elif (power_up_type == "big pew"):
-		print("biug pew")
 		bullet_size = bullet_size * 1.25
-	
+	elif (power_up_type == "fast pew"):
+		pass
 	self.update()

@@ -54,23 +54,15 @@ func process(delta):
 		restart_game()
 
 func restart_game():
-	MOB.reset()
-	PLAYER.reset()
-	SCORE_MULTIPLIER.reset()
-	score = 0
 	$ResetTimer.start(1)
 	$SecondsLeft.visible = true
 	$SecondsLeft.text = str(seconds_left)
-	$Score.text = \"Score 0\"
-	on_wave_change(1)
 
 func _on_ResetTimer_timeout():
 	if seconds_left == 0:
 		seconds_left = 3
 		$SecondsLeft.visible = false
-		MOB.start()
-		PLAYER.start()
-		$ResetTimer.stop()
+		get_tree().change_scene(\"res://Stage.tscn\")
 	else:
 		seconds_left -= 1
 	# I don't love this double comparison but I don't know if it's worth the thought to make efficient

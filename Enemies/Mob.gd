@@ -37,9 +37,12 @@ func spawn_power_up():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	process(delta)
-	
+
+func any_enemies():
+	return get_tree().get_nodes_in_group("Enemy").size() > 0
+
 func process(delta):
-	if get_tree().get_nodes_in_group("Enemy").size() == 0:
+	if not any_enemies():
 		spawn_wave()
 		$SpawnWave.start()
 
@@ -55,14 +58,13 @@ func random_map_point(player_position, sprite_width, min_distance = 25):
 
 # I should rename this. JK, refactoring sucks in the godot ide
 func spawn_wave_jr():
+	if len(wave.enemies) == 0:
+		return
+
 	var enemies = wave.enemies.pop_front()
 	for enemy in enemies:
 		enemy.position = random_map_point(PLAYER.position, 100)
 		get_parent().add_child(enemy)
-
-func reset():
-	for enemy in get_tree().get_nodes_in_group("Enemy"):
-		enemy.queue_free()
 
 func start():
 	spawn_limit = START_ENEMY_COUNT
@@ -80,7 +82,7 @@ func spawn_wave():
 	if PLAYER.dead:
 		return
 	
-	if len(wave.enemies) < 1:
+	if len(wave.enemies) < 1 and not any_enemies():
 		wave_count += 1
 		emit_signal("wave_change", wave_count)
 		wave.generate_wave()
