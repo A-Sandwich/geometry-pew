@@ -9,6 +9,7 @@ onready var COMMON = get_node("/root/Common")
 onready var STAGE = get_node("/root/Stage")
 
 signal bomb_detonated()
+signal player_death()
 signal bombs_left(amount)
 
 var DEFAULT_STARTING_BOMBS = 3
@@ -188,6 +189,7 @@ func die():
 	get_parent().add_child(explosion)
 	explosion.particles_explode = true
 	self.visible = false
+	emit_signal("player_death")
 
 func _on_ShotTimer_timeout():
 	shots_fired = false

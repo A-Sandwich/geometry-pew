@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Resources/TypeFaces/dotty.regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://MultiplierMeter.gd" type="Script" id=2]
@@ -24,6 +24,7 @@ func ready():
 	PLAYER =  get_parent().get_node(\"Player\")
 	MOB =  get_parent().get_node(\"Mob\")
 	PLAYER.connect(\"bombs_left\", self, \"on_bombs_left\")
+	PLAYER.connect(\"player_death\", self, \"on_player_death\")
 	MOB.connect(\"wave_change\", self, \"on_wave_change\")
 	screen_size = COMMON.get_screen_size(get_parent())
 	multiplier_meter_length =  screen_size.x / 10
@@ -55,6 +56,7 @@ func process(delta):
 
 func restart_game():
 	$ResetTimer.start(1)
+	$Retry.visible = false
 	$SecondsLeft.visible = true
 	$SecondsLeft.text = str(seconds_left)
 
@@ -88,6 +90,12 @@ func _on_multiplier_changed(multiplier, meter_value, meter_max):
 	
 func on_wave_change(wave_count):
 	$Wave.text = \"Wave \" + str(wave_count)
+
+func on_player_death():
+	$Retry.rect_size.x = screen_size.x
+	var position = Vector2(0, screen_size.y / 2)
+	$Retry.set_global_position(position)
+	$Retry.visible = true
 "
 
 [sub_resource type="DynamicFontData" id=2]
@@ -125,6 +133,10 @@ thickness = 10
 
 [sub_resource type="DynamicFont" id=11]
 size = 54
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=12]
+size = 72
 font_data = ExtResource( 1 )
 
 [node name="HUD" type="CanvasLayer"]
@@ -194,6 +206,17 @@ margin_right = 40.0
 margin_bottom = 14.0
 custom_fonts/font = SubResource( 11 )
 text = "Wave 1"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Retry" type="Label" parent="."]
+visible = false
+margin_right = 40.0
+margin_bottom = 14.0
+custom_fonts/font = SubResource( 12 )
+text = "Press \"r to retry!"
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
