@@ -25,6 +25,7 @@ func ready():
 	MOB =  get_parent().get_node(\"Mob\")
 	PLAYER.connect(\"bombs_left\", self, \"on_bombs_left\")
 	MOB.connect(\"wave_change\", self, \"on_wave_change\")
+	PLAYER.connect(\"player_death\", self, \"on_player_death\")
 	screen_size = COMMON.get_screen_size(get_parent())
 	multiplier_meter_length =  screen_size.x / 10
 	multiplier_meter_height = screen_size.y / 20
@@ -88,6 +89,9 @@ func _on_multiplier_changed(multiplier, meter_value, meter_max):
 	
 func on_wave_change(wave_count):
 	$Wave.text = \"Wave \" + str(wave_count)
+
+func on_player_death():
+	COMMON.save_high_score(score, null)
 "
 
 [sub_resource type="DynamicFontData" id=2]

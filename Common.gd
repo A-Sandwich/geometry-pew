@@ -57,3 +57,18 @@ func generate_explosion(position):
 		var explosion = EXPLOSION.instance()
 		explosion.position = position
 		return explosion
+
+func save_high_score(score, name):
+	print("saving...")
+	var file = File.new()
+	file.open("user://high_scores.dat", File.WRITE)
+	file.store_string(str(score))
+	file.close()
+
+func load_high_score():
+	var file = File.new()
+	file.open("user://high_scores.dat", File.READ)
+	var content = file.get_as_text()
+	file.close()
+	return content
+
