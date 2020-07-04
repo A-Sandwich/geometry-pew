@@ -31,7 +31,10 @@ func ready():
 	multiplier_position = Vector2(screen_size.x / 2 - (multiplier_meter_length / 2),
 		screen_size.y - multiplier_meter_height)
 	setup_multiplier()
-		
+	$SecondsLeft.text = str(seconds_left)
+	$SecondsLeft.visible =  true
+	$ResetTimer.start()
+
 func setup_multiplier():
 	var meter_size = Vector2(multiplier_meter_length, multiplier_meter_height * 2)
 	$MultiplierMeter.value = 0
@@ -51,18 +54,7 @@ func _process(delta):
 
 func process(delta):
 	if Input.is_action_pressed(\"restart\") and PLAYER.dead:
-		restart_game()
-
-func restart_game():
-	MOB.reset()
-	PLAYER.reset()
-	SCORE_MULTIPLIER.reset()
-	score = 0
-	$ResetTimer.start(1)
-	$SecondsLeft.visible = true
-	$SecondsLeft.text = str(seconds_left)
-	$Score.text = \"Score 0\"
-	on_wave_change(1)
+		get_tree().change_scene(\"res://Stage.tscn\")
 
 func _on_ResetTimer_timeout():
 	if seconds_left == 0:

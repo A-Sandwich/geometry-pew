@@ -26,6 +26,7 @@ func ready():
 	minimum_distance_from_player = screen_size.x / 6 #todo make ratios not dependent on screen.x (Ultrawide will make life not great)
 	spawn_wave()
 	spawn_power_up()
+	wave.generate_wave()
 
 func spawn_power_up():
 	var shield = SHIELD_POWER_UP.instance()

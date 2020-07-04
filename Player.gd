@@ -35,6 +35,7 @@ func _ready():
 	ready()
 
 func ready():
+	dead = true # this is for the countdown. (I should rename this)
 	screen_size = COMMON.get_screen_size(self)
 	if STAGE == null:
 		position.x = screen_size.x / 2
