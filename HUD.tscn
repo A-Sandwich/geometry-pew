@@ -37,6 +37,7 @@ func ready():
 	$SecondsLeft.text = str(seconds_left)
 	$SecondsLeft.visible =  true
 	$ResetTimer.start()
+	setup_high_score()
 
 func setup_high_score():
 	high_scores = COMMON.load_high_score(high_scores)

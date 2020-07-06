@@ -211,6 +211,7 @@ func on_power_up(power_up_type):
 		sprite_width = sprite_width * 0.9
 	elif (power_up_type == "big pew"):
 		bullet_size = bullet_size * 1.25
-	elif (power_up_type == "fast pew"):
-		pass
+	elif (power_up_type == "extra bomb"):
+		bombs_left += 1
+		emit_signal("bombs_left", bombs_left)
 	self.update()

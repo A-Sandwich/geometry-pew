@@ -3,6 +3,7 @@ var MOB
 var PLAYER
 const POWER_UP_OPTIONS = ["shrink", "big_pew", "extra_bomb"]
 signal power_up(power)
+var debugging = false
 
 func _ready():
 	print("Ready")
@@ -14,13 +15,15 @@ func _ready():
 
 func _process(delta):
 	if Input.is_action_just_pressed("power_up"):
+		debugging = true
 		on_wave_change(1)
 
 func on_wave_change(wave_count):
-	randomize_selection()
-	$Selection.visible = true
-	#if wave_count % 5 == 0:
-	get_tree().paused = true
+	if wave_count % 5 == 0 or debugging:
+		debugging = false
+		randomize_selection()
+		$Selection.visible = true
+		get_tree().paused = true
 
 func randomize_selection():
 	var randomized_power_ups = []
