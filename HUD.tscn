@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Resources/TypeFaces/dotty.regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://MultiplierMeter.gd" type="Script" id=2]
@@ -17,6 +17,7 @@ var multiplier_meter_height = 0
 var multiplier_position = null
 var screen_size
 var high_scores
+var current_high_score = 0
 
 func _ready():
 	ready()
@@ -36,7 +37,20 @@ func ready():
 	$SecondsLeft.text = str(seconds_left)
 	$SecondsLeft.visible =  true
 	$ResetTimer.start()
+
+func setup_high_score():
 	high_scores = COMMON.load_high_score(high_scores)
+	current_high_score = high_scores[0]['score'] if len(high_scores) > 0 else 0
+	$HighScore.rect_size = Vector2(screen_size.x, $HighScore.rect_size.y)
+	$HighScore.rect_position.y = $HighScore.rect_position.y + $Score.rect_position.y + $Score.rect_size.y
+	$HighScore.update()
+	update_high_score()
+
+func update_high_score():
+	if current_high_score > score:
+		$HighScore.text = \"High Score: \" + str(current_high_score)
+	else:
+		$HighScore.text = \"High Score: \" + str(score)
 
 func setup_multiplier():
 	var meter_size = Vector2(multiplier_meter_length, multiplier_meter_height * 2)
@@ -51,6 +65,7 @@ func setup_multiplier():
 func on_enemy_destroyed(enemy, player):
 	score += enemy.point_value
 	$Score.text = \"Score \" + str(score)
+	update_high_score()
 
 func _process(delta):
 	process(delta)
@@ -138,6 +153,10 @@ font_data = ExtResource( 1 )
 size = 72
 font_data = ExtResource( 1 )
 
+[sub_resource type="DynamicFont" id=13]
+size = 36
+font_data = ExtResource( 1 )
+
 [node name="HUD" type="CanvasLayer"]
 script = SubResource( 1 )
 
@@ -215,6 +234,16 @@ margin_right = 40.0
 margin_bottom = 14.0
 custom_fonts/font = SubResource( 12 )
 text = "Press \"r to retry!"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HighScore" type="Label" parent="."]
+margin_right = 40.0
+margin_bottom = 14.0
+custom_fonts/font = SubResource( 13 )
+text = "High Score: "
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
