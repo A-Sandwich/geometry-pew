@@ -60,10 +60,16 @@ func generate_explosion(position):
 
 func save_high_score(json):
 	print("saving...")
+	json.sort_custom(self, "sort_descending")
 	var file = File.new()
 	file.open("user://high_scores.dat", File.WRITE)
-	file.store_string(JSON.print(json))
+	file.store_string(JSON.print(json.slice(0, 9)))
 	file.close()
+
+static func sort_descending(a, b):
+		if a['score'] > b['score']:
+			return true
+		return false
 
 func load_high_score(existing_data):
 	if existing_data != null:
@@ -72,7 +78,11 @@ func load_high_score(existing_data):
 	file.open("user://high_scores.dat", File.READ)
 	var content = file.get_as_text()
 	file.close()
-	return JSON.parse(content)
+	var result = JSON.parse(content)
+	if result.get_error() != 0:
+		print("Error: " + str(file.get_error()) + ", " + file.get_error_string())
+		return []
+	return result.get_result()
 
 
 

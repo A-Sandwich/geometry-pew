@@ -36,12 +36,7 @@ func ready():
 	$SecondsLeft.text = str(seconds_left)
 	$SecondsLeft.visible =  true
 	$ResetTimer.start()
-	var result = COMMON.load_high_score(high_scores)
-	if result.get_error() == 0:
-		high_scores = result.get_result()
-	else:
-		print(\"Error: \" + str(result.get_error()))
-		high_scores = []
+	high_scores = COMMON.load_high_score(high_scores)
 
 func setup_multiplier():
 	var meter_size = Vector2(multiplier_meter_length, multiplier_meter_height * 2)
