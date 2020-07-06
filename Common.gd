@@ -58,17 +58,21 @@ func generate_explosion(position):
 		explosion.position = position
 		return explosion
 
-func save_high_score(score, name):
+func save_high_score(json):
 	print("saving...")
 	var file = File.new()
 	file.open("user://high_scores.dat", File.WRITE)
-	file.store_string(str(score))
+	file.store_string(JSON.print(json))
 	file.close()
 
-func load_high_score():
+func load_high_score(existing_data):
+	if existing_data != null:
+		return existing_data
 	var file = File.new()
 	file.open("user://high_scores.dat", File.READ)
 	var content = file.get_as_text()
 	file.close()
-	return content
+	return JSON.parse(content)
+
+
 

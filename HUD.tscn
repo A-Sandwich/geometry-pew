@@ -16,6 +16,7 @@ var multiplier_meter_length = 0
 var multiplier_meter_height = 0
 var multiplier_position = null
 var screen_size
+var high_scores
 
 func _ready():
 	ready()
@@ -35,6 +36,12 @@ func ready():
 	$SecondsLeft.text = str(seconds_left)
 	$SecondsLeft.visible =  true
 	$ResetTimer.start()
+	var result = COMMON.load_high_score(high_scores)
+	if result.get_error() == 0:
+		high_scores = result.get_result()
+	else:
+		print(\"Error: \" + str(result.get_error()))
+		high_scores = []
 
 func setup_multiplier():
 	var meter_size = Vector2(multiplier_meter_length, multiplier_meter_height * 2)
@@ -91,7 +98,8 @@ func on_wave_change(wave_count):
 	$Wave.text = \"Wave \" + str(wave_count)
 
 func on_player_death():
-	COMMON.save_high_score(score, null)
+	high_scores.append({\"score\": score, \"name\": \"place-holder\"})
+	COMMON.save_high_score(high_scores)
 "
 
 [sub_resource type="DynamicFontData" id=2]
