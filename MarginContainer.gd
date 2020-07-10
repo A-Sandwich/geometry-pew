@@ -1,11 +1,23 @@
 extends MarginContainer
 
 onready var COMMON = get_node("/root/Common")
+var screen_size
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var player = $VBoxContainer/Player
 	COMMON.thrust($VBoxContainer/Player/ThrustParticle, Vector2(1,0), player.sprite_width, player.position)
+	screen_size = player.screen_size
+	rect_size = screen_size
+	update()	
+	position_particle($VBoxContainer/Start/StartParticle, $VBoxContainer/Start)
+	position_particle($VBoxContainer/Options/OptionsParticle, $VBoxContainer/Options)
+	position_particle($VBoxContainer/Exit/ExitParticle, $VBoxContainer/Exit)
+
+func position_particle(particle, parent):
+	var particle_position = Vector2(screen_size.x/2, parent.rect_size.y / 2)
+	particle.position = particle_position
+	particle.update()
 
 func _on_StartGame_pressed():
 	get_tree().change_scene("res://Stage.tscn")
@@ -16,3 +28,31 @@ func _on_Exit_pressed():
 
 func _on_Start_pressed():
 	get_tree().change_scene("res://UI/Controls.tscn")
+
+
+func _on_Start_mouse_entered():
+	$VBoxContainer/Start/StartParticle.emitting = true
+
+
+func _on_Start_mouse_exited():
+	$VBoxContainer/Start/StartParticle.emitting = false
+
+
+func _on_Exit_mouse_entered():
+	$VBoxContainer/Exit/ExitParticle.emitting = true
+
+
+func _on_Exit_mouse_exited():
+	$VBoxContainer/Exit/ExitParticle.emitting = false
+
+
+func _on_Options_pressed():
+	pass # Replace with function body.
+
+
+func _on_Options_mouse_entered():
+	$VBoxContainer/Options/OptionsParticle.emitting = true
+
+
+func _on_Options_mouse_exited():
+	$VBoxContainer/Options/OptionsParticle.emitting = false

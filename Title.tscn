@@ -1,14 +1,31 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://MarginContainer.gd" type="Script" id=1]
 [ext_resource path="res://Resources/TypeFaces/dotty.regular.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://Player.tscn" type="PackedScene" id=3]
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.678431, 0.0901961, 0.0901961, 1 )
+
+[sub_resource type="DynamicFont" id=2]
 size = 100
 font_data = ExtResource( 2 )
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="ParticlesMaterial" id=3]
+emission_shape = 2
+emission_box_extents = Vector3( 100, 10, 1 )
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 50.0
+initial_velocity_random = 1.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 5.0
+scale_random = 1.0
+color = Color( 0.227451, 0.219608, 0.286275, 1 )
+
+[sub_resource type="DynamicFont" id=4]
 size = 100
 font_data = ExtResource( 2 )
 
@@ -28,19 +45,57 @@ alignment = 2
 [node name="Player" parent="VBoxContainer" instance=ExtResource( 3 )]
 
 [node name="Start" type="Button" parent="VBoxContainer"]
+margin_top = 487.0
+margin_right = 1280.0
+margin_bottom = 562.0
+custom_styles/hover = SubResource( 1 )
+custom_fonts/font = SubResource( 2 )
+text = "Start"
+flat = true
+
+[node name="StartParticle" type="Particles2D" parent="VBoxContainer/Start"]
+position = Vector2( 632.154, -384.666 )
+z_index = -1
+emitting = false
+amount = 100
+process_material = SubResource( 3 )
+
+[node name="Options" type="Button" parent="VBoxContainer"]
 margin_top = 566.0
 margin_right = 1280.0
 margin_bottom = 641.0
-custom_fonts/font = SubResource( 1 )
-text = "Start"
+custom_styles/hover = SubResource( 1 )
+custom_fonts/font = SubResource( 2 )
+text = "Options"
 flat = true
+
+[node name="OptionsParticle" type="Particles2D" parent="VBoxContainer/Options"]
+position = Vector2( 632.154, -384.666 )
+z_index = -1
+emitting = false
+amount = 100
+process_material = SubResource( 3 )
 
 [node name="Exit" type="Button" parent="VBoxContainer"]
 margin_top = 645.0
 margin_right = 1280.0
 margin_bottom = 720.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 4 )
 text = "Exit"
 flat = true
+
+[node name="ExitParticle" type="Particles2D" parent="VBoxContainer/Exit"]
+position = Vector2( 640.639, 39.7939 )
+z_index = -1
+emitting = false
+amount = 100
+process_material = SubResource( 3 )
+[connection signal="mouse_entered" from="VBoxContainer/Start" to="." method="_on_Start_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer/Start" to="." method="_on_Start_mouse_exited"]
 [connection signal="pressed" from="VBoxContainer/Start" to="." method="_on_Start_pressed"]
+[connection signal="mouse_entered" from="VBoxContainer/Options" to="." method="_on_Options_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer/Options" to="." method="_on_Options_mouse_exited"]
+[connection signal="pressed" from="VBoxContainer/Options" to="." method="_on_Options_pressed"]
+[connection signal="mouse_entered" from="VBoxContainer/Exit" to="." method="_on_Exit_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer/Exit" to="." method="_on_Exit_mouse_exited"]
 [connection signal="pressed" from="VBoxContainer/Exit" to="." method="_on_Exit_pressed"]

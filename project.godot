@@ -22,6 +22,7 @@ config/icon="res://icon.png"
 [autoload]
 
 Common="*res://Common.gd"
+Audio="*res://Audio.tscn"
 
 [debug]
 
@@ -30,9 +31,9 @@ shapes/collision/contact_color=Color( 1, 0.2, 0.101961, 0.8 )
 
 [display]
 
-window/size/width=1280
-window/size/height=720
-window/size/always_on_top=true
+window/size/width=1920
+window/size/height=1080
+window/size/fullscreen=true
 window/stretch/mode="2d"
 window/stretch/aspect="keep_width"
 
