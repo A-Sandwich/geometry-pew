@@ -15,7 +15,7 @@ func _ready():
 
 func _process(delta):
 	if Input.is_action_just_pressed("power_up"):
-		debugging = true
+		debugging = false
 		on_wave_change(1)
 
 func on_wave_change(wave_count):
