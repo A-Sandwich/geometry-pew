@@ -6,13 +6,17 @@ var screen_size
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var player = $VBoxContainer/Player
+	player.screen_size = Common.get_screen_size(player)
 	COMMON.thrust($VBoxContainer/Player/ThrustParticle, Vector2(1,0), player.sprite_width, player.position)
 	screen_size = player.screen_size
 	rect_size = screen_size
+	print("Screen_size", screen_size)
 	update()	
 	position_particle($VBoxContainer/Start/StartParticle, $VBoxContainer/Start)
 	position_particle($VBoxContainer/Options/OptionsParticle, $VBoxContainer/Options)
 	position_particle($VBoxContainer/Exit/ExitParticle, $VBoxContainer/Exit)
+	var ui_height = $VBoxContainer/Start.rect_size.y * 3
+	#$VBoxContainer/Player = screen_size.y - ui_height
 
 func position_particle(particle, parent):
 	var particle_position = Vector2(screen_size.x/2, parent.rect_size.y / 2)
@@ -47,7 +51,7 @@ func _on_Exit_mouse_exited():
 
 
 func _on_Options_pressed():
-	pass # Replace with function body.
+	get_tree().change_scene("res://UI/Options.tscn")
 
 
 func _on_Options_mouse_entered():

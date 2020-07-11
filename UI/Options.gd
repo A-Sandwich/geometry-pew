@@ -15,6 +15,12 @@ func _ready():
 	screen_size = COMMON.get_screen_size(self)
 	$CanvasLayer/HBoxContainer.rect_size = screen_size
 	$CanvasLayer/HBoxContainer.update()
+	$CanvasLayer/HBoxContainer/Options.rect_size = screen_size
+	$CanvasLayer/HBoxContainer/Options.update()
+	$CanvasLayer/HBoxContainer/Options/Resolutions.rect_size = Vector2(
+		screen_size.x / 3, screen_size.y / 12
+	)
+	$CanvasLayer/HBoxContainer/Options/Resolutions.update()
 	for index in range(len(resolutions)):
 		$CanvasLayer/HBoxContainer/Options/Resolutions.add_item(str(resolutions[index]), index)
 
@@ -26,4 +32,5 @@ func _on_Apply_pressed():
 		OS.set_window_size(selected_resolution)
 		get_tree().root.get_viewport().set_size(selected_resolution);
 		get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_VIEWPORT, SceneTree.STRETCH_ASPECT_EXPAND, selected_resolution);
+		COMMON.screen_size = null
 	get_tree().change_scene("res://Title.tscn")

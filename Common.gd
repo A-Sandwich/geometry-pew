@@ -24,7 +24,8 @@ func get_square_points(geometry_points, length):
 # get_viewport_rect isn't possible in the ready method of an autoload script, so we'll just check and set/return
 func get_screen_size(node):
 	if screen_size == null:
-		screen_size = node.get_viewport_rect().size
+		var visible_rect = node.get_viewport().get_visible_rect()
+		screen_size = visible_rect.end
 	return screen_size
 
 func thrust(particle_node, velocity, sprite_width, position, display = true):
