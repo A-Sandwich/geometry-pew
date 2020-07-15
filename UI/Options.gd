@@ -1,6 +1,8 @@
 extends Node2D
 
 onready var COMMON = get_node("/root/Common")
+onready var AUDIO = get_node("/root/Audio")
+
 var screen_size
 var resolutions = [
 	Vector2(7680, 4320),
@@ -23,6 +25,9 @@ func _ready():
 	$CanvasLayer/HBoxContainer/Options/Resolutions.update()
 	for index in range(len(resolutions)):
 		$CanvasLayer/HBoxContainer/Options/Resolutions.add_item(str(resolutions[index]), index)
+	$CanvasLayer/HBoxContainer/Options/MusicVolume.rect_size = Vector2(screen_size.x / 3, screen_size.y / 2)
+	$CanvasLayer/HBoxContainer/Options/MusicVolume.update()
+	print(Vector2(screen_size.x / 3, screen_size.y / 2))
 
 
 
@@ -33,4 +38,7 @@ func _on_Apply_pressed():
 		get_tree().root.get_viewport().set_size(selected_resolution);
 		get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_VIEWPORT, SceneTree.STRETCH_ASPECT_EXPAND, selected_resolution);
 		COMMON.screen_size = null
+	AUDIO.volume_db = $CanvasLayer/HBoxContainer/Options/MusicVolume.value
+
+	print("Audio"+str(AUDIO.volume_db))
 	get_tree().change_scene("res://Title.tscn")

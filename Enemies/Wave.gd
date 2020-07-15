@@ -39,6 +39,9 @@ func generate_wave():
 		var enemy = choose_enemy()
 		for j in range(COMMON.rng.randi_range(minimum, minimum * 2)):
 			var new_enemy = enemy.instance()
+			var big_chance = COMMON.rng.randi_range(1, 100)
+			if big_chance > 94:
+				new_enemy.scale = Vector2(5,5)
 			new_enemy.PLAYER = PLAYER
 			new_enemy.speed = COMMON.rng.randi_range(new_enemy.speed_range.x,
 				new_enemy.speed_range.y)  * speed_multiplier 
