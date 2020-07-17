@@ -11,18 +11,18 @@ font_data = ExtResource( 2 )
 size = 100
 font_data = ExtResource( 2 )
 
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="DynamicFont" id=3]
 size = 64
 font_data = ExtResource( 2 )
-
-[sub_resource type="DynamicFont" id=6]
-size = 64
-font_data = ExtResource( 2 )
-
-[sub_resource type="Theme" id=3]
-HSlider/colors/CustomSlider = Color( 0, 0, 0, 1 )
 
 [sub_resource type="DynamicFont" id=4]
+size = 64
+font_data = ExtResource( 2 )
+
+[sub_resource type="Theme" id=5]
+HSlider/colors/CustomSlider = Color( 0, 0, 0, 1 )
+
+[sub_resource type="DynamicFont" id=6]
 size = 100
 font_data = ExtResource( 2 )
 
@@ -64,21 +64,21 @@ text = "Resolutions"
 margin_top = 127.0
 margin_right = 393.0
 margin_bottom = 179.0
-custom_fonts/font = SubResource( 5 )
-text = "Infininte Lives"
+custom_fonts/font = SubResource( 3 )
+text = "Infinite Lives"
 
 [node name="BlackAndWhiteMode" type="CheckBox" parent="CanvasLayer/HBoxContainer/Options"]
 margin_top = 183.0
 margin_right = 393.0
 margin_bottom = 235.0
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 4 )
 text = "Black and White Mode"
 
 [node name="MusicVolume" type="HSlider" parent="CanvasLayer/HBoxContainer/Options"]
 margin_top = 239.0
 margin_right = 393.0
 margin_bottom = 255.0
-theme = SubResource( 3 )
+theme = SubResource( 5 )
 min_value = -80.0
 max_value = 0.0
 rounded = true
@@ -90,7 +90,7 @@ __meta__ = {
 margin_top = 259.0
 margin_right = 393.0
 margin_bottom = 334.0
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 6 )
 text = "Apply Changes"
 [connection signal="toggled" from="CanvasLayer/HBoxContainer/Options/InfiniteLives" to="." method="_on_InfiniteLives_toggled"]
 [connection signal="toggled" from="CanvasLayer/HBoxContainer/Options/BlackAndWhiteMode" to="." method="_on_BlackAndWhiteMode_toggled"]
