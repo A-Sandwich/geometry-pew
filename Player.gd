@@ -44,7 +44,7 @@ func ready():
 	else:
 		position.x = STAGE.stage_size.x / 2
 		position.y = STAGE.stage_size.y / 2
-		sprite_width = STAGE.stage_size.y / 200
+		sprite_width = screen_size.y / 100
 	bullet_size = sprite_width
 	set_bombs_left()
 	set_collision_shape()
@@ -185,10 +185,9 @@ func _on_Player_area_entered(area):
 		die()
 
 func die():
+	if COMMON.infinite_lives:
+		return
 	dead = true
-	var explosion = COMMON.generate_explosion(position)
-	get_parent().add_child(explosion)
-	explosion.particles_explode = true
 	self.visible = false
 	emit_signal("player_death")
 

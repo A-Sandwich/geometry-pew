@@ -1,6 +1,6 @@
 extends Node2D
 
-export var stage_size = Vector2(1920, 1080)
+var stage_size = Vector2(4000, 2200)
 
 var color = Color(255, 255, 255)
 
@@ -25,6 +25,5 @@ func _draw():
 	var geometry_points = PoolVector2Array()
 	
 	geometry_points = get_rectangle_points(geometry_points)
-
 	for index_point in range(geometry_points.size() - 1):
 		draw_line(geometry_points[index_point], geometry_points[index_point + 1], color)

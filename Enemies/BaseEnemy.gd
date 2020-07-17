@@ -62,6 +62,8 @@ func move(delta):
 	COMMON.thrust($ThrustParticle, velocity, sprite_width, position)
 
 func _draw():
+	if COMMON.black_and_white:
+		color = Color(1, 1, 1)
 	draw_and_add_collision()
 
 func draw_and_add_collision():
@@ -84,8 +86,6 @@ func die(area):
 	remove_from_group("Enemy")
 	death_point_display()
 	var explosion = COMMON.generate_explosion(position)
-	get_parent().add_child(explosion)
-	explosion.particles_explode = true
 	self.queue_free()
 
 func on_bomb_detonated():

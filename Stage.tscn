@@ -33,7 +33,6 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_horizontal_guides_": [ -398.396 ]
 }
-stage_size = Vector2( 2000, 2000 )
 
 [node name="HUD" parent="." instance=ExtResource( 2 )]
 
