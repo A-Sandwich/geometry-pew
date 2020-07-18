@@ -1,32 +1,62 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://PowerUps/PowerUpSelection.gd" type="Script" id=1]
+[ext_resource path="res://Resources/TypeFaces/dotty.regular.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://UI/Background.tscn" type="PackedScene" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 100
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 64
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 64
+font_data = ExtResource( 2 )
 
 [node name="PowerUpScreen" type="CanvasLayer"]
 pause_mode = 2
 script = ExtResource( 1 )
 
-[node name="Selection" type="HBoxContainer" parent="."]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 margin_right = 40.0
 margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Select" type="Label" parent="VBoxContainer"]
+margin_right = 504.0
+margin_bottom = 69.0
+custom_fonts/font = SubResource( 1 )
+text = "Select an upgrade!"
+align = 1
+
+[node name="Selection" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 73.0
+margin_right = 504.0
+margin_bottom = 123.0
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="OptionOne" type="Button" parent="Selection"]
-margin_right = 98.0
-margin_bottom = 40.0
+[node name="OptionOne" type="Button" parent="VBoxContainer/Selection"]
+margin_right = 268.0
+margin_bottom = 50.0
+custom_fonts/font = SubResource( 2 )
 text = "TEXT NOT SET"
 
-[node name="OptionTwo" type="Button" parent="Selection"]
-margin_left = 102.0
-margin_right = 190.0
-margin_bottom = 40.0
+[node name="OptionTwo" type="Button" parent="VBoxContainer/Selection"]
+margin_left = 272.0
+margin_right = 504.0
+margin_bottom = 50.0
+custom_fonts/font = SubResource( 3 )
 text = "Text not set"
-[connection signal="pressed" from="Selection/OptionOne" to="." method="_on_OptionOne_pressed"]
-[connection signal="pressed" from="Selection/OptionTwo" to="." method="_on_OptionTwo_pressed"]
+
+[node name="Background" parent="." instance=ExtResource( 3 )]
+visible = true
+[connection signal="pressed" from="VBoxContainer/Selection/OptionOne" to="." method="_on_OptionOne_pressed"]
+[connection signal="pressed" from="VBoxContainer/Selection/OptionTwo" to="." method="_on_OptionTwo_pressed"]

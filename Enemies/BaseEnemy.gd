@@ -76,9 +76,14 @@ func _on_area_entered(area):
 	elif "Player" in area.name:
 		if !PLAYER.thrusting:
 			area.die()
+	else: # only bullets
+		get_parent().remove_child(area)
+	print(area.name)
 	die(area)
 
-func _On_Enemy_Area_Entered():
+func _On_Enemy_Area_Entered(area):
+	print("On ENEMY AREA ENTERED?")
+	push_error("I don't know if this is ever called")
 	die(null)
 
 func die(area):

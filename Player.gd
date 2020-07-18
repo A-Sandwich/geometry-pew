@@ -181,7 +181,8 @@ func _on_BombTimer_timeout():
 
 func _on_Player_area_entered(area):
 	color = Color(.03, 0.5, 1)
-	if area.name == "EnemyBullet" and !thrusting:
+	print("Player area entered " + area.name)
+	if "EnemyBullet" in area.name and !thrusting:
 		die()
 
 func die():

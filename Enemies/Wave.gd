@@ -8,7 +8,7 @@ var TINY_CUBE_ENEMY = preload("res://Enemies/TinyCubeEnemy.tscn")
 var SHOOTING_ENEMY = preload("res://Enemies/ShootingEnemy.tscn")
 var ENEMY_GLOW_UP = preload("res://Enemies/EnemyGlowUp.tscn")
 var enemy_classes = [ENEMY, DISK_ENEMY, TINY_CUBE_ENEMY, SHOOTING_ENEMY]
-
+var minimum = 3
 
 var minimum_distance_from_player
 var screen_size
@@ -31,10 +31,9 @@ func choose_enemy():
 func generate_wave():
 	wave_count += 1
 	enemies.clear()
-	var minimum = 10
 	
 	# generate a stack that we can just pop each time we spawn a wave
-	for i in range(COMMON.rng.randi_range(3, 10)):
+	for i in range(COMMON.rng.randi_range(3, 5)):
 		var inner_enemies = []
 		for j in range(COMMON.rng.randi_range(minimum, minimum * 2)):
 			var enemy = choose_enemy()
@@ -48,6 +47,6 @@ func generate_wave():
 			var spawn_container = ENEMY_GLOW_UP.instance()
 			spawn_container.enemy = new_enemy
 			inner_enemies.append(spawn_container)
-		minimum += 1
 		enemies.append(inner_enemies)
+	minimum += 1
 	speed_multiplier += speed_increase # I assume I'll want to make a max for this eventually

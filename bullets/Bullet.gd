@@ -55,7 +55,7 @@ func _on_Bullet_area_entered(area):
 	on_bullet_area_entered(area)
 
 func on_bullet_area_entered(area):
-	#print("bullet Area entered "+ str(OS.get_ticks_msec()) + " " + area.name)
+	print("bullet Area entered "+ str(OS.get_ticks_msec()) + " " + area.name)
 	if area.name != "Radar":
 		speed = 0
 		self.queue_free()
