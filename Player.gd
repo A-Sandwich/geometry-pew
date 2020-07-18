@@ -1,7 +1,6 @@
 extends Area2D
 
 const SPEED = 550
-const FULL_ENERGY = 225
 const ENERGY_DEPLETION_MULTIPLIER = 100
 const ENERGY_RECHARGE_MULTIPLIER = 10
 
@@ -12,6 +11,7 @@ signal bomb_detonated()
 signal player_death()
 signal bombs_left(amount)
 
+var FULL_ENERGY = 225
 var DEFAULT_STARTING_BOMBS = 3
 var BULLET = preload("res://bullets/Bullet.tscn")
 var ROUND_BULLET = preload("res://bullets/RoundBullet.tscn")
@@ -203,15 +203,17 @@ func apply_multiplier(updated_multiplier):
 	# todo balance this with power ups (I think the best solution might be to 
 	# just hardcode an array with the different times instead
 	$ShotTimer.wait_time = SHOT_TIMER_BASE * ((2 / multiplier) if multiplier > 1 else 1) # fuckin' python ternarys... am I right?
-
+const POWER_UP_OPTIONS = ["shrink_ship", "increase_bullet_size", "extra_bomb", "longer_boost"]
 func on_power_up(power_up_type):
 	print("pwer "+power_up_type)
 	print(power_up_type)
-	if(power_up_type == "shrink"):
+	if power_up_type == "shrink ship":
 		sprite_width = sprite_width * 0.9
-	elif (power_up_type == "big pew"):
+	elif power_up_type == "increase bullet size":
 		bullet_size = bullet_size * 1.25
-	elif (power_up_type == "extra bomb"):
+	elif power_up_type == "extra bomb":
 		bombs_left += 1
 		emit_signal("bombs_left", bombs_left)
+	elif power_up_type == "longer_boost":
+		FULL_ENERGY += 50
 	self.update()

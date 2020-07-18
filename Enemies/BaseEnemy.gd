@@ -17,6 +17,8 @@ var point_value = 100
 var speed = 200
 var speed_range = Vector2(50, 225)
 var sprite_width
+var requires_multiple_hits = false
+var extra_hits = 15
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -29,6 +31,10 @@ func _ready():
 	sprite_width = COMMON.get_screen_size(self).x / 100
 	player_position = COMMON.get_screen_size(self) / 2
 	stage_size = STAGE.stage_size
+	if scale.x > 1:
+		requires_multiple_hits = true
+		point_value *= extra_hits
+	print("Requires multiple hits: "+str(requires_multiple_hits))
 	ready()
 
 func ready():
@@ -71,27 +77,43 @@ func draw_and_add_collision():
 	push_error("Not implemented")
 
 func _on_area_entered(area):
+	var free_from_queue = false
 	if "Radar" in area.name:
 		return
 	elif "Player" in area.name:
 		if !PLAYER.thrusting:
 			area.die()
+		if requires_multiple_hits:
+			decrement_hits()
+	elif requires_multiple_hits:
+		decrement_hits()
+		free_from_queue = true
 	else: # only bullets
 		get_parent().remove_child(area)
-	print(area.name)
-	die(area)
+	
+	die(area, free_from_queue)
+
+func decrement_hits():
+	extra_hits -= 1
+	color.r += 0.1
+	color.g += 0.1
+	color.b += 0.1
+	update()
 
 func _On_Enemy_Area_Entered(area):
 	print("On ENEMY AREA ENTERED?")
 	push_error("I don't know if this is ever called")
 	die(null)
 
-func die(area):
-	emit_signal("bullet_destroyed_enemy", self, area)
-	remove_from_group("Enemy")
-	death_point_display()
+func die(area, free_from_queue = true):
 	var explosion = COMMON.generate_explosion(position)
-	self.queue_free()
+	if free_from_queue and area != null:
+		area.queue_free()
+	if !requires_multiple_hits or extra_hits < 1:
+		emit_signal("bullet_destroyed_enemy", self, area)
+		remove_from_group("Enemy")
+		death_point_display()
+		self.queue_free()
 
 func on_bomb_detonated():
 	die(null)

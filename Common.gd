@@ -4,6 +4,7 @@ var rng = RandomNumberGenerator.new()
 var screen_size
 var infinite_lives = false
 var black_and_white = false
+var EXPLOSION = preload("res://Effects/Explosion.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -56,7 +57,9 @@ func flippity_flop():
 
 # I think I need to roll my own explosion particle. Seems to cause frame drops
 func generate_explosion(position):
-	pass
+	var explosion = EXPLOSION.instance()
+	explosion.position = position
+	get_parent().add_child(explosion)
 
 func save_high_score(json):
 	print("saving...")
