@@ -28,8 +28,10 @@ func _ready():
 		resolutions.append(screen_size)
 	for index in range(len(resolutions)):
 		$CanvasLayer/HBoxContainer/Options/Resolutions.add_item(str(resolutions[index]), index)
-	$CanvasLayer/HBoxContainer/Options/MusicVolume.rect_size = Vector2(screen_size.x / 3, screen_size.y / 2)
-	$CanvasLayer/HBoxContainer/Options/MusicVolume.update()
+	$CanvasLayer/HBoxContainer/Options/VoluemControl.rect_size = Vector2(screen_size.x / 3, screen_size.y / 2)
+	$CanvasLayer/HBoxContainer/Options/VoluemControl.update()
+	$CanvasLayer/HBoxContainer/Options/VoluemControl/MusicVolume.rect_size = Vector2(1000, screen_size.y / 2)
+	$CanvasLayer/HBoxContainer/Options/VoluemControl/MusicVolume.update()
 
 	resolution_index = resolutions.find(screen_size)
 	if resolution_index > -1:
