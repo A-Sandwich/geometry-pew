@@ -23,10 +23,17 @@ func _ready():
 		screen_size.x / 3, screen_size.y / 12
 	)
 	$CanvasLayer/HBoxContainer/Options/Resolutions.update()
+	var resolution_index = resolutions.find(screen_size)
+	if resolution_index < 0 and screen_size != null:
+		resolutions.append(screen_size)
 	for index in range(len(resolutions)):
 		$CanvasLayer/HBoxContainer/Options/Resolutions.add_item(str(resolutions[index]), index)
 	$CanvasLayer/HBoxContainer/Options/MusicVolume.rect_size = Vector2(screen_size.x / 3, screen_size.y / 2)
 	$CanvasLayer/HBoxContainer/Options/MusicVolume.update()
+
+	resolution_index = resolutions.find(screen_size)
+	if resolution_index > -1:
+		$CanvasLayer/HBoxContainer/Options/Resolutions.select(resolution_index)
 
 
 
@@ -38,13 +45,12 @@ func _on_Apply_pressed():
 		get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_VIEWPORT, SceneTree.STRETCH_ASPECT_EXPAND, selected_resolution);
 		COMMON.screen_size = null
 	AUDIO.volume_db = $CanvasLayer/HBoxContainer/Options/MusicVolume.value
-	COMMON.black_and_white = $CanvasLayer/HBoxContainer/Options/BlackAndWhiteMode.toggle_mode
 	get_tree().change_scene("res://Title.tscn")
 
 
 func _on_InfiniteLives_toggled(button_pressed):
-	COMMON.infinite_lives = $CanvasLayer/HBoxContainer/Options/InfiniteLives.toggle_mode
+	COMMON.infinite_lives = button_pressed
 
 
 func _on_BlackAndWhiteMode_toggled(button_pressed):
-	COMMON.black_and_white = $CanvasLayer/HBoxContainer/Options/BlackAndWhiteMode.toggle_mode
+	COMMON.black_and_white = button_pressed

@@ -149,6 +149,8 @@ func thrust(delta):
 	return speed
 
 func _draw():
+	if COMMON.black_and_white:
+		color = Color(1, 1, 1)
 	var geometry_points = PoolVector2Array()
 	geometry_points = COMMON.get_square_points(geometry_points, sprite_width)
 	for index_point in range(geometry_points.size() - 1):
