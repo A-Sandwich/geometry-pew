@@ -1,8 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://PowerUps/PowerUpSelection.gd" type="Script" id=1]
 [ext_resource path="res://Resources/TypeFaces/dotty.regular.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://UI/Background.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Resources/Images/shrink-ship.png" type="Texture" id=4]
+[ext_resource path="res://Resources/Images/increase-bullet-size.png" type="Texture" id=5]
 
 [sub_resource type="DynamicFont" id=1]
 size = 100
@@ -16,19 +18,27 @@ font_data = ExtResource( 2 )
 size = 64
 font_data = ExtResource( 2 )
 
-[node name="PowerUpScreen" type="CanvasLayer"]
+[node name="PowerUpScreen" type="MarginContainer"]
 pause_mode = 2
+margin_left = 100.0
+margin_top = 100.0
+margin_right = 100.0
+margin_bottom = 100.0
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
+margin_right = 1874.0
+margin_bottom = 1125.0
+alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Select" type="Label" parent="VBoxContainer"]
-margin_right = 504.0
+margin_right = 1874.0
 margin_bottom = 69.0
 custom_fonts/font = SubResource( 1 )
 text = "Select an upgrade!"
@@ -36,27 +46,59 @@ align = 1
 
 [node name="Selection" type="HBoxContainer" parent="VBoxContainer"]
 margin_top = 73.0
-margin_right = 504.0
-margin_bottom = 123.0
+margin_right = 1874.0
+margin_bottom = 1125.0
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="OptionOne" type="Button" parent="VBoxContainer/Selection"]
-margin_right = 268.0
-margin_bottom = 50.0
+[node name="OptionOne" type="VBoxContainer" parent="VBoxContainer/Selection"]
+margin_right = 871.0
+margin_bottom = 1052.0
+alignment = 1
+
+[node name="OptionOneImage" type="TextureRect" parent="VBoxContainer/Selection/OptionOne"]
+margin_top = 59.0
+margin_right = 871.0
+margin_bottom = 939.0
+size_flags_horizontal = 3
+size_flags_vertical = 5
+texture = ExtResource( 5 )
+stretch_mode = 4
+
+[node name="OptionOne" type="Button" parent="VBoxContainer/Selection/OptionOne"]
+margin_top = 943.0
+margin_right = 871.0
+margin_bottom = 993.0
 custom_fonts/font = SubResource( 2 )
 text = "TEXT NOT SET"
 
-[node name="OptionTwo" type="Button" parent="VBoxContainer/Selection"]
-margin_left = 272.0
-margin_right = 504.0
-margin_bottom = 50.0
+[node name="OptionTwo" type="VBoxContainer" parent="VBoxContainer/Selection"]
+margin_left = 875.0
+margin_right = 1874.0
+margin_bottom = 1052.0
+alignment = 1
+
+[node name="OptionTwoImage" type="TextureRect" parent="VBoxContainer/Selection/OptionTwo"]
+margin_right = 999.0
+margin_bottom = 998.0
+size_flags_horizontal = 7
+size_flags_vertical = 5
+texture = ExtResource( 4 )
+stretch_mode = 4
+
+[node name="OptionTwo2" type="Button" parent="VBoxContainer/Selection/OptionTwo"]
+margin_top = 1002.0
+margin_right = 999.0
+margin_bottom = 1052.0
 custom_fonts/font = SubResource( 3 )
 text = "Text not set"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Background" parent="." instance=ExtResource( 3 )]
 visible = true
-[connection signal="pressed" from="VBoxContainer/Selection/OptionOne" to="." method="_on_OptionOne_pressed"]
-[connection signal="pressed" from="VBoxContainer/Selection/OptionTwo" to="." method="_on_OptionTwo_pressed"]
+[connection signal="pressed" from="VBoxContainer/Selection/OptionOne/OptionOne" to="." method="_on_OptionOne_pressed"]
+[connection signal="pressed" from="VBoxContainer/Selection/OptionTwo/OptionTwo2" to="." method="_on_OptionTwo_pressed"]
