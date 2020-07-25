@@ -1,10 +1,12 @@
 extends MarginContainer
 onready var COMMON = get_node("/root/Common")
+onready var PAUSE_MENU = get_node("/root/Stage/PauseMenu")
+onready var BACKGROUND = get_node("/root/Stage/BackgroundCanvas/Background")
 onready var option_one = $VBoxContainer/HBoxContainer/OptionOne
 onready var option_two = $VBoxContainer/HBoxContainer/OptionTwo
 onready var size = get_viewport().get_visible_rect().size
 onready var quarter_x = size.x / 4
-onready var twentieth_Y = size.y / 20
+onready var twentieth_Y = size.y / 10
 var shrink_ship_texture = preload("res://Resources/Images/shrink-ship.png")
 var increase_bullet_size = preload("res://Resources/Images/increase-bullet-size.png")
 var extra_bomb = preload("res://Resources/Images/Bomb.png")
@@ -37,6 +39,7 @@ var POWER_UP_OPTIONS = [ # Consider moving this to it's own json file or class t
 ]
 
 func _ready():
+	visible = false
 	update_texture_size(option_one.get_child(0), quarter_x)
 	update_texture_size(option_two.get_child(0), quarter_x)
 	margin_top = twentieth_Y
@@ -50,6 +53,8 @@ func _process(delta):
 		start_selection()
 
 func start_selection():
+	print("powerup selection pause")
+	BACKGROUND.visible = true
 	update()
 	randomize_options()
 	visible = true
@@ -76,14 +81,23 @@ func update_option(option, content):
 		elif child.name == "SelectOption":
 			pass
 
+func resume():
+	if PAUSE_MENU.is_visible():
+		return
+	visible = false
+	BACKGROUND.visible = false
+	get_tree().paused = false
+	print("powerup selection unpause")
+
 func _on_SelectOptionOne_pressed():
 	emit_power_up_and_cleanup(POWER_UP_OPTIONS[option_one_content_index]["name"])
-
 
 func _on_SelectOptionTwo_pressed():
 	emit_power_up_and_cleanup(POWER_UP_OPTIONS[option_two_content_index]["name"])
 
 func emit_power_up_and_cleanup(power_up_name):
 	emit_signal("power_up", power_up_name.replace("_", " "))
-	visible = false
-	get_tree().paused = false
+	resume()
+
+func _on_Cancel_pressed():
+	resume()

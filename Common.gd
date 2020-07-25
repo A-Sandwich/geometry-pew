@@ -87,5 +87,5 @@ func load_high_score(existing_data):
 		return []
 	return result.get_result()
 
-
-
+func get_player_width(node):
+	return get_screen_size(node).y / 100

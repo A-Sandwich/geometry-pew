@@ -44,7 +44,7 @@ func ready():
 	else:
 		position.x = STAGE.stage_size.x / 2
 		position.y = STAGE.stage_size.y / 2
-		sprite_width = screen_size.y / 100
+		sprite_width = COMMON.get_player_width(self)
 		POWERUP_SELECTION.connect("power_up", self, "on_power_up")
 	bullet_size = sprite_width
 	set_bombs_left()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Resources/Images/shrink-ship.png" type="Texture" id=1]
 [ext_resource path="res://Resources/TypeFaces/dotty.regular.ttf" type="DynamicFontData" id=2]
@@ -17,9 +17,12 @@ font_data = ExtResource( 2 )
 size = 64
 font_data = ExtResource( 2 )
 
+[sub_resource type="DynamicFont" id=4]
+size = 64
+font_data = ExtResource( 2 )
+
 [node name="MarginContainer" type="MarginContainer"]
 pause_mode = 2
-visible = false
 script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -27,7 +30,7 @@ __meta__ = {
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 margin_right = 450.0
-margin_bottom = 428.0
+margin_bottom = 528.0
 custom_constants/separation = 50
 
 [node name="Label" type="Label" parent="VBoxContainer"]
@@ -103,5 +106,13 @@ margin_right = 200.0
 margin_bottom = 334.0
 custom_fonts/font = SubResource( 3 )
 text = "Select"
+
+[node name="Cancel" type="Button" parent="VBoxContainer"]
+margin_top = 478.0
+margin_right = 450.0
+margin_bottom = 528.0
+custom_fonts/font = SubResource( 4 )
+text = "Don't select a powerup"
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/OptionOne/SelectOptionOne" to="." method="_on_SelectOptionOne_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/OptionTwo/SelectOptionTwo" to="." method="_on_SelectOptionTwo_pressed"]
+[connection signal="pressed" from="VBoxContainer/Cancel" to="." method="_on_Cancel_pressed"]

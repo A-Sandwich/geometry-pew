@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Stage.gd" type="Script" id=1]
 [ext_resource path="res://HUD.tscn" type="PackedScene" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://PauseNode.gd" type="Script" id=6]
 [ext_resource path="res://UI/PowerUpSelection.tscn" type="PackedScene" id=7]
 [ext_resource path="res://UI/PauseMenu.tscn" type="PackedScene" id=8]
+[ext_resource path="res://UI/Background.tscn" type="PackedScene" id=9]
 
 [sub_resource type="ParticlesMaterial" id=1]
 emission_shape = 1
@@ -39,6 +40,7 @@ __meta__ = {
 [node name="MarginContainer" parent="PowerUpSelection" instance=ExtResource( 7 )]
 
 [node name="HUD" parent="." instance=ExtResource( 2 )]
+layer = -1
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
 
@@ -72,3 +74,8 @@ pause_mode = 2
 script = ExtResource( 6 )
 
 [node name="PauseMenu" parent="." instance=ExtResource( 8 )]
+
+[node name="BackgroundCanvas" type="CanvasLayer" parent="."]
+layer = 0
+
+[node name="Background" parent="BackgroundCanvas" instance=ExtResource( 9 )]
