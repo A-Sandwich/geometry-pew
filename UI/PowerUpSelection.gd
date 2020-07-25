@@ -53,7 +53,6 @@ func _process(delta):
 		start_selection()
 
 func start_selection():
-	print("powerup selection pause")
 	BACKGROUND.visible = true
 	update()
 	randomize_options()
@@ -87,7 +86,6 @@ func resume():
 	visible = false
 	BACKGROUND.visible = false
 	get_tree().paused = false
-	print("powerup selection unpause")
 
 func _on_SelectOptionOne_pressed():
 	emit_power_up_and_cleanup(POWER_UP_OPTIONS[option_one_content_index]["name"])

@@ -10,7 +10,6 @@ func _ready():
 	COMMON.thrust($VBoxContainer/Player/ThrustParticle, Vector2(1,0), player.sprite_width, player.position)
 	screen_size = player.screen_size
 	rect_size = screen_size
-	print("Screen_size", screen_size)
 	update()	
 	position_particle($VBoxContainer/Start/StartParticle, $VBoxContainer/Start)
 	position_particle($VBoxContainer/Options/OptionsParticle, $VBoxContainer/Options)

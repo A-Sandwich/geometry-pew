@@ -14,9 +14,6 @@ func toggle_visible():
 	if !POWERUP.visible:
 		is_paused = not is_paused
 		get_tree().paused = is_paused
-		print("Toggling")
-	else:
-		print("Not toggling")
 	$Menu.visible = !$Menu.visible
 
 func init(screen_size):

@@ -46,7 +46,7 @@ func _on_Apply_pressed():
 		get_tree().root.get_viewport().set_size(selected_resolution);
 		get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_VIEWPORT, SceneTree.STRETCH_ASPECT_EXPAND, selected_resolution);
 		COMMON.screen_size = null
-	AUDIO.volume_db = $CanvasLayer/HBoxContainer/Options/MusicVolume.value
+	AUDIO.volume_db = $CanvasLayer/HBoxContainer/Options/VoluemControl/MusicVolume.value
 	get_tree().change_scene("res://Title.tscn")
 
 
