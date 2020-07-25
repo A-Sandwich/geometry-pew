@@ -47,6 +47,7 @@ func ready():
 	$Wave.update()
 	$SecondsLeft.rect_size = Vector2(screen_size.x, screen_size.y - (COMMON.get_player_width(null) * 8))
 	$SecondsLeft.update()
+	$Retry.rect_size = screen_size
 
 func setup_high_score():
 	high_scores = COMMON.load_high_score(high_scores)
@@ -120,6 +121,7 @@ func on_wave_change(wave_count):
 func on_player_death():
 	high_scores.append({\"score\": score, \"name\": \"place-holder\"})
 	COMMON.save_high_score(high_scores)
+	$Retry.visible = true
 "
 
 [sub_resource type="DynamicFontData" id=2]
@@ -243,8 +245,9 @@ visible = false
 margin_right = 40.0
 margin_bottom = 14.0
 custom_fonts/font = SubResource( 12 )
-text = "Press \"r to retry!"
+text = "Press r or select to retry!"
 align = 1
+valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
