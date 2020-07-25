@@ -1,0 +1,120 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://UI/Credits.gd" type="Script" id=1]
+[ext_resource path="res://Resources/TypeFaces/dotty.regular.ttf" type="DynamicFontData" id=2]
+
+[sub_resource type="DynamicFont" id=8]
+size = 150
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=1]
+size = 80
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 100
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 80
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 100
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 80
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=6]
+size = 100
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=7]
+size = 80
+font_data = ExtResource( 2 )
+
+[node name="Credits" type="MarginContainer"]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_right = 40.0
+margin_bottom = 7902.0
+custom_constants/separation = 20
+
+[node name="Game Title" type="Label" parent="VBoxContainer"]
+margin_right = 40.0
+margin_bottom = 1495.0
+custom_fonts/font = SubResource( 8 )
+text = "Geometry Pew"
+align = 1
+autowrap = true
+
+[node name="Author" type="Label" parent="VBoxContainer"]
+margin_top = 1515.0
+margin_right = 40.0
+margin_bottom = 2034.0
+custom_fonts/font = SubResource( 1 )
+text = "Created by"
+align = 1
+autowrap = true
+
+[node name="Kyle Burkholder" type="Label" parent="VBoxContainer"]
+margin_top = 2054.0
+margin_right = 40.0
+margin_bottom = 3059.0
+custom_fonts/font = SubResource( 2 )
+text = "Kyle Burkholder"
+align = 1
+autowrap = true
+
+[node name="Music" type="Label" parent="VBoxContainer"]
+margin_top = 3079.0
+margin_right = 40.0
+margin_bottom = 3424.0
+custom_fonts/font = SubResource( 3 )
+text = "Music By"
+align = 1
+autowrap = true
+
+[node name="Michael Plourde" type="Label" parent="VBoxContainer"]
+margin_top = 3444.0
+margin_right = 40.0
+margin_bottom = 4449.0
+custom_fonts/font = SubResource( 4 )
+text = "Michael Plourde"
+align = 1
+autowrap = true
+
+[node name="Font" type="Label" parent="VBoxContainer"]
+margin_top = 4469.0
+margin_right = 40.0
+margin_bottom = 4930.0
+custom_fonts/font = SubResource( 5 )
+text = "Typeface"
+align = 1
+autowrap = true
+
+[node name="Creators Name" type="Label" parent="VBoxContainer"]
+margin_top = 4950.0
+margin_right = 40.0
+margin_bottom = 5739.0
+custom_fonts/font = SubResource( 6 )
+text = "Kevin Richey"
+align = 1
+autowrap = true
+
+[node name="link" type="Label" parent="VBoxContainer"]
+margin_top = 5759.0
+margin_right = 40.0
+margin_bottom = 7902.0
+custom_fonts/font = SubResource( 7 )
+text = "https://www.1001fonts.com/dotty-font.html"
+align = 1
+autowrap = true

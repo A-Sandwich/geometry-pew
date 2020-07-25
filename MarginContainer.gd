@@ -10,12 +10,14 @@ func _ready():
 	COMMON.thrust($VBoxContainer/Player/ThrustParticle, Vector2(1,0), player.sprite_width, player.position)
 	screen_size = player.screen_size
 	rect_size = screen_size
-	update()	
+	
 	position_particle($VBoxContainer/Start/StartParticle, $VBoxContainer/Start)
 	position_particle($VBoxContainer/Options/OptionsParticle, $VBoxContainer/Options)
+	position_particle($VBoxContainer/Credits/CreditsParticle, $VBoxContainer/Credits)
 	position_particle($VBoxContainer/Exit/ExitParticle, $VBoxContainer/Exit)
-	var ui_height = $VBoxContainer/Start.rect_size.y * 3
-	#$VBoxContainer/Player = screen_size.y - ui_height
+	var ui_height = $VBoxContainer/Start.rect_size.y * 4	
+	$CanvasLayer/Version.rect_position = Vector2(0, screen_size.y - $CanvasLayer/Version.rect_size.y)
+	update()
 
 func position_particle(particle, parent):
 	var particle_position = Vector2(screen_size.x/2, parent.rect_size.y / 2)
@@ -59,3 +61,15 @@ func _on_Options_mouse_entered():
 
 func _on_Options_mouse_exited():
 	$VBoxContainer/Options/OptionsParticle.emitting = false
+
+
+func _on_Credits_pressed():
+	get_tree().change_scene("res://UI/Credits.tscn")
+
+
+func _on_Credits_mouse_entered():
+	$VBoxContainer/Credits/CreditsParticle.emitting = true
+
+
+func _on_Credits_mouse_exited():
+	$VBoxContainer/Credits/CreditsParticle.emitting = false

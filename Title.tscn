@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://MarginContainer.gd" type="Script" id=1]
 [ext_resource path="res://Resources/TypeFaces/dotty.regular.ttf" type="DynamicFontData" id=2]
@@ -29,6 +29,10 @@ color = Color( 0.227451, 0.219608, 0.286275, 1 )
 size = 100
 font_data = ExtResource( 2 )
 
+[sub_resource type="DynamicFont" id=5]
+size = 32
+font_data = ExtResource( 2 )
+
 [node name="Title" type="MarginContainer"]
 margin_right = 1280.0
 margin_bottom = 720.0
@@ -45,9 +49,9 @@ alignment = 2
 [node name="Player" parent="VBoxContainer" instance=ExtResource( 3 )]
 
 [node name="Start" type="Button" parent="VBoxContainer"]
-margin_top = 487.0
+margin_top = 408.0
 margin_right = 1280.0
-margin_bottom = 562.0
+margin_bottom = 483.0
 custom_styles/hover = SubResource( 1 )
 custom_fonts/font = SubResource( 2 )
 text = "Start"
@@ -61,9 +65,9 @@ amount = 100
 process_material = SubResource( 3 )
 
 [node name="Options" type="Button" parent="VBoxContainer"]
-margin_top = 566.0
+margin_top = 487.0
 margin_right = 1280.0
-margin_bottom = 641.0
+margin_bottom = 562.0
 custom_styles/hover = SubResource( 1 )
 custom_fonts/font = SubResource( 2 )
 text = "Options"
@@ -76,6 +80,21 @@ emitting = false
 amount = 100
 process_material = SubResource( 3 )
 
+[node name="Credits" type="Button" parent="VBoxContainer"]
+margin_top = 566.0
+margin_right = 1280.0
+margin_bottom = 641.0
+custom_fonts/font = SubResource( 4 )
+text = "Credits"
+flat = true
+
+[node name="CreditsParticle" type="Particles2D" parent="VBoxContainer/Credits"]
+position = Vector2( 640.639, 39.7939 )
+z_index = -1
+emitting = false
+amount = 100
+process_material = SubResource( 3 )
+
 [node name="Exit" type="Button" parent="VBoxContainer"]
 margin_top = 645.0
 margin_right = 1280.0
@@ -83,6 +102,9 @@ margin_bottom = 720.0
 custom_fonts/font = SubResource( 4 )
 text = "Exit"
 flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="ExitParticle" type="Particles2D" parent="VBoxContainer/Exit"]
 position = Vector2( 640.639, 39.7939 )
@@ -90,12 +112,26 @@ z_index = -1
 emitting = false
 amount = 100
 process_material = SubResource( 3 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Version" type="Label" parent="CanvasLayer"]
+margin_right = 40.0
+margin_bottom = 14.0
+custom_fonts/font = SubResource( 5 )
+text = "Version 1.0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="mouse_entered" from="VBoxContainer/Start" to="." method="_on_Start_mouse_entered"]
 [connection signal="mouse_exited" from="VBoxContainer/Start" to="." method="_on_Start_mouse_exited"]
 [connection signal="pressed" from="VBoxContainer/Start" to="." method="_on_Start_pressed"]
 [connection signal="mouse_entered" from="VBoxContainer/Options" to="." method="_on_Options_mouse_entered"]
 [connection signal="mouse_exited" from="VBoxContainer/Options" to="." method="_on_Options_mouse_exited"]
 [connection signal="pressed" from="VBoxContainer/Options" to="." method="_on_Options_pressed"]
+[connection signal="mouse_entered" from="VBoxContainer/Credits" to="." method="_on_Credits_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer/Credits" to="." method="_on_Credits_mouse_exited"]
+[connection signal="pressed" from="VBoxContainer/Credits" to="." method="_on_Credits_pressed"]
 [connection signal="mouse_entered" from="VBoxContainer/Exit" to="." method="_on_Exit_mouse_entered"]
 [connection signal="mouse_exited" from="VBoxContainer/Exit" to="." method="_on_Exit_mouse_exited"]
 [connection signal="pressed" from="VBoxContainer/Exit" to="." method="_on_Exit_pressed"]
