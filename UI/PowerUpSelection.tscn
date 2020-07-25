@@ -18,6 +18,8 @@ size = 64
 font_data = ExtResource( 2 )
 
 [node name="MarginContainer" type="MarginContainer"]
+pause_mode = 2
+visible = false
 script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -66,7 +68,7 @@ margin_bottom = 264.0
 custom_fonts/font = SubResource( 2 )
 text = "NOT SET"
 
-[node name="SelectOption" type="Button" parent="VBoxContainer/HBoxContainer/OptionOne"]
+[node name="SelectOptionOne" type="Button" parent="VBoxContainer/HBoxContainer/OptionOne"]
 margin_top = 284.0
 margin_right = 200.0
 margin_bottom = 334.0
@@ -95,9 +97,11 @@ margin_bottom = 264.0
 custom_fonts/font = SubResource( 2 )
 text = "NOT SET"
 
-[node name="SelectOption" type="Button" parent="VBoxContainer/HBoxContainer/OptionTwo"]
+[node name="SelectOptionTwo" type="Button" parent="VBoxContainer/HBoxContainer/OptionTwo"]
 margin_top = 284.0
 margin_right = 200.0
 margin_bottom = 334.0
 custom_fonts/font = SubResource( 3 )
 text = "Select"
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/OptionOne/SelectOptionOne" to="." method="_on_SelectOptionOne_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/OptionTwo/SelectOptionTwo" to="." method="_on_SelectOptionTwo_pressed"]

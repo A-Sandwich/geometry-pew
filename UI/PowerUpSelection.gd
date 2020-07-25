@@ -9,6 +9,9 @@ var shrink_ship_texture = preload("res://Resources/Images/shrink-ship.png")
 var increase_bullet_size = preload("res://Resources/Images/increase-bullet-size.png")
 var extra_bomb = preload("res://Resources/Images/Bomb.png")
 var longer_boost = preload("res://Resources/Images/extra-boost.png")
+var option_one_content_index
+var option_two_content_index
+signal power_up(power)
 
 var POWER_UP_OPTIONS = [ # Consider moving this to it's own json file or class to clean this file up
 	{
@@ -34,7 +37,6 @@ var POWER_UP_OPTIONS = [ # Consider moving this to it's own json file or class t
 ]
 
 func _ready():
-	randomize_options()
 	update_texture_size(option_one.get_child(0), quarter_x)
 	update_texture_size(option_two.get_child(0), quarter_x)
 	margin_top = twentieth_Y
@@ -43,17 +45,27 @@ func _ready():
 	margin_right = quarter_x
 	update()
 
+func _process(delta):
+	if Input.is_action_just_pressed("power_up"):
+		start_selection()
+
+func start_selection():
+	update()
+	randomize_options()
+	visible = true
+	get_tree().paused = true
+
 func update_texture_size(texture, size):
 	texture.rect_min_size = Vector2(size, size)
 	texture.update()
 
 func randomize_options():
-	var option_one_content = COMMON.rng.randi_range(0, len(POWER_UP_OPTIONS) - 1)
-	var option_two_content = option_one_content
-	while option_one_content == option_two_content:
-		option_two_content = COMMON.rng.randi_range(0, len(POWER_UP_OPTIONS) - 1)
-	update_option(option_one, POWER_UP_OPTIONS[option_one_content])
-	update_option(option_two, POWER_UP_OPTIONS[option_two_content])
+	option_one_content_index = COMMON.rng.randi_range(0, len(POWER_UP_OPTIONS) - 1)
+	option_two_content_index = option_one_content_index
+	while option_one_content_index == option_two_content_index:
+		option_two_content_index = COMMON.rng.randi_range(0, len(POWER_UP_OPTIONS) - 1)
+	update_option(option_one, POWER_UP_OPTIONS[option_one_content_index])
+	update_option(option_two, POWER_UP_OPTIONS[option_two_content_index])
 
 func update_option(option, content):
 	for child in option.get_children():
@@ -63,3 +75,15 @@ func update_option(option, content):
 			child.text = content["description"]
 		elif child.name == "SelectOption":
 			pass
+
+func _on_SelectOptionOne_pressed():
+	emit_power_up_and_cleanup(POWER_UP_OPTIONS[option_one_content_index]["name"])
+
+
+func _on_SelectOptionTwo_pressed():
+	emit_power_up_and_cleanup(POWER_UP_OPTIONS[option_two_content_index]["name"])
+
+func emit_power_up_and_cleanup(power_up_name):
+	emit_signal("power_up", power_up_name.replace("_", " "))
+	visible = false
+	get_tree().paused = false

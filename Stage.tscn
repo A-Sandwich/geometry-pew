@@ -6,7 +6,7 @@
 [ext_resource path="res://Enemies/Mob.tscn" type="PackedScene" id=4]
 [ext_resource path="res://ScoreMultiplier.tscn" type="PackedScene" id=5]
 [ext_resource path="res://PauseNode.gd" type="Script" id=6]
-[ext_resource path="res://PowerUps/PowerUpSelection.tscn" type="PackedScene" id=7]
+[ext_resource path="res://UI/PowerUpSelection.tscn" type="PackedScene" id=7]
 [ext_resource path="res://UI/PauseMenu.tscn" type="PackedScene" id=8]
 
 [sub_resource type="ParticlesMaterial" id=1]
@@ -33,6 +33,10 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_horizontal_guides_": [ -398.396 ]
 }
+
+[node name="PowerUpSelection" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" parent="PowerUpSelection" instance=ExtResource( 7 )]
 
 [node name="HUD" parent="." instance=ExtResource( 2 )]
 
@@ -66,7 +70,5 @@ process_material = SubResource( 1 )
 [node name="PauseNode" type="Node2D" parent="."]
 pause_mode = 2
 script = ExtResource( 6 )
-
-[node name="PowerUpScreen" parent="." instance=ExtResource( 7 )]
 
 [node name="PauseMenu" parent="." instance=ExtResource( 8 )]

@@ -2,7 +2,6 @@ extends Node2D
 
 onready var COMMON = get_node("/root/Common")
 onready var STAGE = get_node("/root/Stage")
-var SHIELD_POWER_UP = preload("res://PowerUps/Shield.tscn")
 var WAVE = preload("res://Enemies/Wave.tscn")
 onready var PLAYER = get_parent().get_node("Player")
 var START_ENEMY_COUNT = 3
@@ -25,15 +24,7 @@ func ready():
 	screen_size = get_viewport_rect().size
 	minimum_distance_from_player = screen_size.x / 6 #todo make ratios not dependent on screen.x (Ultrawide will make life not great)
 	spawn_wave()
-	spawn_power_up()
-	wave.generate_wave()
-
-func spawn_power_up():
-	var shield = SHIELD_POWER_UP.instance()
-	shield.position = Vector2(100, 100)
-	shield.MOB = self
-	get_parent().call_deferred("add_child", shield)
-	
+	wave.generate_wave()	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

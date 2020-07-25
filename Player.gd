@@ -6,7 +6,7 @@ const ENERGY_RECHARGE_MULTIPLIER = 10
 
 onready var COMMON = get_node("/root/Common")
 onready var STAGE = get_node("/root/Stage")
-
+onready var POWERUP_SELECTION = get_node("/root/Stage/PowerUpSelection/MarginContainer")
 signal bomb_detonated()
 signal player_death()
 signal bombs_left(amount)
@@ -45,9 +45,11 @@ func ready():
 		position.x = STAGE.stage_size.x / 2
 		position.y = STAGE.stage_size.y / 2
 		sprite_width = screen_size.y / 100
+		POWERUP_SELECTION.connect("power_up", self, "on_power_up")
 	bullet_size = sprite_width
 	set_bombs_left()
 	set_collision_shape()
+
 
 func _process(delta):
 	process(delta)
@@ -205,10 +207,9 @@ func apply_multiplier(updated_multiplier):
 	# todo balance this with power ups (I think the best solution might be to 
 	# just hardcode an array with the different times instead
 	$ShotTimer.wait_time = SHOT_TIMER_BASE * ((2 / multiplier) if multiplier > 1 else 1) # fuckin' python ternarys... am I right?
-const POWER_UP_OPTIONS = ["shrink_ship", "increase_bullet_size", "extra_bomb", "longer_boost"]
+
 func on_power_up(power_up_type):
 	print("pwer "+power_up_type)
-	print(power_up_type)
 	if power_up_type == "shrink ship":
 		sprite_width = sprite_width * 0.9
 	elif power_up_type == "increase bullet size":
