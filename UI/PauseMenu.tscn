@@ -48,5 +48,9 @@ margin_right = 12.0
 margin_bottom = 20.0
 custom_fonts/font = SubResource( 3 )
 text = "Exit"
+[connection signal="mouse_entered" from="Menu/ExitMainMenu" to="." method="_on_ExitMainMenu_mouse_entered"]
+[connection signal="mouse_exited" from="Menu/ExitMainMenu" to="." method="_on_ExitMainMenu_mouse_exited"]
 [connection signal="pressed" from="Menu/ExitMainMenu" to="." method="_on_ExitMainMenu_pressed"]
+[connection signal="mouse_entered" from="Menu/Exit" to="." method="_on_Exit_mouse_entered"]
+[connection signal="mouse_exited" from="Menu/Exit" to="." method="_on_Exit_mouse_exited"]
 [connection signal="pressed" from="Menu/Exit" to="." method="_on_Exit_pressed"]

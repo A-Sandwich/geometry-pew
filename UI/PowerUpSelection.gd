@@ -1,4 +1,7 @@
 extends MarginContainer
+
+const DEFAULT_COLOR = Color(1, 1, 1, 0.8)
+const HOVER_COLOR = Color(1, 1, 1, 1)
 onready var COMMON = get_node("/root/Common")
 onready var PAUSE_MENU = get_node("/root/Stage/PauseMenu")
 onready var BACKGROUND = get_node("/root/Stage/BackgroundCanvas/Background")
@@ -14,7 +17,13 @@ var longer_boost = preload("res://Resources/Images/extra-boost.png")
 var option_one_content_index
 var option_two_content_index
 var debugging = false
+var focus
 signal power_up(power)
+
+var ui_elements = [$VBoxContainer/HBoxContainer/OptionOne/SelectOptionOne,
+	$VBoxContainer/HBoxContainer/OptionTwo/SelectOptionTwo,
+	$VBoxContainer/Cancel
+	]
 
 var POWER_UP_OPTIONS = [ # Consider moving this to it's own json file or class to clean this file up
 	{
@@ -40,7 +49,7 @@ var POWER_UP_OPTIONS = [ # Consider moving this to it's own json file or class t
 ]
 
 func _ready():
-	visible = false
+	#visible = false
 	update_texture_size(option_one.get_child(0), quarter_x)
 	update_texture_size(option_two.get_child(0), quarter_x)
 	margin_top = twentieth_Y
@@ -52,6 +61,46 @@ func _ready():
 func _process(delta):
 	if debugging and Input.is_action_just_pressed("power_up"):
 		start_selection()
+	if focus == null:
+		pass
+	elif focus == ui_elements[0]:
+		move_from_option_one()
+	elif focus == ui_elements[1]:
+		move_from_option_two()
+	elif focus == ui_elements[2]:
+		move_from_cancel()
+
+	if Input.is_action_just_pressed("ui_accept"):
+		if focus != null:
+			focus.emit_signal("pressed")
+
+func move_from_option_one():
+	if Input.is_action_just_pressed("ui_right") or Input.is_action_just_pressed("ui_focus_next"):
+		on_entered(ui_elements[1])
+	if Input.is_action_just_pressed("ui_down"):
+		on_entered(ui_elements[2])
+	
+	
+func move_from_option_two():
+	if Input.is_action_just_pressed("ui_left") or Input.is_action_just_pressed("ui_focus_prev"):
+		on_entered(ui_elements[0])
+	if Input.is_action_just_pressed("ui_down") or Input.is_action_just_pressed("ui_focus_next"):
+		on_entered(ui_elements[2])
+
+func move_from_cancel():
+	if (Input.is_action_just_pressed("ui_left") or
+		Input.is_action_just_pressed("ui_focus_prev") or
+		Input.is_action_just_pressed("ui_up")):
+		on_entered(ui_elements[1])
+
+func on_entered(button):
+	if focus != null and button != focus:
+		on_exited(focus)
+	focus = button
+	button.modulate = HOVER_COLOR
+
+func on_exited(button):
+	button.modulate = DEFAULT_COLOR
 
 func start_selection():
 	BACKGROUND.visible = true
