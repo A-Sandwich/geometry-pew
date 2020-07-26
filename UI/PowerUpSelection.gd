@@ -13,6 +13,7 @@ var extra_bomb = preload("res://Resources/Images/Bomb.png")
 var longer_boost = preload("res://Resources/Images/extra-boost.png")
 var option_one_content_index
 var option_two_content_index
+var debugging = false
 signal power_up(power)
 
 var POWER_UP_OPTIONS = [ # Consider moving this to it's own json file or class to clean this file up
@@ -49,7 +50,7 @@ func _ready():
 	update()
 
 func _process(delta):
-	if Input.is_action_just_pressed("power_up"):
+	if debugging and Input.is_action_just_pressed("power_up"):
 		start_selection()
 
 func start_selection():
@@ -99,3 +100,6 @@ func emit_power_up_and_cleanup(power_up_name):
 
 func _on_Cancel_pressed():
 	resume()
+
+func on_wave_change(wave):
+	start_selection()
