@@ -20,10 +20,7 @@ var debugging = false
 var focus
 signal power_up(power)
 
-var ui_elements = [$VBoxContainer/HBoxContainer/OptionOne/SelectOptionOne,
-	$VBoxContainer/HBoxContainer/OptionTwo/SelectOptionTwo,
-	$VBoxContainer/Cancel
-	]
+var ui_elements
 
 var POWER_UP_OPTIONS = [ # Consider moving this to it's own json file or class to clean this file up
 	{
@@ -56,45 +53,52 @@ func _ready():
 	margin_bottom = twentieth_Y
 	margin_left = quarter_x
 	margin_right = quarter_x
+	ui_elements = [
+		get_node("VBoxContainer/HBoxContainer/OptionOne/SelectOptionOne"),
+		get_node("VBoxContainer/HBoxContainer/OptionTwo/SelectOptionTwo"),
+		get_node("VBoxContainer/Cancel")
+	]
+	$VBoxContainer/HBoxContainer/OptionOne/SelectOptionOne.modulate = DEFAULT_COLOR
+	$VBoxContainer/HBoxContainer/OptionTwo/SelectOptionTwo.modulate = DEFAULT_COLOR
+	$VBoxContainer/Cancel.modulate = DEFAULT_COLOR
 	update()
 
 func _process(delta):
 	if debugging and Input.is_action_just_pressed("power_up"):
 		start_selection()
-	if focus == null:
-		pass
-	elif focus == ui_elements[0]:
-		move_from_option_one()
-	elif focus == ui_elements[1]:
-		move_from_option_two()
-	elif focus == ui_elements[2]:
-		move_from_cancel()
-
+	if Input.is_action_just_pressed("ui_up"):
+		if focus == ui_elements[2]:
+			on_entered(ui_elements[1])
+	elif Input.is_action_just_pressed("ui_down"):
+		if focus == ui_elements[0] or focus == ui_elements[1]:
+			on_entered(ui_elements[2])
+		else:
+			on_entered(ui_elements[0])
+	elif Input.is_action_just_pressed("ui_left"):
+		if focus == ui_elements[1]:
+			on_entered(ui_elements[0])
+	elif Input.is_action_just_pressed("ui_right"):
+		if focus == ui_elements[0]:
+			on_entered(ui_elements[1])
+	elif Input.is_action_just_pressed("ui_focus_next"):
+		if focus == ui_elements[0]:
+			on_entered(ui_elements[1])
+		elif focus == ui_elements[1]:
+			on_entered(ui_elements[2])
+		else:
+			on_entered(ui_elements[0])
+	elif Input.is_action_just_pressed("ui_focus_prev"):
+		if focus == ui_elements[1]:
+			on_entered(ui_elements[0])
+		elif focus == ui_elements[2]:
+			on_entered(ui_elements[1])
 	if Input.is_action_just_pressed("ui_accept"):
 		if focus != null:
 			focus.emit_signal("pressed")
 
-func move_from_option_one():
-	if Input.is_action_just_pressed("ui_right") or Input.is_action_just_pressed("ui_focus_next"):
-		on_entered(ui_elements[1])
-	if Input.is_action_just_pressed("ui_down"):
-		on_entered(ui_elements[2])
-	
-	
-func move_from_option_two():
-	if Input.is_action_just_pressed("ui_left") or Input.is_action_just_pressed("ui_focus_prev"):
-		on_entered(ui_elements[0])
-	if Input.is_action_just_pressed("ui_down") or Input.is_action_just_pressed("ui_focus_next"):
-		on_entered(ui_elements[2])
-
-func move_from_cancel():
-	if (Input.is_action_just_pressed("ui_left") or
-		Input.is_action_just_pressed("ui_focus_prev") or
-		Input.is_action_just_pressed("ui_up")):
-		on_entered(ui_elements[1])
-
 func on_entered(button):
 	if focus != null and button != focus:
+		print("last focus" + str(focus.name) +  " New focus "+button.name)
 		on_exited(focus)
 	focus = button
 	button.modulate = HOVER_COLOR
@@ -152,3 +156,22 @@ func _on_Cancel_pressed():
 
 func on_wave_change(wave):
 	start_selection()
+
+func _on_SelectOptionTwo_mouse_entered():
+	on_entered(ui_elements[1])
+
+func _on_SelectOptionTwo_mouse_exited():
+	on_exited(ui_elements[1])
+
+func _on_Cancel_mouse_entered():
+	on_entered(ui_elements[2])
+
+func _on_Cancel_mouse_exited():
+	on_exited(ui_elements[2])
+
+func _on_SelectOptionOne_mouse_entered():
+	print(ui_elements)
+	on_entered(ui_elements[0])
+
+func _on_SelectOptionOne_mouse_exited():
+	on_exited(ui_elements[0])

@@ -113,6 +113,12 @@ margin_right = 450.0
 margin_bottom = 528.0
 custom_fonts/font = SubResource( 4 )
 text = "Don't select a powerup"
+[connection signal="mouse_entered" from="VBoxContainer/HBoxContainer/OptionOne/SelectOptionOne" to="." method="_on_SelectOptionOne_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer/HBoxContainer/OptionOne/SelectOptionOne" to="." method="_on_SelectOptionOne_mouse_exited"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/OptionOne/SelectOptionOne" to="." method="_on_SelectOptionOne_pressed"]
+[connection signal="mouse_entered" from="VBoxContainer/HBoxContainer/OptionTwo/SelectOptionTwo" to="." method="_on_SelectOptionTwo_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer/HBoxContainer/OptionTwo/SelectOptionTwo" to="." method="_on_SelectOptionTwo_mouse_exited"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/OptionTwo/SelectOptionTwo" to="." method="_on_SelectOptionTwo_pressed"]
+[connection signal="mouse_entered" from="VBoxContainer/Cancel" to="." method="_on_Cancel_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer/Cancel" to="." method="_on_Cancel_mouse_exited"]
 [connection signal="pressed" from="VBoxContainer/Cancel" to="." method="_on_Cancel_pressed"]
