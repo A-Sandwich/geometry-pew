@@ -49,6 +49,7 @@ alignment = 2
 [node name="Player" parent="VBoxContainer" instance=ExtResource( 3 )]
 
 [node name="Start" type="Button" parent="VBoxContainer"]
+modulate = Color( 1, 1, 1, 0.670588 )
 margin_top = 408.0
 margin_right = 1280.0
 margin_bottom = 483.0
