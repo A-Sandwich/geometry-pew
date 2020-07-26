@@ -7,3 +7,7 @@ func _ready():
 
 func _on_GoBack_pressed():
 	get_tree().change_scene("res://Title.tscn")
+
+func _process(delta):
+	if Input.is_action_just_pressed("ui_accept"):
+		$VBoxContainer/GoBack.emit_signal("pressed")
