@@ -56,3 +56,7 @@ func _on_InfiniteLives_toggled(button_pressed):
 
 func _on_BlackAndWhiteMode_toggled(button_pressed):
 	COMMON.black_and_white = button_pressed
+
+
+func _on_Cancel_pressed():
+	get_tree().change_scene("res://Title.tscn")

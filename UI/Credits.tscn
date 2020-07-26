@@ -1,38 +1,42 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://UI/Credits.gd" type="Script" id=1]
 [ext_resource path="res://Resources/TypeFaces/dotty.regular.ttf" type="DynamicFontData" id=2]
 
-[sub_resource type="DynamicFont" id=8]
+[sub_resource type="DynamicFont" id=1]
 size = 150
 font_data = ExtResource( 2 )
 
-[sub_resource type="DynamicFont" id=1]
-size = 80
-font_data = ExtResource( 2 )
-
 [sub_resource type="DynamicFont" id=2]
-size = 100
+size = 80
 font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=3]
-size = 80
+size = 100
 font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=4]
-size = 100
+size = 80
 font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=5]
-size = 80
-font_data = ExtResource( 2 )
-
-[sub_resource type="DynamicFont" id=6]
 size = 100
 font_data = ExtResource( 2 )
 
-[sub_resource type="DynamicFont" id=7]
+[sub_resource type="DynamicFont" id=6]
 size = 80
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=7]
+size = 100
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=8]
+size = 80
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=9]
+size = 100
 font_data = ExtResource( 2 )
 
 [node name="Credits" type="MarginContainer"]
@@ -44,77 +48,85 @@ __meta__ = {
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-margin_right = 40.0
-margin_bottom = 7902.0
+margin_right = 225.0
+margin_bottom = 4900.0
 custom_constants/separation = 20
 
 [node name="Game Title" type="Label" parent="VBoxContainer"]
-margin_right = 40.0
-margin_bottom = 1495.0
-custom_fonts/font = SubResource( 8 )
+margin_right = 225.0
+margin_bottom = 318.0
+custom_fonts/font = SubResource( 1 )
 text = "Geometry Pew"
 align = 1
 autowrap = true
 
 [node name="Author" type="Label" parent="VBoxContainer"]
-margin_top = 1515.0
-margin_right = 40.0
-margin_bottom = 2034.0
-custom_fonts/font = SubResource( 1 )
+margin_top = 338.0
+margin_right = 225.0
+margin_bottom = 451.0
+custom_fonts/font = SubResource( 2 )
 text = "Created by"
 align = 1
 autowrap = true
 
 [node name="Kyle Burkholder" type="Label" parent="VBoxContainer"]
-margin_top = 2054.0
-margin_right = 40.0
-margin_bottom = 3059.0
-custom_fonts/font = SubResource( 2 )
+margin_top = 471.0
+margin_right = 225.0
+margin_bottom = 684.0
+custom_fonts/font = SubResource( 3 )
 text = "Kyle Burkholder"
 align = 1
 autowrap = true
 
 [node name="Music" type="Label" parent="VBoxContainer"]
-margin_top = 3079.0
-margin_right = 40.0
-margin_bottom = 3424.0
-custom_fonts/font = SubResource( 3 )
+margin_top = 704.0
+margin_right = 225.0
+margin_bottom = 759.0
+custom_fonts/font = SubResource( 4 )
 text = "Music By"
 align = 1
 autowrap = true
 
 [node name="Michael Plourde" type="Label" parent="VBoxContainer"]
-margin_top = 3444.0
-margin_right = 40.0
-margin_bottom = 4449.0
-custom_fonts/font = SubResource( 4 )
+margin_top = 779.0
+margin_right = 225.0
+margin_bottom = 920.0
+custom_fonts/font = SubResource( 5 )
 text = "Michael Plourde"
 align = 1
 autowrap = true
 
 [node name="Font" type="Label" parent="VBoxContainer"]
-margin_top = 4469.0
-margin_right = 40.0
-margin_bottom = 4930.0
-custom_fonts/font = SubResource( 5 )
+margin_top = 940.0
+margin_right = 225.0
+margin_bottom = 995.0
+custom_fonts/font = SubResource( 6 )
 text = "Typeface"
 align = 1
 autowrap = true
 
 [node name="Creators Name" type="Label" parent="VBoxContainer"]
-margin_top = 4950.0
-margin_right = 40.0
-margin_bottom = 5739.0
-custom_fonts/font = SubResource( 6 )
+margin_top = 1015.0
+margin_right = 225.0
+margin_bottom = 1156.0
+custom_fonts/font = SubResource( 7 )
 text = "Kevin Richey"
 align = 1
 autowrap = true
 
 [node name="link" type="Label" parent="VBoxContainer"]
-margin_top = 5759.0
-margin_right = 40.0
-margin_bottom = 7902.0
-custom_fonts/font = SubResource( 7 )
+margin_top = 1176.0
+margin_right = 225.0
+margin_bottom = 1463.0
+custom_fonts/font = SubResource( 8 )
 text = "https://www.1001fonts.com/dotty-font.html"
 align = 1
 autowrap = true
+
+[node name="GoBack" type="Button" parent="VBoxContainer"]
+margin_top = 1483.0
+margin_right = 225.0
+margin_bottom = 1558.0
+custom_fonts/font = SubResource( 9 )
+text = "Go Back"
+[connection signal="pressed" from="VBoxContainer/GoBack" to="." method="_on_GoBack_pressed"]

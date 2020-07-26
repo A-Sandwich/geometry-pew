@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://UI/Options.gd" type="Script" id=1]
 [ext_resource path="res://Resources/TypeFaces/dotty.regular.ttf" type="DynamicFontData" id=2]
@@ -30,6 +30,10 @@ HSlider/colors/CustomSlider = Color( 0, 0, 0, 1 )
 size = 100
 font_data = ExtResource( 2 )
 
+[sub_resource type="DynamicFont" id=8]
+size = 100
+font_data = ExtResource( 2 )
+
 [node name="Options" type="Node2D"]
 script = ExtResource( 1 )
 
@@ -45,7 +49,8 @@ __meta__ = {
 
 [node name="Options" type="VBoxContainer" parent="CanvasLayer/HBoxContainer"]
 margin_right = 393.0
-margin_bottom = 314.0
+margin_bottom = 448.0
+custom_constants/separation = 15
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -58,23 +63,23 @@ text = "Options!"
 valign = 1
 
 [node name="Resolutions" type="OptionButton" parent="CanvasLayer/HBoxContainer/Options"]
-margin_top = 48.0
+margin_top = 59.0
 margin_right = 393.0
-margin_bottom = 123.0
+margin_bottom = 134.0
 custom_fonts/font = SubResource( 2 )
 text = "Resolutions"
 
 [node name="InfiniteLives" type="CheckBox" parent="CanvasLayer/HBoxContainer/Options"]
-margin_top = 127.0
+margin_top = 149.0
 margin_right = 393.0
-margin_bottom = 179.0
+margin_bottom = 201.0
 custom_fonts/font = SubResource( 3 )
 text = "Infinite Lives"
 
 [node name="BlackAndWhiteMode" type="CheckBox" parent="CanvasLayer/HBoxContainer/Options"]
-margin_top = 183.0
+margin_top = 216.0
 margin_right = 393.0
-margin_bottom = 235.0
+margin_bottom = 268.0
 custom_fonts/font = SubResource( 4 )
 text = "Black and White Mode"
 
@@ -103,11 +108,19 @@ __meta__ = {
 }
 
 [node name="Apply" type="Button" parent="CanvasLayer/HBoxContainer/Options"]
-margin_top = 239.0
+margin_top = 283.0
 margin_right = 393.0
-margin_bottom = 314.0
+margin_bottom = 358.0
 custom_fonts/font = SubResource( 7 )
 text = "Apply Changes"
+
+[node name="Cancel" type="Button" parent="CanvasLayer/HBoxContainer/Options"]
+margin_top = 373.0
+margin_right = 393.0
+margin_bottom = 448.0
+custom_fonts/font = SubResource( 8 )
+text = "Go Back"
 [connection signal="toggled" from="CanvasLayer/HBoxContainer/Options/InfiniteLives" to="." method="_on_InfiniteLives_toggled"]
 [connection signal="toggled" from="CanvasLayer/HBoxContainer/Options/BlackAndWhiteMode" to="." method="_on_BlackAndWhiteMode_toggled"]
 [connection signal="pressed" from="CanvasLayer/HBoxContainer/Options/Apply" to="." method="_on_Apply_pressed"]
+[connection signal="pressed" from="CanvasLayer/HBoxContainer/Options/Cancel" to="." method="_on_Cancel_pressed"]
