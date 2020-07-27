@@ -47,8 +47,6 @@ var POWER_UP_OPTIONS = [ # Consider moving this to it's own json file or class t
 
 func _ready():
 	#visible = false
-	update_texture_size(option_one.get_child(0), quarter_x)
-	update_texture_size(option_two.get_child(0), quarter_x)
 	margin_top = twentieth_Y
 	margin_bottom = twentieth_Y
 	margin_left = quarter_x
@@ -62,6 +60,22 @@ func _ready():
 	$VBoxContainer/HBoxContainer/OptionTwo/SelectOptionTwo.modulate = DEFAULT_COLOR
 	$VBoxContainer/Cancel.modulate = DEFAULT_COLOR
 	update()
+	randomize_options()
+
+func adjust_size_descriptions():
+	var y_elements_one = ($VBoxContainer/HBoxContainer/OptionOne/TextureRect.rect_min_size.y + 
+	option_one.rect_size.y)
+	var y_elements_two = ($VBoxContainer/HBoxContainer/OptionTwo/TextureRect.rect_min_size.y + 
+	option_two.rect_size.y)
+	var y_elements = y_elements_one if y_elements_one > y_elements_two else y_elements_two
+	$VBoxContainer/HBoxContainer/OptionOne/Description.rect_min_size = Vector2(
+		quarter_x, size.y - y_elements
+	)
+	
+	$VBoxContainer/HBoxContainer/OptionTwo/Description.rect_min_size = Vector2(
+		quarter_x, size.y - y_elements
+	)
+	print("Y elements:" + str(y_elements))
 
 func _process(delta):
 	if debugging and Input.is_action_just_pressed("power_up"):
@@ -115,6 +129,7 @@ func start_selection():
 
 func update_texture_size(texture, size):
 	texture.rect_min_size = Vector2(size, size)
+	texture.rect_size = Vector2(size, size)
 	texture.update()
 
 func randomize_options():
@@ -124,6 +139,9 @@ func randomize_options():
 		option_two_content_index = COMMON.rng.randi_range(0, len(POWER_UP_OPTIONS) - 1)
 	update_option(option_one, POWER_UP_OPTIONS[option_one_content_index])
 	update_option(option_two, POWER_UP_OPTIONS[option_two_content_index])
+	update_texture_size(option_one.get_child(0), quarter_x)
+	update_texture_size(option_two.get_child(0), quarter_x)
+	adjust_size_descriptions()
 
 func update_option(option, content):
 	for child in option.get_children():

@@ -19,6 +19,7 @@ func toggle_visible():
 		is_paused = not is_paused
 		get_tree().paused = is_paused
 	$Menu.visible = !$Menu.visible
+	
 
 func init(screen_size):
 	self.screen_size = screen_size
@@ -30,9 +31,6 @@ func _ready():
 			child.modulate = DEFAULT_COLOR
 
 func _process(delta):
-	if !$Menu.visible or !is_paused:
-		return
-
 	if Input.is_action_just_pressed("pause"):
 		toggle_visible()
 	if Input.is_action_just_pressed("ui_up") or Input.is_action_just_pressed("ui_focus_prev"):
