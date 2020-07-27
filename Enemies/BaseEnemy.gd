@@ -121,4 +121,3 @@ func death_point_display():
 	var fading_text = FADING_TEXT.instance()
 	get_parent().add_child(fading_text)
 	fading_text.setup(position, "+"+str(point_value * SCORE_MULTIPLIER.get_multiplier()))
-	

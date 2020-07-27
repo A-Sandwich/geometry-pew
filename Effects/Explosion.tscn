@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Effects/Explosion.gd" type="Script" id=1]
+[ext_resource path="res://Resources/Sounds/explosion02.wav" type="AudioStream" id=2]
 
 [sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0.37931, 1 )
@@ -39,3 +40,7 @@ one_shot = true
 explosiveness = 0.47
 randomness = 1.0
 process_material = SubResource( 3 )
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 2 )
+autoplay = true

@@ -33,6 +33,10 @@ func _ready():
 func _process(delta):
 	if Input.is_action_just_pressed("pause"):
 		toggle_visible()
+
+	if not $Menu.visible:
+		return
+
 	if Input.is_action_just_pressed("ui_up") or Input.is_action_just_pressed("ui_focus_prev"):
 		var index = ui_elements.find(focus)
 		if index <= 0:

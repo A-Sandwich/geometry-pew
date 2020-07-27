@@ -7,7 +7,8 @@ var DISK_ENEMY = preload("res://Enemies/DiskEnemy.tscn")
 var TINY_CUBE_ENEMY = preload("res://Enemies/TinyCubeEnemy.tscn")
 var SHOOTING_ENEMY = preload("res://Enemies/ShootingEnemy.tscn")
 var ENEMY_GLOW_UP = preload("res://Enemies/EnemyGlowUp.tscn")
-var enemy_classes = [ENEMY, DISK_ENEMY, TINY_CUBE_ENEMY, SHOOTING_ENEMY]
+#var enemy_classes = [ENEMY, DISK_ENEMY, TINY_CUBE_ENEMY, SHOOTING_ENEMY]
+var enemy_classes = [ENEMY]
 var minimum = 3
 
 var minimum_distance_from_player
