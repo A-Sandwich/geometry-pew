@@ -18,7 +18,7 @@ var speed = 200
 var speed_range = Vector2(50, 225)
 var sprite_width
 var requires_multiple_hits = false
-var extra_hits = 15
+var extra_hits = -1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -32,6 +32,7 @@ func _ready():
 	player_position = COMMON.get_screen_size(self) / 2
 	stage_size = STAGE.stage_size
 	if scale.x > 1:
+		extra_hits = 15
 		requires_multiple_hits = true
 		point_value *= extra_hits
 	ready()
@@ -105,7 +106,7 @@ func _On_Enemy_Area_Entered(area):
 	die(null)
 
 func die(area, free_from_queue = true):
-	var explosion = COMMON.generate_explosion(position)
+	var explosion = COMMON.generate_explosion(position, extra_hits)
 	if free_from_queue and area != null:
 		area.queue_free()
 	if !requires_multiple_hits or extra_hits < 1:

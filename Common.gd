@@ -56,9 +56,12 @@ func flippity_flop():
 	return rng.randi_range(0, 1) == 0
 
 # I think I need to roll my own explosion particle. Seems to cause frame drops
-func generate_explosion(position):
+func generate_explosion(position, hits_left = -1):
 	var explosion = EXPLOSION.instance()
 	explosion.position = position
+	if hits_left > -1:
+		var factor = (15 - hits_left) * 0.1
+		explosion.find_node("AudioStreamPlayer2D").pitch_scale = 1 + factor
 	get_parent().add_child(explosion)
 
 func save_high_score(json):
