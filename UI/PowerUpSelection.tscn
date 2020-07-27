@@ -23,6 +23,7 @@ font_data = ExtResource( 2 )
 
 [node name="MarginContainer" type="MarginContainer"]
 pause_mode = 2
+visible = false
 script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false

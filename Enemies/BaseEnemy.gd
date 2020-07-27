@@ -34,7 +34,6 @@ func _ready():
 	if scale.x > 1:
 		requires_multiple_hits = true
 		point_value *= extra_hits
-	print("Requires multiple hits: "+str(requires_multiple_hits))
 	ready()
 
 func ready():
