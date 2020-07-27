@@ -50,7 +50,6 @@ func ready():
 	set_bombs_left()
 	set_collision_shape()
 
-
 func _process(delta):
 	process(delta)
 
@@ -69,7 +68,7 @@ func pew(velocity):
 		get_parent().add_child(pew)
 		$ShotTimer.start()
 		shots_fired = true
-		#pew_noise()
+		pew_noise()
 
 func pew_noise():
 	$PewNoise.play()
