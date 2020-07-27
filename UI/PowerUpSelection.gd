@@ -25,22 +25,22 @@ var ui_elements
 var POWER_UP_OPTIONS = [ # Consider moving this to it's own json file or class to clean this file up
 	{
 		"name": "shrink_ship",
-		"description": "Shrink the size of your ship",
+		"description": "Shrink the size of your ship so you'll be harder to hit!",
 		"texture": shrink_ship_texture
 	}, 
 	{
 		"name": "increase_bullet_size",
-		"description": "Increase the size of bullets",
+		"description": "Increase the size of bullets so they are more likely to hit enemies!",
 		"texture": increase_bullet_size
 	},
 	{
 		"name": "extra_bomb",
-		"description": "Gain an extra bomb",
+		"description": "Gain an extra bomb for more DESTRUCTION!",
 		"texture": extra_bomb
 	},
 	{
 		"name": "longer_boost",
-		"description": "Boost for longer",
+		"description": "Boost for longer! (Press shift/left trigger to boost through enemies killing them!)",
 		"texture": longer_boost
 	}
 ]
