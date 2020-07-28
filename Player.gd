@@ -194,7 +194,7 @@ func die():
 		return
 	dead = true
 	self.visible = false
-	emit_signal("player_death")
+	$DeathTimer.start()
 
 func _on_ShotTimer_timeout():
 	shots_fired = false
@@ -220,3 +220,8 @@ func on_power_up(power_up_type):
 	elif power_up_type == "longer_boost":
 		FULL_ENERGY += 50
 	self.update()
+
+
+func _on_DeathTimer_timeout():
+	emit_signal("player_death")
+	$DeathTimer.stop()

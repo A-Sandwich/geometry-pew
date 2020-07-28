@@ -89,7 +89,7 @@ func load_high_score(existing_data):
 	file.close()
 	var result = JSON.parse(content)
 	if result.get_error() != 0:
-		print("Error: " + str(file.get_error()) + ", " + file.get_error_string())
+		print("Error: " + str(file.get_error()))
 		return []
 	return result.get_result()
 
@@ -131,7 +131,7 @@ func apply_resolution(resolution):
 func string_resolution_to_vector(string_resolution):
 	if string_resolution == null:
 		return DEFAULT_RESOLUTION
-	var resolution_parts = string_resolution.split(", ")
+	var resolution_parts = string_resolution.replace("(","").replace(")", "").split(", ")
 	if len(resolution_parts) < 2:
 		return DEFAULT_RESOLUTION
 	return Vector2(int(resolution_parts[0]), int(resolution_parts[1]))

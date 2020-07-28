@@ -53,7 +53,11 @@ volume_db = 1.0
 
 [node name="ThrustTimeout" type="Timer" parent="."]
 wait_time = 2.0
+
+[node name="DeathTimer" type="Timer" parent="."]
+wait_time = 0.2
 [connection signal="area_entered" from="." to="." method="_on_Player_area_entered"]
 [connection signal="timeout" from="ShotTimer" to="." method="_on_ShotTimer_timeout"]
 [connection signal="timeout" from="BombTimer" to="." method="_on_BombTimer_timeout"]
 [connection signal="timeout" from="ThrustTimeout" to="." method="_on_ThrustTimeout_timeout"]
+[connection signal="timeout" from="DeathTimer" to="." method="_on_DeathTimer_timeout"]
