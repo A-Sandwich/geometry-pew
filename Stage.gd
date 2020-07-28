@@ -11,6 +11,7 @@ func _ready():
 	var rect_size = Vector2(stage_size.x, stage_size.y)
 	$BackgroundParticle.visibility_rect = Rect2( extent_vector, rect_size * 2)
 	$PauseMenu.init(get_viewport_rect().size)
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 
 func get_rectangle_points(geometry_points):
 	# draw operations are relative to the parent, so (0,0) is actually where the player is

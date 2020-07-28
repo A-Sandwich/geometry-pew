@@ -73,6 +73,7 @@ process_material = SubResource( 1 )
 [node name="ScoreMultiplier" parent="." instance=ExtResource( 5 )]
 
 [node name="PauseMenu" parent="." instance=ExtResource( 8 )]
+layer = 12
 
 [node name="BackgroundCanvas" type="CanvasLayer" parent="."]
 layer = 0

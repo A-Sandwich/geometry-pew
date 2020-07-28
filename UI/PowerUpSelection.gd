@@ -16,7 +16,7 @@ var extra_bomb = preload("res://Resources/Images/Bomb.png")
 var longer_boost = preload("res://Resources/Images/extra-boost.png")
 var option_one_content_index
 var option_two_content_index
-var debugging = false
+var debugging = true
 var focus
 signal power_up(power)
 
@@ -121,6 +121,7 @@ func on_exited(button):
 	button.modulate = DEFAULT_COLOR
 
 func start_selection():
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	BACKGROUND.visible = true
 	update()
 	randomize_options()
@@ -158,6 +159,7 @@ func resume():
 	visible = false
 	BACKGROUND.visible = false
 	get_tree().paused = false
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 
 func _on_SelectOptionOne_pressed():
 	emit_power_up_and_cleanup(POWER_UP_OPTIONS[option_one_content_index]["name"])

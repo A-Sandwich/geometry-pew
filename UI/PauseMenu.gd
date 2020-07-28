@@ -1,7 +1,6 @@
 extends CanvasLayer
 
-const DEFAULT_COLOR = Color(.9, .9, .9)
-const HOVER_COLOR = Color(1, 1, 1, 1)
+const DEFAULT_COLOR = Color(1, 1, 1, 1)
 onready var COMMON = get_node("/root/Common")
 onready var POWERUP = get_node("/root/Stage/PowerUpSelection/MarginContainer")
 var screen_size
@@ -18,6 +17,10 @@ func toggle_visible():
 	if !POWERUP.visible:
 		is_paused = not is_paused
 		get_tree().paused = is_paused
+		if is_paused:
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		else:
+			Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	$Menu.visible = !$Menu.visible
 	
 
@@ -59,7 +62,6 @@ func on_entered(button):
 	if focus != null and button != focus:
 		on_exited(focus)
 	focus = button
-	button.modulate = HOVER_COLOR
 	
 func on_exited(button):
 	button.modulate = DEFAULT_COLOR
@@ -75,18 +77,5 @@ func _on_ExitMainMenu_pressed():
 func is_visible():
 	return $Menu.visible
 
-
-func _on_ExitMainMenu_mouse_entered():
-	pass # Replace with function body.
-
-
-func _on_ExitMainMenu_mouse_exited():
-	pass # Replace with function body.
-
-
-func _on_Exit_mouse_entered():
-	pass # Replace with function body.
-
-
-func _on_Exit_mouse_exited():
-	pass # Replace with function body.
+func _on_Resume_pressed():
+	toggle_visible()
