@@ -48,85 +48,86 @@ __meta__ = {
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-margin_right = 225.0
-margin_bottom = 4900.0
+margin_right = 632.0
+margin_bottom = 896.0
 custom_constants/separation = 20
 
 [node name="Game Title" type="Label" parent="VBoxContainer"]
-margin_right = 225.0
-margin_bottom = 318.0
+margin_right = 632.0
+margin_bottom = 104.0
 custom_fonts/font = SubResource( 1 )
 text = "Geometry Pew"
 align = 1
 autowrap = true
 
 [node name="Author" type="Label" parent="VBoxContainer"]
-margin_top = 338.0
-margin_right = 225.0
-margin_bottom = 451.0
+margin_top = 124.0
+margin_right = 632.0
+margin_bottom = 179.0
 custom_fonts/font = SubResource( 2 )
 text = "Created by"
 align = 1
 autowrap = true
 
 [node name="Kyle Burkholder" type="Label" parent="VBoxContainer"]
-margin_top = 471.0
-margin_right = 225.0
-margin_bottom = 684.0
+margin_top = 199.0
+margin_right = 632.0
+margin_bottom = 268.0
 custom_fonts/font = SubResource( 3 )
 text = "Kyle Burkholder"
 align = 1
 autowrap = true
 
 [node name="Music" type="Label" parent="VBoxContainer"]
-margin_top = 704.0
-margin_right = 225.0
-margin_bottom = 759.0
+margin_top = 288.0
+margin_right = 632.0
+margin_bottom = 343.0
 custom_fonts/font = SubResource( 4 )
 text = "Music By"
 align = 1
 autowrap = true
 
-[node name="Michael Plourde" type="Label" parent="VBoxContainer"]
-margin_top = 779.0
-margin_right = 225.0
-margin_bottom = 920.0
+[node name="artists" type="Label" parent="VBoxContainer"]
+margin_top = 363.0
+margin_right = 632.0
+margin_bottom = 432.0
 custom_fonts/font = SubResource( 5 )
-text = "Michael Plourde"
+text = "Single Double & Triple T"
 align = 1
 autowrap = true
 
 [node name="Font" type="Label" parent="VBoxContainer"]
-margin_top = 940.0
-margin_right = 225.0
-margin_bottom = 995.0
+margin_top = 452.0
+margin_right = 632.0
+margin_bottom = 507.0
 custom_fonts/font = SubResource( 6 )
 text = "Typeface"
 align = 1
 autowrap = true
 
 [node name="Creators Name" type="Label" parent="VBoxContainer"]
-margin_top = 1015.0
-margin_right = 225.0
-margin_bottom = 1156.0
+margin_top = 527.0
+margin_right = 632.0
+margin_bottom = 596.0
 custom_fonts/font = SubResource( 7 )
 text = "Kevin Richey"
 align = 1
 autowrap = true
 
 [node name="link" type="Label" parent="VBoxContainer"]
-margin_top = 1176.0
-margin_right = 225.0
-margin_bottom = 1463.0
+margin_top = 616.0
+margin_right = 632.0
+margin_bottom = 729.0
 custom_fonts/font = SubResource( 8 )
 text = "https://www.1001fonts.com/dotty-font.html"
 align = 1
 autowrap = true
 
 [node name="GoBack" type="Button" parent="VBoxContainer"]
-margin_top = 1483.0
-margin_right = 225.0
-margin_bottom = 1558.0
+margin_top = 749.0
+margin_right = 632.0
+margin_bottom = 824.0
 custom_fonts/font = SubResource( 9 )
-text = "Go Back"
+text = "Return To Title Screen"
+flat = true
 [connection signal="pressed" from="VBoxContainer/GoBack" to="." method="_on_GoBack_pressed"]
