@@ -14,11 +14,11 @@ func _ready():
 
 func get_rectangle_points(geometry_points):
 	# draw operations are relative to the parent, so (0,0) is actually where the player is
-	geometry_points.push_back(Vector2(0, 0))
-	geometry_points.push_back(Vector2(0, stage_size.y))
-	geometry_points.push_back(Vector2(stage_size.x, stage_size.y))
-	geometry_points.push_back(Vector2(stage_size.x, 0))
-	geometry_points.push_back(Vector2(0, 0))
+	geometry_points.push_back(Vector2(-5, -5))
+	geometry_points.push_back(Vector2(-5, stage_size.y+5))
+	geometry_points.push_back(Vector2(stage_size.x+5, stage_size.y+5))
+	geometry_points.push_back(Vector2(stage_size.x+5, -5))
+	geometry_points.push_back(Vector2(-5, -5))
 	return geometry_points
 
 func _draw():
