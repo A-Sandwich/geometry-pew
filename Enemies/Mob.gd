@@ -53,6 +53,8 @@ func random_map_point(player_position, sprite_width, min_distance = 25):
 # I should rename this. JK, refactoring sucks in the godot ide
 func spawn_wave_jr():
 	if len(wave.enemies) == 0:
+		if $SpeedUpEnemies.is_stopped():
+			$SpeedUpEnemies.start()
 		return
 
 	var enemies = wave.enemies.pop_front()
@@ -86,3 +88,9 @@ func spawn_wave():
 func _on_power_up():
 	pass
 	#todo remove this?
+
+
+func _on_SpeedUpEnemies_timeout():
+	for enemy in get_tree().get_nodes_in_group("Enemy"):
+		enemy.speed = enemy.speed * 1.5
+	$SpeedUpEnemies.stop()
