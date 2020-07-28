@@ -18,6 +18,8 @@ func _ready():
 	setup_buttons()
 	var ui_height = $VBoxContainer/Start.rect_size.y * 4	
 	$CanvasLayer/Version.rect_position = Vector2(0, screen_size.y - $CanvasLayer/Version.rect_size.y)
+	focus = ui_elements[0]
+	focus.emit_signal("mouse_entered")
 	update()
 
 func _process(delta):

@@ -15,7 +15,6 @@ var corner_points = []
 var wave_count = 1
 signal wave_change(wave_count)
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	ready()
 
@@ -28,7 +27,6 @@ func ready():
 	wave.generate_wave()
 	self.connect("wave_change", POWERUP, "on_wave_change")
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	process(delta)
 
@@ -87,8 +85,6 @@ func spawn_wave():
 
 func _on_power_up():
 	pass
-	#todo remove this?
-
 
 func _on_SpeedUpEnemies_timeout():
 	for enemy in get_tree().get_nodes_in_group("Enemy"):

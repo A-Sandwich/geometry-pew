@@ -99,7 +99,7 @@ func _on_ResetTimer_timeout():
 		$SecondsLeft.text = \"Go!\"
 	else:	
 		$SecondsLeft.text = str(seconds_left)
-	
+
 func on_bombs_left(bombs_left):
 	var bombs_left_text = \"Bombs \"
 	for i in range(bombs_left):
@@ -114,7 +114,7 @@ func _on_multiplier_changed(multiplier, meter_value, meter_max):
 	var percentage = clamp((meter_value * 100) / meter_max, 0, 100)
 	$MultiplierMeter.final_val = percentage
 	PLAYER.apply_multiplier(multiplier)
-	
+
 func on_wave_change(wave_count):
 	$Wave.text = \"Wave \" + str(wave_count)
 
