@@ -1,6 +1,6 @@
 extends MarginContainer
 
-const DEFAULT_COLOR = Color(1, 1, 1, 0.8)
+const DEFAULT_COLOR = Color(0.5, 0.5, 0.5, 0.8)
 const HOVER_COLOR = Color(1, 1, 1, 1)
 onready var COMMON = get_node("/root/Common")
 onready var PAUSE_MENU = get_node("/root/Stage/PauseMenu")
