@@ -88,8 +88,8 @@ func _on_area_entered(area):
 	elif requires_multiple_hits:
 		decrement_hits()
 		free_from_queue = true
-	else: # only bullets
-		get_parent().remove_child(area)
+	elif ! "Bomb" in area.name: # only bullets
+		area.queue_free()
 	
 	die(area, free_from_queue)
 
@@ -106,8 +106,10 @@ func _On_Enemy_Area_Entered(area):
 	die(null)
 
 func die(area, free_from_queue = true):
+	print(area.name)
 	var explosion = COMMON.generate_explosion(position, extra_hits)
-	if free_from_queue and area != null:
+	if free_from_queue and area != null and not "Bomb" in area.name:
+		print("freeing area")
 		area.queue_free()
 	if !requires_multiple_hits or extra_hits < 1:
 		emit_signal("bullet_destroyed_enemy", self, area)
@@ -116,6 +118,7 @@ func die(area, free_from_queue = true):
 		self.queue_free()
 
 func on_bomb_detonated():
+	return
 	die(null)
 
 func death_point_display():

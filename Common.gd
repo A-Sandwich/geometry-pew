@@ -8,11 +8,7 @@ var EXPLOSION = preload("res://Effects/Explosion.tscn")
 onready var AUDIO = get_node("/root/Audio")
 var DEFAULT_RESOLUTION = Vector2(1920, 1080)
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	ready()
-
-func ready():
 	rng.randomize()
 
 func get_square_points(geometry_points, length):

@@ -15,6 +15,7 @@ var FULL_ENERGY = 225
 var DEFAULT_STARTING_BOMBS = 3
 var BULLET = preload("res://bullets/Bullet.tscn")
 var ROUND_BULLET = preload("res://bullets/RoundBullet.tscn")
+var BOMB = preload("res://bullets/Bomb.tscn")
 var color = Color(.03, 0.5, 1)
 var dead = false
 var motion = Vector2(0, 0)
@@ -118,6 +119,9 @@ func explode():
 	cannot_detonate = true
 	$BombTimer.start()
 	set_bombs_left(bombs_left - 1)
+	var bomb = BOMB.instance()
+	bomb.position = position
+	get_parent().add_child(bomb)
 	emit_signal("bombs_left", bombs_left)
 	emit_signal("bomb_detonated")
 
