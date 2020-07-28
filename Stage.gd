@@ -26,4 +26,4 @@ func _draw():
 	
 	geometry_points = get_rectangle_points(geometry_points)
 	for index_point in range(geometry_points.size() - 1):
-		draw_line(geometry_points[index_point], geometry_points[index_point + 1], color)
+		draw_line(geometry_points[index_point], geometry_points[index_point + 1], color, 10)

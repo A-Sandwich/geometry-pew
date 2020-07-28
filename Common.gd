@@ -5,6 +5,8 @@ var screen_size
 var infinite_lives = false
 var black_and_white = false
 var EXPLOSION = preload("res://Effects/Explosion.tscn")
+onready var AUDIO = get_node("/root/Audio")
+var DEFAULT_RESOLUTION = Vector2(1920, 1080)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -65,7 +67,7 @@ func generate_explosion(position, hits_left = -1):
 	get_parent().add_child(explosion)
 
 func save_high_score(json):
-	print("saving...")
+	print("saving highscore...")
 	json.sort_custom(self, "sort_descending")
 	var file = File.new()
 	file.open("user://high_scores.dat", File.WRITE)
@@ -92,3 +94,45 @@ func load_high_score(existing_data):
 
 func get_player_width(node):
 	return get_screen_size(node).y / 100
+
+func save_settings(json):
+	print("saving settings...")
+	var file = File.new()
+	file.open("user://settings.dat", File.WRITE)
+	file.store_string(JSON.print(json))
+	file.close()
+
+func load_settings():
+	var file = File.new()
+	file.open("user://settings.dat", File.READ)
+	var content = file.get_as_text()
+	file.close()
+	var result = JSON.parse(content)
+	if result.get_error() != 0:
+		print("Error: " + str(file.get_error()))
+		return null
+	return result.get_result()
+
+func apply_volume(volume):
+	AUDIO.volume_db = (volume / 100) * -.80
+
+func apply_resolution(resolution):
+	print("RESOLUTION")
+	print(str(resolution))
+	var current_resolution = get_tree().root.get_viewport().size
+	print(str(current_resolution))
+	if current_resolution != resolution:
+		OS.set_window_size(resolution)
+		get_tree().root.get_viewport().set_size(resolution);
+		get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_VIEWPORT, SceneTree.STRETCH_ASPECT_EXPAND, resolution);
+		screen_size = resolution
+
+func string_resolution_to_vector(string_resolution):
+	if string_resolution == null:
+		return DEFAULT_RESOLUTION
+	var resolution_parts = string_resolution.split(", ")
+	if len(resolution_parts) < 2:
+		return DEFAULT_RESOLUTION
+	return Vector2(int(resolution_parts[0]), int(resolution_parts[1]))
+	
+	

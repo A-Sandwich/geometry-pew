@@ -7,10 +7,11 @@ const HOVER_COLOR = Color(1, 1, 1, 1)
 var focus
 var ui_elements = []
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	var player = $VBoxContainer/Player
+	player.update()
 	player.screen_size = Common.get_screen_size(player)
+	print("PLAYER SCREEN SIZE " +str(player.screen_size))
 	COMMON.thrust($VBoxContainer/Player/ThrustParticle, Vector2(1,0), player.sprite_width, player.position)
 	screen_size = player.screen_size
 	rect_size = screen_size
