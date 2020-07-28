@@ -155,7 +155,8 @@ func _draw():
 	var geometry_points = PoolVector2Array()
 	geometry_points = COMMON.get_square_points(geometry_points, sprite_width)
 	for index_point in range(geometry_points.size() - 1):
-		draw_line(geometry_points[index_point], geometry_points[index_point + 1], color)
+		draw_line(geometry_points[index_point], geometry_points[index_point + 1], color, 2)
+
 	
 	draw_rect(get_energy_shape(), color)
 

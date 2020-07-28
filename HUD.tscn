@@ -128,7 +128,7 @@ func on_player_death():
 font_path = "res://Resources/TypeFaces/dotty.regular.ttf"
 
 [sub_resource type="DynamicFont" id=3]
-size = 54
+size = 64
 font_data = SubResource( 2 )
 
 [sub_resource type="DynamicFontData" id=4]
@@ -166,7 +166,7 @@ size = 72
 font_data = ExtResource( 1 )
 
 [sub_resource type="DynamicFont" id=13]
-size = 36
+size = 54
 font_data = ExtResource( 1 )
 
 [node name="HUD" type="CanvasLayer"]

@@ -36,11 +36,12 @@ __meta__ = {
 }
 
 [node name="PowerUpSelection" type="CanvasLayer" parent="."]
+layer = 11
 
 [node name="MarginContainer" parent="PowerUpSelection" instance=ExtResource( 7 )]
 
 [node name="HUD" parent="." instance=ExtResource( 2 )]
-layer = -1
+layer = 10
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
 
@@ -59,6 +60,8 @@ readonly = true
 
 [node name="BackgroundParticle" type="Particles2D" parent="."]
 position = Vector2( 759.508, 654.556 )
+z_index = -10
+z_as_relative = false
 amount = 500
 lifetime = 100.0
 preprocess = 100.0

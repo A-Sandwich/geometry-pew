@@ -1,6 +1,6 @@
 extends CanvasLayer
 
-const DEFAULT_COLOR = Color(1, 1, 1, 0.8)
+const DEFAULT_COLOR = Color(.9, .9, .9)
 const HOVER_COLOR = Color(1, 1, 1, 1)
 onready var COMMON = get_node("/root/Common")
 onready var POWERUP = get_node("/root/Stage/PowerUpSelection/MarginContainer")

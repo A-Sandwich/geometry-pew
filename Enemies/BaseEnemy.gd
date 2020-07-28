@@ -106,7 +106,7 @@ func _On_Enemy_Area_Entered(area):
 	die(null)
 
 func die(area, free_from_queue = true):
-	var explosion = COMMON.generate_explosion(position, extra_hits)
+	COMMON.generate_explosion(position, extra_hits, scale)
 	if free_from_queue and area != null:
 		area.queue_free()
 	if !requires_multiple_hits or extra_hits < 1:
