@@ -114,4 +114,8 @@ func load_settings():
 	return result.get_result()
 
 func apply_volume(volume):
-	AUDIO.volume_db = (volume / 100) * -.80
+	if volume > 100:
+		volume = 100
+	elif volume < 0:
+		volume = 0
+	AUDIO.volume_db = -80 + ((volume / 100) * 80)
