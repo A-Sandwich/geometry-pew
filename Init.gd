@@ -13,4 +13,3 @@ func check_settings():
 	COMMON.infinite_lives = settings["infinite_lives"]
 	COMMON.black_and_white = settings["black_and_white"]
 	COMMON.apply_volume(settings["volume"])
-	COMMON.apply_resolution(COMMON.string_resolution_to_vector(settings["resolution"]))

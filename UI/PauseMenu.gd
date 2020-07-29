@@ -1,6 +1,7 @@
 extends CanvasLayer
 
-const DEFAULT_COLOR = Color(1, 1, 1, 1)
+const DEFAULT_COLOR = Color(0.5, 0.5, 0.5, 0.8)
+const HOVER_COLOR = Color(1, 1, 1, 1)
 onready var COMMON = get_node("/root/Common")
 onready var POWERUP = get_node("/root/Stage/PowerUpSelection/MarginContainer")
 var screen_size
@@ -62,6 +63,7 @@ func on_entered(button):
 	if focus != null and button != focus:
 		on_exited(focus)
 	focus = button
+	focus.modulate = HOVER_COLOR
 	
 func on_exited(button):
 	button.modulate = DEFAULT_COLOR

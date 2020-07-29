@@ -7,15 +7,15 @@
 size = 64
 font_data = ExtResource( 1 )
 
-[sub_resource type="DynamicFont" id=4]
-size = 64
-font_data = ExtResource( 1 )
-
 [sub_resource type="DynamicFont" id=2]
 size = 64
 font_data = ExtResource( 1 )
 
 [sub_resource type="DynamicFont" id=3]
+size = 64
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=4]
 size = 64
 font_data = ExtResource( 1 )
 
@@ -45,19 +45,19 @@ __meta__ = {
 [node name="Resume" type="Button" parent="Menu"]
 margin_right = 12.0
 margin_bottom = 20.0
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 2 )
 text = "Resume Game"
 
 [node name="ExitMainMenu" type="Button" parent="Menu"]
 margin_right = 304.0
 margin_bottom = 50.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 text = "Exit to Main Menu"
 
 [node name="Exit" type="Button" parent="Menu"]
 margin_right = 12.0
 margin_bottom = 20.0
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 4 )
 text = "Exit"
 [connection signal="pressed" from="Menu/Resume" to="." method="_on_Resume_pressed"]
 [connection signal="mouse_entered" from="Menu/ExitMainMenu" to="." method="_on_ExitMainMenu_mouse_entered"]

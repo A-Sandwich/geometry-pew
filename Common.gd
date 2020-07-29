@@ -6,7 +6,6 @@ var infinite_lives = false
 var black_and_white = false
 var EXPLOSION = preload("res://Effects/Explosion.tscn")
 onready var AUDIO = get_node("/root/Audio")
-var DEFAULT_RESOLUTION = Vector2(1920, 1080)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -116,24 +115,3 @@ func load_settings():
 
 func apply_volume(volume):
 	AUDIO.volume_db = (volume / 100) * -.80
-
-func apply_resolution(resolution):
-	print("RESOLUTION")
-	print(str(resolution))
-	var current_resolution = get_tree().root.get_viewport().size
-	print(str(current_resolution))
-	if current_resolution != resolution:
-		OS.set_window_size(resolution)
-		get_tree().root.get_viewport().set_size(resolution);
-		get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_VIEWPORT, SceneTree.STRETCH_ASPECT_EXPAND, resolution);
-		screen_size = resolution
-
-func string_resolution_to_vector(string_resolution):
-	if string_resolution == null:
-		return DEFAULT_RESOLUTION
-	var resolution_parts = string_resolution.replace("(","").replace(")", "").split(", ")
-	if len(resolution_parts) < 2:
-		return DEFAULT_RESOLUTION
-	return Vector2(int(resolution_parts[0]), int(resolution_parts[1]))
-	
-	
