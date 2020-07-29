@@ -1,6 +1,6 @@
 extends MarginContainer
 
-const DEFAULT_COLOR = Color(0.5, 0.5, 0.5, 0.8)
+const DEFAULT_COLOR = Color(0.8, 0.8, 0.8, 1)
 const HOVER_COLOR = Color(1, 1, 1, 1)
 onready var COMMON = get_node("/root/Common")
 onready var PAUSE_MENU = get_node("/root/Stage/PauseMenu")
@@ -40,7 +40,7 @@ var POWER_UP_OPTIONS = [ # Consider moving this to it's own json file or class t
 	},
 	{
 		"name": "longer_boost",
-		"description": "Boost for longer! (Press shift/left trigger to boost through enemies killing them!)",
+		"description": "Boost for longer! (Press shift/left trigger to boost through enemies, destroying them!)",
 		"texture": longer_boost
 	}
 ]

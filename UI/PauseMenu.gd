@@ -1,6 +1,6 @@
 extends CanvasLayer
 
-const DEFAULT_COLOR = Color(0.5, 0.5, 0.5, 0.8)
+const DEFAULT_COLOR = Color(0.8, 0.8, 0.8, 1)
 const HOVER_COLOR = Color(1, 1, 1, 1)
 onready var COMMON = get_node("/root/Common")
 onready var POWERUP = get_node("/root/Stage/PowerUpSelection/MarginContainer")
@@ -81,3 +81,27 @@ func is_visible():
 
 func _on_Resume_pressed():
 	toggle_visible()
+
+
+func _on_Resume_mouse_entered():
+	on_entered(ui_elements[0])
+
+
+func _on_ExitMainMenu_mouse_entered():
+	on_entered(ui_elements[1])
+
+
+func _on_Exit_mouse_entered():
+	on_entered(ui_elements[2])
+
+
+func _on_Resume_mouse_exited():
+	on_exited(ui_elements[0])
+
+
+func _on_ExitMainMenu_mouse_exited():
+	on_exited(ui_elements[1])
+
+
+func _on_Exit_mouse_exited():
+	on_exited(ui_elements[2])
