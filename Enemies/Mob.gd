@@ -54,7 +54,8 @@ func spawn_wave_jr():
 		if $SpeedUpEnemies.is_stopped():
 			$SpeedUpEnemies.start()
 		return
-
+	else:
+		$SpeedUpEnemies.stop()
 	var enemies = wave.enemies.pop_front()
 	for enemy in enemies:
 		enemy.position = random_map_point(PLAYER.position, 100)

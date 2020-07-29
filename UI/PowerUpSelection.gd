@@ -16,7 +16,7 @@ var extra_bomb = preload("res://Resources/Images/Bomb.png")
 var longer_boost = preload("res://Resources/Images/extra-boost.png")
 var option_one_content_index
 var option_two_content_index
-var debugging = true
+var debugging = false
 var focus
 signal power_up(power)
 

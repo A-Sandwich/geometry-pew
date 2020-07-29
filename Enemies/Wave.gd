@@ -31,7 +31,6 @@ func choose_enemy():
 func generate_wave():
 	wave_count += 1
 	enemies.clear()
-	
 	# generate a stack that we can just pop each time we spawn a wave
 	for i in range(COMMON.rng.randi_range(3, 5)):
 		var inner_enemies = []
