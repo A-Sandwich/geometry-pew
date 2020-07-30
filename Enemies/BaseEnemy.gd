@@ -35,6 +35,13 @@ func _ready():
 		extra_hits = 15
 		requires_multiple_hits = true
 		point_value *= extra_hits
+	if COMMON.black_and_white:
+		$ThrustParticle.process_material.color = Color(1,1,1,1)
+		#I apparently wasn't consistent with how I applied colors in enemy particles
+		if $ThrustParticle.process_material.color_ramp != null:
+			$ThrustParticle.process_material.color_ramp.gradient.colors = [Color(1,1,1,1)]
+			$ThrustParticle.process_material.hue_variation = 0
+			$ThrustParticle.process_material.hue_variation_random = 0
 	ready()
 
 func ready():

@@ -14,6 +14,8 @@ func draw():
 	#var extent_vector = Vector2(-sprite_width / 2, -sprite_width / 2)
 	#var rect_size = Vector2(sprite_width, sprite_width)
 	#var bullet_shape = Rect2( extent_vector, rect_size)
+	if COMMON.black_and_white:
+		color = Color(1, 1, 1)
 	draw_circle(Vector2(0, 0), sprite_width, color)
 	
 	#draw_rect(bullet_shape, color, true)

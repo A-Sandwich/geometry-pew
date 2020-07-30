@@ -1,5 +1,6 @@
 extends Node2D
 
+onready var COMMON = get_node("/root/Common")
 var stage_size = Vector2(4000, 2200)
 
 var color = Color(255, 255, 255)
@@ -12,7 +13,10 @@ func _ready():
 	$BackgroundParticle.visibility_rect = Rect2( extent_vector, rect_size * 2)
 	$PauseMenu.init(get_viewport_rect().size)
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
-
+	if COMMON.black_and_white:
+		$BackgroundParticle.process_material.color = Color(0,0,0,1)
+		$BackgroundParticle.process_material.hue_variation = 0
+		$BackgroundParticle.process_material.hue_variation_random = 0
 func get_rectangle_points(geometry_points):
 	# draw operations are relative to the parent, so (0,0) is actually where the player is
 	geometry_points.push_back(Vector2(-5, -5))

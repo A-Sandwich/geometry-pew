@@ -46,6 +46,8 @@ func ready():
 		position.y = STAGE.stage_size.y / 2
 		sprite_width = COMMON.get_player_width(self)
 		POWERUP_SELECTION.connect("power_up", self, "on_power_up")
+	if COMMON.black_and_white:
+		$ThrustParticle.process_material.color_ramp.gradient.colors = [Color(1,1,1,1)]
 	bullet_size = sprite_width
 	set_bombs_left()
 	set_collision_shape()

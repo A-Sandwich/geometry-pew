@@ -45,6 +45,8 @@ func draw():
 	# and RectangleShape2d match I made extent_vector 1/2 the size. Made it negative
 	# so I could also use it as the start drawing location for the Rect 2. Rect2
 	# Starts drawing from a corner while RectangleShape2D coordinates are from the center.
+	if COMMON.black_and_white:
+		color = Color(1, 1, 1)
 	var extent_vector = Vector2(-sprite_width / 2, -sprite_width / 2)
 	var rect_size = Vector2(sprite_width, sprite_width)
 	var bullet_shape = Rect2( extent_vector, rect_size)
