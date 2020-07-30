@@ -48,6 +48,7 @@ func ready():
 		POWERUP_SELECTION.connect("power_up", self, "on_power_up")
 	if COMMON.black_and_white:
 		$ThrustParticle.process_material.color_ramp.gradient.colors = [Color(1,1,1,1)]
+	$PewNoise.volume_db = get_node("/root/Audio").volume_db
 	bullet_size = sprite_width
 	set_bombs_left()
 	set_collision_shape()

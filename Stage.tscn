@@ -1,11 +1,10 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Stage.gd" type="Script" id=1]
 [ext_resource path="res://HUD.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Enemies/Mob.tscn" type="PackedScene" id=4]
 [ext_resource path="res://ScoreMultiplier.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Resources/Sounds/explosion02.wav" type="AudioStream" id=6]
 [ext_resource path="res://UI/PowerUpSelection.tscn" type="PackedScene" id=7]
 [ext_resource path="res://UI/PauseMenu.tscn" type="PackedScene" id=8]
 [ext_resource path="res://UI/Background.tscn" type="PackedScene" id=9]
@@ -79,6 +78,3 @@ layer = 12
 layer = 0
 
 [node name="Background" parent="BackgroundCanvas" instance=ExtResource( 9 )]
-
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 6 )
